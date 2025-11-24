@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+    <h1>dashboard</h1>
+    {% if user.is_authenticated %}
+        <h1> Weclcome {{ user }} </h1>
+    {% else %}
+        <h1> User not found </h1>
+    {% endif %}
+    
+
+{% endblock %}

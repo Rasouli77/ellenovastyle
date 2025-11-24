@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+	سفارش موفق
+{% endblock %}
+{% block meta_description %}
+	سفارش موفق
+{% endblock %}
+{% block content %}
+<!-- checkout__section__start -->
+<div class="checkoutarea sp_bottom_100 sp_top_100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-12">
+                <h5>پرداخت شما با موفقیت انجام شد</h5>
+            </div>
+            <div class="col-lg-12 col-md-12 col-12">
+                <div class="checkoutarea__payment__wraper">
+                    <div class="checkoutarea__total">
+                       <h3>رسید پرداخت</h3>
+                    <div class="checkoutarea__table__wraper" style="overflow-x:auto;">
+                        <table class="checkoutarea__table">
+                        <tbody>
+                            <tr class="checkoutarea__item">
+                                <td class="checkoutarea__itemcrt-total">شماره سفارش</td>
+                                <td class="checkoutarea__cgt__des prc-total">{{ order.pk }}</td>
+                            </tr>
+                            <tr class="checkoutarea__item">
+                                <td class="checkoutarea__itemcrt-total">مبلغ پرداخت شده</td>
+                                <td class="checkoutarea__cgt__des prc-total">{{ order.total_price }} تومان</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                   </div>
+                    </div>
+                <div class="checkoutarea__payment clearfix">
+                    <div class="checkoutarea__payment__toggle">
+                        <div class="checkoutarea__payment__total">
+                            <div class="checkoutarea__payment__type">
+                                <label for="pay-toggle01">از خرید شما سپاسگزاریم.</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- checkout__section__end-->
+{% endblock %}

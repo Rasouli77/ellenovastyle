@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    @media screen and (min-width: 991px) {
+        .dash-logo {
+        width: 150px;
+        }
+    }
+
+    @media screen and (max-width: 991px) {
+        .dash-logo {
+        width: 85px;
+        }
+    }
+</style>
+<!-- service__section__start -->
+<div class="service sp_top_80">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+                <div class="service__single">
+                    <a href="{% url 'profile_orders' user_id=request.user.id %}">
+                    <div class="service__img">
+                        <img class="dash-logo" src="{% static 'img/logo/orders.png' %}" alt="سفارشات">
+                    </div>
+                    </a>
+                    <div class="service__text">
+                        <h3><a href="{% url 'profile_orders' user_id=request.user.id %}">سفارشات</a></h3>
+                        <h6>سفارشاتی که تا به حال ثبت کردید</h6>
+                        <a href="{% url 'profile_orders' user_id=request.user.id %}" class="service__button">مشاهده</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+                <div class="service__single">
+                    <a href="{% url 'edit_user' user_id=request.user.id %}?next={{ request.get_full_path }}">
+                    <div class="service__img">
+                        <img class="dash-logo" src="{% static 'img/logo/mobile.png' %}" alt="شماره موبایل">
+                    </div>
+                    </a>
+                    <div class="service__text">
+                        <h3><a href="{% url 'edit_user' user_id=request.user.id %}?next={{ request.get_full_path }}">شماره موبایل</a></h3>
+                        <h6>ویرایش شماره موبایل ثبت شده</h6>
+                        <a href="{% url 'edit_user' user_id=request.user.id %}?next={{ request.get_full_path }}" class="service__button">مشاهده</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-4 col-lg-4 col-md-6 col-12">
+                <div class="service__single">
+                    <a href="{% url 'edit_profile' user_id=request.user.id %}?next={{ request.get_full_path }}">
+                    <div class="service__img">
+                        <img class="dash-logo" src="{% static 'img/logo/location.png' %}" alt="آدرس">
+                    </div>
+                    </a>
+                    <div class="service__text">
+                        <h3><a href="{% url 'edit_profile' user_id=request.user.id %}?next={{ request.get_full_path }}">آدرس</a></h3>
+                        <h6>ویرایش آدرس محل سکونت</h6>
+                        <a href="{% url 'edit_profile' user_id=request.user.id %}?next={{ request.get_full_path }}" class="service__button">مشاهده</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- service__section__end -->
+{% endblock %}
+

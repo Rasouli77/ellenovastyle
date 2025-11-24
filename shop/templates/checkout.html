@@ -1,0 +1,483 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+	صفحه تسویه حساب
+{% endblock %}
+{% block meta_description %}
+	صفحه تسویه حساب
+{% endblock %}
+{% block content %}
+<style>
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Grey transparent background */
+        z-index: 1000;
+    }
+
+    /* Modal Container */
+    .mymodal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 400px;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        z-index: 1100;
+    }
+
+    /* Modal Content */
+    .modal-content {
+        text-align: center;
+    }
+
+    .modal-content p {
+        margin: 10px 0 20px;
+        font-size: 16px;
+        color: #333;
+    }
+
+    /* Default Button */
+    .default__button {
+        display: inline-block;
+        padding: 10px 20px;
+    }
+
+    /* Hidden Class */
+    .hidden {
+        display: none;
+    }
+
+    #discount_code {
+        border-radius: 5px;
+        border-style: solid;
+        color: black;
+        display: block;
+        height: 50px;
+        padding: 2px;
+        width: 100%;
+        font-family: IRANSans;
+    }
+
+    #final-btn {
+        width: 100%;
+        margin-top: 25px;
+    }
+
+    button#discount-submit {
+    width: 35%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    }
+    
+    .checkoutarea__payment__total {
+    margin-top: 25px !important;
+
+    @media screen and (min-width: 991px) {
+        width: 400px !important;
+        height: 52px !important;
+    }
+
+    @media screen and (max-width: 991px) {
+        width: 344px !important;
+        height: 64px !important;
+    }
+
+    }
+    
+    .checkoutarea__payment__type {
+        display: flex !important;
+        flex-direction: start-end;
+        align-items: center;
+    }
+    
+    .payment-image {
+    margin-left: 10px !important;
+        
+     @media screen and (min-width: 991px) {
+        width: 50px !important;
+        height: 50px !important;
+    }
+
+    @media screen and (max-width: 991px) {
+        width: 45px !important;
+        height: 45px !important;
+    } 
+    }
+    
+    @media screen and (min-width: 991px) {
+        #empty-cart-image {
+        width: 150px;
+        }
+    }
+
+    @media screen and (max-width: 991px) {
+        #empty-cart-image {
+        width: 85px;
+        }
+    }
+    
+    .view_label {
+        margin-top: 8.5px !important;
+    }
+</style>
+<!-- Modal Structure -->
+<div id="overlay" class="overlay hidden"></div>
+<div id="modal" class="mymodal hidden">
+<div class="modal-content">
+<p>برای پرداخت، با اضافه کردن نام و آدرس پروفایل خود را تکمیل نمایید</p>
+<a class="default__button" id="modal-button" href="{% url 'edit_profile' user_id=request.user.id %}">تکمیل پروفایل</a>
+</div>
+</div>
+<!-- breadcrumb__start -->
+<div class="breadcrumb">
+<div class="container">
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="breadcrumb__title">
+                <h1>تسویه حساب</h1>
+                <ul>
+                    <li>
+                        <a href="{% url 'index' %}">خانه</a>
+                    </li>
+                    <li class="color__blue">
+						<a href="{% url 'cart' %}">سبد خرید</a>
+                    </li>
+                    <li class="color__blue">
+						<a href="{% url 'checkout' %}">تسویه حساب</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- breadcrumb__end -->
+<!-- checkout__section__start -->
+<div class="checkoutarea sp_bottom_100 sp_top_100">
+    <div class="container">
+        {% if all_quantity == 0 %}
+        <div class="row">
+            <div class="col-12">
+                <div class="cartarea__grand__totall cartarea__tax">
+                    <div id="empty-cart-container" class="cartarea__title">
+                        <img id="empty-cart-image" src="{% static './img/logo/no-cart.png' %}" alt="سبد خرید خالی">
+                        <h4>سبد خرید شما خالی می باشد.</h4>
+                        <a id="empty-cart-btn" class="default__button" href="{% url 'index' %}">بازگشت</a> 
+                    </div>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-xl-6 col-lg-6 col-md-12">
+                <div class="checkoutarea__billing">
+                    <div class="checkoutarea__billing__heading">
+                        <h2>جزئیات صورتحساب</h2>
+                    </div>
+                    <p>{{error}}</p>
+                    <div class="checkoutarea__billing__form">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="checkoutarea__inputbox">
+                                        <label for="phone__number">شماره تلفن</label>
+                                        <input type="text" id="phone__number" name="namm" class="info" placeholder="شماره تلفن" value="{{ request.user.mobile }}" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-12" id="change_name_phone_number">
+                                    <div class="checkoutarea__inputbox">
+                                        <a class="default__button" href="{% url 'edit_user' user_id=request.user.id %}">تغییر شماره موبایل</a>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-xl-12">
+                                    <div class="checkoutarea__inputbox" style="border-top: 1px solid #d7d7d7 !important;">
+                                        <label for="post__code" class="view_label">نام</label>
+                                        <input type="text" id="post__code" name="namm" class="info" placeholder="نام" value="{{ request.user.profile.name }}" readonly>
+                                    </div> 
+                                </div>
+
+                                <div class="col-xl-12">
+                                    <div class="checkoutarea__inputbox" style="border-top: 1px solid #d7d7d7 !important;">
+                                        <label for="address__info" class="view_label">آدرس</label>
+                                        <input type="text" id="address__info" name="namm" class="info" placeholder="آدرس" value="{{ request.user.profile.address }}" readonly>
+                                    </div> 
+                                </div>
+
+                                <div class="col-xl-12">
+                                    <div class="checkoutarea__inputbox" style="border-top: 1px solid #d7d7d7 !important;">
+                                        <label for="town__city" class="view_label">شهرستان</label>
+                                        <input type="text" id="town__city" name="namm" class="info town__city" placeholder="شهر/شهرستان" value="{{ request.user.profile.province }}" readonly>
+                                    </div> 
+                                </div>
+
+								<div class="col-xl-12">
+                                    <div class="checkoutarea__inputbox" style="border-top: 1px solid #d7d7d7 !important;">
+                                        <label for="town__city" class="view_label">شهر</label>
+                                        <input type="text" id="town__city" name="namm" class="info town__city" placeholder="شهر/شهرستان" value="{{ request.user.profile.city }}" readonly>
+                                    </div> 
+                                </div>
+
+								<div class="col-xl-12">
+                                    <div class="checkoutarea__inputbox" id="profile_edit_button">
+                                        <a class="default__button" href="{% url 'edit_profile' user_id=request.user.id %}">ویرایش آدرس و مشخصات</a>
+                                    </div> 
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-12">
+                <div class="checkoutarea__payment__wraper">
+                    <div class="checkoutarea__total">
+                       <h3>سفارش شما</h3>
+                   
+                   <div class="checkoutarea__table__wraper" style="overflow-x:auto;">
+                        <table class="checkoutarea__table">
+                        <thead>
+                        <form id="discount-form">
+                            {% csrf_token %}
+                            <input type="text" id="discount_code" name="discount_code" placeholder="کد تخفیف">
+                            <button id="discount-submit" class="default__button" type="submit">اعمال تخفیف</button>
+                        </form>
+                        </thead>
+                        <tbody>
+							{% for key, values in cart.items %}
+                            <tr class="checkoutarea__item prd-name">
+                                <td class="checkoutarea__ctg__type"> {{ values.product.title }} × <span>{{ values.quantity }}</span></td>
+                                <td class="checkoutarea__cgt__des"> <span class="num">{{ values.price }}</span> تومان</td>
+                            </tr>
+							{% endfor %}
+                            <tr class="checkoutarea__item">
+                                <td class="checkoutarea__item">حمل و نقل</td>
+                                    <td class="checkoutarea__cgt__des ship-opt">
+                                        <div class="checkoutarea__shipp">
+                                            <label for="pay-toggle">نرخ ثابت: <span class="num">75000</span> تومان </label>
+                                        </div>
+                                 </td>
+                            </tr>
+                            <tr class="checkoutarea__item">
+                                <td class="checkoutarea__item">جمع کل (بدون تخفیف)</td>
+                                    <td class="checkoutarea__cgt__des ship-opt">
+                                        <div class="checkoutarea__shipp">
+                                            <label for="pay-toggle"><span class="num" id="pure_total_price">{{pure_total_price}}</span> تومان </label>
+                                        </div>
+                                 </td>
+                            </tr>
+                            <tr class="checkoutarea__item">
+                                <td class="checkoutarea__item">جمع کل سبد</td>
+                                    <td class="checkoutarea__cgt__des ship-opt">
+                                        <div class="checkoutarea__shipp">
+                                            <label for="pay-toggle"><span class="num" id="all_total">{{all_total}}</span> تومان </label>
+                                        </div>
+                                 </td>
+                            </tr>
+                            <tr class="checkoutarea__item">
+                                <td class="checkoutarea__item">مجموع تخفیف کالا</td>
+                                    <td class="checkoutarea__cgt__des ship-opt">
+                                        <div class="checkoutarea__shipp">
+                                            <label for="pay-toggle"><span class="num" id="discount_profit"></span> تومان </label>
+                                        </div>
+                                 </td>
+                            </tr>
+                            <tr class="checkoutarea__item">
+                                <td class="checkoutarea__itemcrt-total"> مجموع</td>
+                                <td class="checkoutarea__cgt__des prc-total" id="total-price">  
+                                    <span class="num" id="checkout-total">{{ shipping_and_all_total }}</span> تومان
+                                </td>
+                                <td>
+                                    <del id="discount-del" class="hidden"><span class="num">{{ shipping_and_all_total }}</span> تومان</del>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                   </div>
+                
+                </div>
+                    <div class="checkoutarea__payment clearfix">
+                        <div class="checkoutarea__payment__toggle">
+                            <form id="payment" method="post">
+                                {% csrf_token %}
+                               <div class="checkoutarea__payment__total">
+                                <div class="checkoutarea__payment__type" id="zarinpal">
+                                    <input type="radio" name="payment_method" value="zarinpal" style="margin-left: 10px">
+                                    <img src="{% static './img/feature/zarinpal.png' %}" class="payment-image" alt="زرین پال">
+                                    <label for="pay-toggle01">پرداخت با درگاه امن زرین پال</label>
+                                </div>
+                                </div>
+                                <div class="checkoutarea__payment__total">
+                                <div class="checkoutarea__payment__type" id="snapppay">
+                                    <input type="radio" name="payment_method" value="snapppay" style="margin-left: 10px" id="snapppay_payment_option">
+                                    <img src="{% static './img/feature/snapppay.png' %}" class="payment-image" alt="اسنپ پی">
+                                    <label for="pay-toggle01">{{title_message_for_snapppay_display}}<br>
+                                    {{description_for_snapppay_display}}
+                                    </label>
+                                </div>
+                                </div>
+                                </div>
+                                <div class="checkoutarea__payment__input__box">
+                                    <input type="hidden" name="discount_code" id="discount_code_gateway">
+									<button id="final-btn" type="submit" class="default__button">ثبت سفارش</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<!-- checkout__section__end-->
+<script>
+    document.getElementById("discount_profit").innerHTML = parseInt(document.getElementById("pure_total_price").innerHTML) - parseInt(document.getElementById("all_total").innerHTML)
+</script>
+
+<script>
+    // Form Handeling
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll(".town__city").forEach(
+            (input) => {
+                if (input.value === "None") {
+                    input.value = "نامشخص"
+                }
+            }
+        )
+    });
+    document.addEventListener("DOMContentLoaded", () => {
+    document.getElementById('discount-form').addEventListener('submit', function(e) {
+        e.preventDefault();  
+    
+        var discountCode = document.getElementById('discount_code').value;
+    
+        // Make an AJAX request to the backend to validate the discount code
+        fetch('{% url "apply_discount" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}',
+            },
+            body: JSON.stringify({
+                discount_code: discountCode
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                // Update the total price displayed on the page
+                document.getElementById('total-price').innerText = data.updated_price + ' تومان';
+                if (data.snapppay_eligible === false) {
+                    document.querySelectorAll(".checkoutarea__payment__total")[1].style.display = "none";
+                } else {
+                    document.querySelectorAll(".checkoutarea__payment__total")[1].querySelector("label").innerHTML = `${data.snapppay_discount_title_message}<br>${data.snapppay_discount_description}`;
+                }
+                console.log(data.snapppay_eligible)
+                // alert("success")
+                document.querySelector('#modal').classList.remove("hidden");
+                document.querySelector("#modal-button").addEventListener("click", () => {
+                    document.querySelector('#modal').classList.add("hidden");
+                    document.querySelector('#overlay').classList.add("hidden");
+                });
+                document.querySelector("#modal-button").innerText = "بستن";
+                document.querySelector("#modal-button").removeAttribute("href");
+                document.getElementById("modal-button").style.display = "block";
+                document.querySelector('#overlay').classList.remove("hidden");
+                document.querySelector('#modal').querySelector('.modal-content').querySelector("p").innerHTML = "کد تخفیف با موفقیت اعمال شد"
+            } else {
+                document.querySelector('#modal').classList.remove("hidden");
+                document.querySelector("#modal-button").addEventListener("click", () => {
+                    document.querySelector('#modal').classList.add("hidden");
+                    document.querySelector('#overlay').classList.add("hidden");
+                });
+                document.querySelector("#modal-button").innerText = "بستن";
+                document.querySelector("#modal-button").removeAttribute("href");
+                document.getElementById("modal-button").style.display = "block";
+                document.querySelector('#overlay').classList.remove("hidden");
+                document.querySelector('#modal').querySelector('.modal-content').querySelector("p").innerHTML = "کد تخفیف معتبر نمی باشد"
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error); 
+        });
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        document.getElementById("discount-submit").addEventListener("click", () => {
+            document.getElementById("discount-del").classList.remove("hidden");
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const discount_code_gateway = document.getElementById("discount_code_gateway");
+        const discount_code = document.getElementById("discount_code");
+        const discount_form = document.getElementById("discount-form");
+        discount_form.addEventListener("submit", () => {
+            discount_code_gateway.value = discount_code.value;
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.querySelector('#modal');
+    const overlay = document.querySelector('#overlay');
+    
+    // Check the value of the town__city field
+    if (document.getElementById("town__city").value === 'نامشخص') {
+        modal.classList.remove("hidden");
+        overlay.classList.remove("hidden");
+        document.getElementById("payment").method = "";
+        
+        document.getElementById("final-btn").addEventListener("click", () => {
+        modal.classList.remove("hidden");
+        overlay.classList.remove("hidden");
+        });
+    }
+    
+    // Close Modal by clicking on the overlay
+    overlay.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        overlay.classList.add('hidden');
+        });
+    });
+</script>
+<script>
+    document.querySelector("#final-btn").disabled = true;
+    document.querySelector("#final-btn").style.backgroundColor = "#cdcdcd";
+    document.querySelector("#final-btn").style.borderColor = "#cdcdcd";
+    const zarinpal = document.querySelector("#zarinpal");
+    const snapppay = document.querySelector("#snapppay");
+    zarinpal.addEventListener("click", () => {
+        zarinpal.querySelector("input").checked = true;
+        document.querySelector("#final-btn").disabled = false;
+        document.querySelector("#final-btn").style.backgroundColor = "#000000";
+        document.querySelector("#final-btn").style.borderColor = "#000000";
+    });
+    snapppay.addEventListener("click", () => {
+        snapppay.querySelector("input").checked = true;
+        document.querySelector("#final-btn").disabled = false;
+        document.querySelector("#final-btn").style.backgroundColor = "#000000";
+        document.querySelector("#final-btn").style.borderColor = "#000000";
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const checkoutTotal = document.querySelector("#checkout-total");
+        const installment = document.querySelector("#installment");
+        installment.innerHTML = parseInt(checkoutTotal.innerHTML) / 4
+        installment.innerHTML = parseInt(installment.innerHTML.replace(/,/g, ""), 10).toLocaleString("en-US")
+    });
+</script>
+{% endblock %}
+
+		
+

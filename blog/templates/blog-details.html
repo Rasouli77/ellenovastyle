@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+	{{ blog.seo_title }}
+{% endblock %}
+{% block meta_description %}
+	{{ blog.meta }}
+{% endblock %}
+{% block content %}
+<!-- breadcrumb__start -->
+<div class="breadcrumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="breadcrumb__title">
+                    <ul>
+                        <li>
+                            <a href="{% url 'index' %}">خانه</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'blog' %}">بلاگ</a>
+                        </li>
+                        <li class="color__blue">
+                          <a href="{% url 'blog_details' slug=blog.slug %}">{{ blog.title }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ <!-- breadcrumb__end -->
+
+<!-- blog__section__start -->
+<div class="blog sp_bottom_80 sp_top_40">
+    <div class="container">
+        <div class="row ">
+            <div class="col-lg-12">
+                <div class="ltn__blog-details-wrap--">
+                    <div class="ltn__page-details-inner ltn__blog-details-inner">
+                        <img class="img-fluid" src="{{ blog.image.url }}" alt="{{ blog.title }}">
+                    </div>
+                    <h1 class="ltn__blog-title">{{ blog.title }}</h1>
+                    <div class="ltn__blog-meta">
+                        <ul>
+                            <li class="ltn__blog-date">
+                                <i class="far fa-calendar-alt"></i>{{ blog.date_created }}
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="sp-top-20">
+                        {{ blog.content|safe }}
+                    </div>
+                </div>
+                <hr>
+                <!-- <div class="ltn__blog-tags-social-media row sp_top_30 sp_bottom_50">
+                    <div class="ltn__tagcloud-widget col-lg-8">
+                        <h4>برچسب‌ها</h4>
+                        <ul>
+                            <li>
+                                <a href="#">لوازم جانبی</a>
+                            </li>
+
+                            <li>
+                                <a href="#">لباس</a>
+                            </li>
+
+                            <li>
+                                <a href="#">مد</a>
+                            </li>
+
+                            <li>
+                                <a href="#">مردان</a>
+                            </li>
+
+                            <li>
+                                <a href="#">بهار</a>
+                            </li>
+
+                            <li>
+                                <a href="#">زمستان</a>
+                            </li>
+
+                            <li>
+                                <a href="#">زنان</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="ltn__social-media text-lg-end col-lg-4">
+                        <h4>این پست را به اشتراک بگذارید</h4>
+                        <ul>
+                            <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                            <li><a href="#" data-original-title="به اشتراک گذاری در توییتر"><i class="fab fa-twitter"></i></a>
+                            </li>
+                            <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
+                        </ul>
+                    </div>
+                </div> -->
+                {% if comments %}
+                <div class="ltn__comment-area sp_50" id="comments">
+                    <h4 class="title-2">{{count}} دیدگاه</h4>
+                    <div class="ltn__comment-inner">
+                        <ul>
+                            
+                            {% for comment in comments %}
+                            <li>
+                                <div class="ltn__comment-item clearfix">
+                                    <div class="ltn__commenter-img">
+                                        <img src="{% static './img/blog/comment-profile.png' %}" alt="نظر">
+                                    </div>
+                                    <div class="ltn__commenter-comment">
+                                        <h6>{{ comment.name }}</h6>
+                                        <span class="comment-date">{{ comment.date_created }}</span>
+                                        <p></p>
+                                        <p>{{ comment.comment }}</p>
+                                        <p></p>
+                                    </div>
+                                </div>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+                {% endif %}
+                <div class="contactarea__form__area__wrap sp_top_50">                            
+                    <h4 class="contactarea__form__title">ارسال دیدگاه</h4>
+                    <div class="contactarea__form__area">
+                        <form method="post">
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="contactarea__form__input">
+                                    <input type="text" placeholder="نام خود را وارد کنید" class="" name="name" id="ContactFormName" value="{{ form.name.value|default_if_none:'' }}">
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="contactarea__form__input">
+                                    <input type="text" placeholder="شماره تلفن را وارد کنید" class="" name="phone_number" id="ContactFormEmail" value="{{ form.phone_number.value|default_if_none:'' }}">
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="contactarea__form__input">
+                                    <textarea placeholder="پیام خود را وارد کنید" class="custom-textarea" name="comment" id="ContactFormMessage" value="{{ form.comment.value|default_if_none:'' }}"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="checkoutarea__inputbox" id="profile_edit_button">
+                                    <button class="default__button" type="submit">ارسال دیدگاه</button>
+                                </div> 
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- blog__section__end -->
+{% endblock %}

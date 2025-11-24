@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+	درگاه پرداخت آرتینو گیم
+{% endblock %}
+{% block meta_description %}
+	درگاه پرداخت آرتینو گیم
+{% endblock %}
+{% block content %}
+<div class="error-container" style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin: 50px 0;">
+	<img src="{% static './img/logo/404.png' %}" alt="404 error" style="width: 150px; height: 150px;">
+	<h4 style="margin-top: 25px">{{ error }}</h4>
+	<a id="empty-cart-btn" class="default__button" href="{% url 'index' %}">بازگشت</a> 
+</div>
+{% endblock %}

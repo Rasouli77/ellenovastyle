@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    
+    .select2-container {
+      width: 100% !important;
+    }
+    
+    
+    .select2-container .select2-selection--single {
+      line-height: 60px;
+      border: 1px solid #eeeeee;
+      border-radius: 0; 
+      padding: 0 20px;
+      font-size: 14px;
+    }
+    
+    
+    .select2-container .select2-selection--single .select2-selection__rendered {
+      line-height: 60px; 
+      color: #333;
+    }
+    
+    
+    .select2-container .select2-selection--single .select2-selection__arrow {
+      height: 100%;
+      right: 10px;
+    }
+    
+    
+    .select2-container .select2-dropdown {
+      border: 1px solid #eeeeee;
+      font-size: 14px;
+    }
+    
+    
+    .select2-results__option {
+      padding: 10px;
+      cursor: pointer;
+    }
+    
+    .select2-container--open .select2-dropdown {
+      top: 100% !important;   
+      bottom: auto !important;
+    }
+    
+    .select2-container--default .select2-selection--single {
+        background-color: #fff;
+        border: 1px solid #aaa;
+        border-radius: 4px;
+        height: 50px !important;
+    }
+    
+    .select2-search__field {
+        color: black !important;
+    }
+    
+    .select2-container[dir="rtl"] .select2-selection--single .select2-selection__rendered {
+        padding-top: 8px !important;
+    }
+
+    .select2-container--default .select2-results>.select2-results__options {
+        display: flex !important;
+        flex-direction: column !important;
+    }
+</style>
+<div class="checkoutarea sp_bottom_100 sp_top_100">
+    <div class="container">
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <!-- Name -->
+                <div class="col-xl-6">
+                    <div class="checkoutarea__inputbox">
+                        <label for="post__code">نام *</label>
+                        <input type="text" id="post__code_edit" name="name" class="info" placeholder="نام" value="{{ form.name.value|default_if_none:'' }}">
+                    </div> 
+                </div>
+
+                <!-- Address -->
+                <div class="col-xl-6">
+                    <div class="checkoutarea__inputbox"> 
+                        <label for="address__info">آدرس *</label>
+                        <p>توصیه می شود برای سهولت ارسال کد پستی هم در قسمت آدرس نوشته شود.</p>
+                        <input type="text" id="address__info_edit" name="address" class="info" placeholder="آدرس و کد پستی" value="{{ form.address.value|default_if_none:'' }}" style="padding-bottom: 100px !important; padding-top: 20px !important;" > 
+                    </div> 
+                </div>
+
+                <!-- Province -->
+                <div class="col-xl-6">
+                    <div class="checkoutarea__inputbox">
+                        <label for="town__city_edit">شهرستان *</label>
+                        <select id="town_edit" name="province" class="info" style="padding-bottom: 100px !important; padding-top: 20px !important;">
+                            {% for choice in form.province.field.choices %}
+                                <option value="{{ choice.0 }}" {% if choice.0 == form.province.value %}selected{% endif %}>
+                                    {{ choice.1 }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <!-- City -->
+                <div class="col-xl-6">
+                    <div class="checkoutarea__inputbox">
+                        <label for="town__city_edit">شهر *</label>
+                        <select id="city_edit" name="city" class="info" style="padding-bottom: 100px !important; padding-top: 20px !important;">
+                            {% for choice in form.city.field.choices %}
+                                <option value="{{ choice.0 }}" {% if choice.0 == form.city.value %}selected{% endif %}>
+                                    {{ choice.1 }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Edit Profile Button -->
+                <div class="col-xl-6" style="margin-top: 25px !important;">
+                    <div class="checkoutarea__inputbox" id="profile_edit_button">
+                        <p id="form-error" style="color: red; display: none;">از پر بودن همه فیلد ها اطمینان حاصل فرمایید</p>
+                        <button class="default__button" type="submit">تایید</button>
+                    </div> 
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- Smooth scroll -->
+<script>
+    function smoothScroll() {
+        document.querySelector(".select2").addEventListener("click", () => {
+            window.scrollTo({
+              top: document.body.scrollHeight / 5, 
+              behavior: "smooth" 
+            });
+        });
+    }
+    setTimeout(smoothScroll, 1500);
+</script>
+
+<!-- Your validation script -->
+<script>
+    const name = document.getElementById("post__code_edit");
+    const address = document.getElementById("address__info_edit");
+    const town = document.getElementById("town_edit");
+    const city = document.getElementById("city_edit");
+    const button = document.querySelector(".default__button");
+    const error = document.getElementById("form-error")
+    
+    if (name.value === "نامشخص" && address.value === "نامشخص") {
+        name.value = ""
+        address.value = ""
+    }
+    
+    function validate() {
+        if (name.value === "" || address.value === "" || town.value === "" || city.value === "") {
+            error.style.display = "block"
+            button.disabled = true
+        } else {
+            error.style.display = "none"
+            button.disabled = false
+        }
+    }
+    
+    name.addEventListener("input", validate);
+    address.addEventListener("input", validate);
+    town.addEventListener("input", validate);
+    city.addEventListener("input", validate);
+    
+    // Run once on page load
+    validate();
+</script>
+{% endblock %}
+
+
+
+

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    
+    <!-- login__section__start -->
+    <div class="loginarea  sp_bottom_80 sp_top_80">
+        
+        <div class="container">
+           <div class="row">
+               <div class="tab-content tab__content__wrapper" id="myTabContent">
+   
+                   <div class="tab-pane fade active show" id="projects__one" role="tabpanel" aria-labelledby="projects__one">
+                       <div class="col-xl-8 offset-md-2 loginarea__col">
+                           <div class="loginarea__wraper">
+                               <div class="loginarea__heading">
+                                   <h5 class="login__title">تایید رمز</h5>
+                               </div>
+                               <div class="count-container">
+                                    <div class="countdown-container">
+                                        <div class="circle"></div>
+                                        <div class="countdown"></div>
+                                        <div class="timer-text" id="countdown"></div>
+                                    </div>
+                                </div>
+                               <form method="post" action=".">
+                                {% csrf_token %}
+                                   <div class="loginarea__form">
+                                       <label class="form__label" for="mobile" style="display: none;">شماره موبایل</label>
+                                       <input class="common__login__input" type="text" placeholder="شماره موبایل شما" name="mobile" value="{{mobile}}" readonly style="display: none;">
+                                       <label class="form__label" for="otp">رمز یکبار مصرف</label>
+                                       <input class="common__login__input" type="number" name="otp">
+                                   </div>
+                                   <div class="loginarea__button text-center">
+                                    <button class="default__button" type="submit" style="width: 100%;">تایید رمز یکبار مصرف</button>
+                                   </div>
+                               </form>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+       </div>
+   
+   
+   <!-- footer__section__start -->
+    <script>
+        let timeLeft = 30
+        const countdownElement = document.getElementById("countdown");
+        const countdown = setInterval(() => {
+            timeLeft--;
+            countdownElement.innerHTML = timeLeft;
+
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                countdownElement.innerHTML = "0";
+               
+            }
+        }, 1000)
+    </script>
+
+{% endblock %}

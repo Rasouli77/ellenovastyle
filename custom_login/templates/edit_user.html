@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- <div class="edit_user">
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="primary-btn order-submit" type="submit" value="تایید">
+    </form>
+</div> -->
+
+
+<div class="checkoutarea sp_bottom_100 sp_top_100">
+    <div class="container">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="row">
+            <!-- Name -->
+            <div class="col-xl-6">
+                <div class="checkoutarea__inputbox">
+                    <label for="first__name">رمز عبور (رمز عبور فقط باید حاوی عدد باشد)</label>
+                    <input type="number" name="username" style="color: black;" class="info" placeholder="نام" value="{{ form.username.value|default_if_none:''}}">
+                </div>
+            </div>
+
+            <!-- Phone Number -->
+            <div class="col-xl-6">
+                <div class="checkoutarea__inputbox">
+                    <label for="first__name">شماره تلفن</label>
+                    <input type="text" name="mobile" style="color: black;" class="info" placeholder="شماره تلفن" value="{{ form.mobile.value|default_if_none:''}}">
+                </div>
+            </div>
+    
+            <!-- Edit Profile Button -->
+            <div class="col-xl-6">
+                <div class="checkoutarea__inputbox" id="profile_edit_button">
+                    <!-- <input class="primary-btn order-submit" type="submit" value="تایید"> -->
+                    <button class="default__button" type="submit">تایید</button>
+                </div> 
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+
+    <h1>login</h1>
+    <form method="post" action="">
+        {% csrf_token %}
+        <input type="text" name="mobile">
+        <button type="submit"> submit </button>
+    </form>
+    
+
+{% endblock %}

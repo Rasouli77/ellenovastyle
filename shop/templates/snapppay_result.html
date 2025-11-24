@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>در حال نهایی‌سازی خرید</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+          box-sizing: border-box;
+          margin: 0;
+          padding: 0;
+        }
+        
+        body, html {
+          height: 100%;
+          font-family: 'Vazir', sans-serif;
+          background-color: #2f2f2f;
+          color: #f1f1f1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+        }
+        
+        .container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+        }
+        
+        .spinner {
+          width: 60px;
+          height: 60px;
+          border: 6px solid #ccc;
+          border-top: 6px solid #00bcd4;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+          0%   { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+        
+        .message {
+          font-size: 1.5rem;
+          line-height: 1.8;
+        }
+        
+        @media (max-width: 600px) {
+          .message {
+            font-size: 1.2rem;
+            padding: 0 20px;
+          }
+        
+          .spinner {
+            width: 40px;
+            height: 40px;
+            border-width: 4px;
+          }
+        }
+    </style>
+    </head>
+    <body>
+        <div class="container">
+        <div class="spinner"></div>
+        <div class="message">لطفا صبر کنید تا خرید نهایی شود</div>
+        </div>
+        <!-- checkout__section__end-->
+        <script>
+        setTimeout(function () {
+        window.location.href = "{% url 'snapppay_verify' %}";
+        }, 350); // redirect after 0.35 second
+        </script>
+    </body>
+</html>
+
+

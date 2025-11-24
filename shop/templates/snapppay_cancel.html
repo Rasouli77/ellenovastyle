@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+	اعتبار سنجی اسنپ پی
+{% endblock %}
+{% block meta_description %}
+    اعتبار سنجی اسنپ پی
+{% endblock %}
+{% block content %}
+{% if error %}
+<div class="about sp_top_80 sp_bottom_80">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-12" id="gateway-error-alert">
+                <div class="about__text" id="gateway-error-alert-content">   
+                    <h2>خطا در اعتبار سنجی</h2>
+                    <h4> {{ error }} </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+<!-- checkout__section__start -->
+<div class="checkoutarea sp_bottom_100 sp_top_100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-12">
+                <h5>لغو پرداخت با موفقیت انجام شد</h5>
+            </div>
+            <div class="col-lg-12 col-md-12 col-12">
+                <div class="checkoutarea__payment__wraper">
+                    <div class="checkoutarea__total">
+                       <h3>بررسی وضعیت لفو سفارش</h3>
+                   
+                    <div class="checkoutarea__table__wraper" style="overflow-x:auto;">
+                        <table class="checkoutarea__table">
+                            <tbody>
+                                <tr class="checkoutarea__item">
+                                    <td class="checkoutarea__itemcrt-total">وضعیت</td>
+                                    {% if status == "SC" %}
+                                    <td class="checkoutarea__cgt__des prc-total">لغو پرداخت انجام شد</td>
+                                    {% endif %}
+                                </tr>
+                                <tr class="checkoutarea__item">
+                                    <td class="checkoutarea__itemcrt-total">شناسه پرداخت</td>
+                                    <td class="checkoutarea__cgt__des prc-total">{{ transactionId }}</td>
+                                </tr>
+                                <tr class="checkoutarea__item">
+                                    <td class="checkoutarea__itemcrt-total">مبلغ پرداخت شده (تومان)</td>
+                                    <td class="checkoutarea__cgt__des prc-total num">{{ amount }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

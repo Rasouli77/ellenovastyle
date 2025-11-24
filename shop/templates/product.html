@@ -1,0 +1,547 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+	{{ product.seo_title }}
+{% endblock %}
+{% block meta_description %}
+	{{ product.meta }}
+{% endblock %}
+{% block content %}
+<style>
+    .snapppay-product-image {
+        margin-left: 10px !important;
+        @media screen and (min-width: 991px) {
+            width: 45px !important;
+            height: 45px !important;
+        }
+        
+        @media screen and (max-width: 991px) {
+            width: 42px !important;
+            height: 42px !important;
+        } 
+    }
+</style>
+<!-- breadcrumb__start -->
+{% load cache %}
+{% cache 600 "breadcrumb-product" product.pk %}
+<div class="breadcrumb">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-12">
+				<div class="breadcrumb__title">
+					<ul>
+						<li>
+							<a href="{% url 'index' %}">خانه</a>
+						</li>
+						<li class="color__blue">
+							<a href="{% url 'store' title=product.category.title %}">{{ product.category }}</a>
+						</li>
+						<li class="color__blue">
+							<a href="{% url 'product' product_slug=product.product_slug %}">{{ product.title }}</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endcache %}
+ <!-- breadcrumb__end -->
+{% load cache %}
+{% cache 600 "pic-modal" product.pk %}
+<div id="imageModal" class="modal">
+	<span class="close">&times;</span>
+	<img class="modal-content" id="modalImage">
+</div>
+{% endcache %}
+<!-- single__product__start -->
+<div class="single__product sp_top_50 sp_bottom_80">
+    <div class="container" id="product-container">
+        <div class="row" id="product-row">
+            {% load cache %}
+            {% cache 600 "product-images" product.pk %}
+            <div class="col-xl-8 col-lg-8 col-md-12">
+                <div class="featurearea__details__img" dir="ltr" >
+
+                    <div class="featurearea__big__img" >
+                        <div class="featurearea__single__big__img">
+                            <img src="{{ product.image.url }}" alt="خرید و قیمت {{ product.title }}" class="product-image">
+                        </div>
+						{% if product_images %}
+						{% for product_image in product_images %}
+                        <div class="featurearea__single__big__img">
+                            <img src="{{ product_image.image.url }}" alt="خرید و قیمت {{ product.title }}" class="product-image">
+                        </div>
+						{% endfor %}
+						{% endif %}
+                    </div>
+                    <div class=" featurearea__thumb__img featurearea__thumb__img__slider__active slider__default__arrow">
+                        <div class="featurearea__single__thumb__img">
+                            <img src="{{ product.image.url }}" alt="خرید و قیمت {{ product.title }}">
+                        </div>
+						{% if product_images %}
+						{% for product_image in product_images %}
+                        <div class="featurearea__single__thumb__img">
+                            <img src="{{ product_image.image.url }}" alt="خرید و قیمت {{ product.title }}">
+                        </div>
+						{% endfor %}
+						{% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endcache %}
+            <div class="col-xl-4 col-lg-4 col-md-12">
+                <div class="single__product__wrap">
+                    <div class="single__product__heding">
+                        <h1>{{ product.title }}</h1>
+                    </div>
+                    <hr>
+                    <div class="single__product__price">
+                        <span><span id="dynamic-price"></span> تومان</span>
+                        {% for size in product.sizes.all %}
+                            {% if size.discount_price %}
+                            <del class="dynamic-discount-price num none">{{ size.price }} تومان</del>
+                            <label class="discount-label none">{{ size.discount_percent }}%</label>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                    <ul id="stock">
+                        {% for size in product.sizes.all %}
+                        <li>{{ size.stock }}</li>
+                        {% endfor %}
+                    </ul>
+                    <div class="d-flex alert alert-info mt-3" style="clear: both; padding: 7px; background-color: #e5f2fb; border-color: white">
+                        <img class="snapppay-product-image" src="{% static './img/feature/snapppay.png' %}">
+                        <span class="eligible pr-1" style="font-size: 12px"><div style="font-weight: bold">امکان پرداخت اقساطیِ اسنپ پی</div><div class="pt-1">۴ قسط ماهیانه <span id="snapppay-dynamic-price"></span> تومان (بدون کارمزد)</div></span>
+                    </div>
+                    <label for="size">انتخاب ابعاد</label>
+                    <div class="SizePickerMobile_wrapper__OqE9G" style="display: flex; flex-direction: column; align-items: center;">
+                        <div class="SizePickerMobile_inputWrapper__AVuvW" style="margin-top: 12px;">
+                            <div class="pillsPicker_container__CDlRW" style="display: flex; background-color: #eceff4; border-radius: 54px; width: fit-content; position: relative; transition: width .2s ease-in-out; width: auto;">
+                                {% for size in product.sizes.all %}
+                                <label class="pillsPicker_option__ZNzXO pillsPicker_capitalizeOff__lcpoU">
+                                    <input class="pillsPicker_radio__gzr5z" value="{{ size.id }}" name="M" type="radio">
+                                    <div class="pillsPicker_optionLabel__etHEh">
+                                        <span id="unit" class="none">سانت</span>
+                                        
+                                        <span id="size-letter"></span>
+                                        
+                                        <span class="pillsPicker_optionDescription__NOp2H pillsPicker_activeOptionDescription__FY9Y5 none">{{ size.height }} × {{ size.width }}</span>
+                                    </div>
+                                </label>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="single__product__special__feature">
+                        <ul>
+                            <li>
+                                <strong>نوع قاب:</strong>
+                                <span>{{ product.frame }}</span>
+                            </li>
+                            <li>
+                                <strong>رنگ قاب:</strong>
+                                <span>{{ product.color }}</span>
+                            </li>
+                            <li>
+                                <strong>شیشه:</strong>
+                                <span>{{ product.glass }}</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <form method="POST" action="{% url 'add_to_cart' %}" id="select-form">
+                        {% csrf_token %}
+                        <input type="hidden" name="product" value="{{ product.id }}">
+                        <label class="form-select-size" for="size">انتخاب سایز:</label>
+                        <select class="form-select-size" id="select-size" name="size" required>
+                            {% for size in product.sizes.all %}
+                            {% if  size.discount_price %}
+                            <option class="form-select-size" value="{{ size.id }}">
+                                {{ size.width }}x{{ size.height }} - {{ size.discount_price }} تومان
+                            </option>
+                            {% else %}
+                            <option class="form-select-size" value="{{ size.id }}">
+                                {{ size.width }}x{{ size.height }} - {{ size.price }} تومان
+                            </option>
+                            {% endif %}
+                            {% endfor %}
+                        </select><br>
+                    
+                        <label class="form-select-size" for="quantity">تعداد:</label>
+                        <input class="form-select-size" type="number" name="quantity" min="1" value="1" required>
+                        <button type="submit" class="default__button" id="custum-add-to-cart-btn"><i class="fa fa-shopping-cart"></i>  افرودن به سبد</button>
+                        <button class="default__button none" id="no-stock-btn" style="background-color: #646769; border-color: #646769;" disabled>ناموجود</button>
+                    </form>
+                    <hr>
+                      {% if related_products_data %}
+                    <div class="single__product__pairs">
+                        <h6>تابلو های دیگر با طرح مشابه</h6>
+                    </div>
+                    <div class="row grid__responsive">
+                    {% for related_product_data in related_products_data %}
+                        {% if related_product_data.product.product_slug %}
+                            <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4 col-6">
+                                <div class="grid__wraper">
+                                    <div class="grid__wraper__img">
+                                        <div class="grid__wraper__img__inner">
+                                            <a href="{% url 'product' related_product_data.product.product_slug %}">
+                                                <img class="primary__image" src="{{ related_product_data.product.image.url }}" alt="خرید و قیمت {{ related_product_data.product.title }}">
+                                            </a>
+                                        </div>            
+                                    </div>
+                                    <div class="grid__wraper__info">
+                                        <h3 class="grid__wraper__تایتل">
+                                            <a href="{% url 'product' related_product_data.product.product_slug %}" tabindex="0">{{ related_product_data.product.title }}</a>
+                                        </h3>
+                                        <div class="grid__wraper__price">
+                                            {% if related_product_data.product_size.discount_percent > 0 %}
+											<del><span class="product-price num">{{ related_product_data.product_size.price }}</span> تومان</del>
+											<span><span class="product-price num">{{ related_product_data.product_size.discount_price }}</span> تومان</span>
+											{% else %}
+											<span><span class="product-price num">{{ related_product_data.product_size.price }}</span> تومان</span>
+											{% endif %} 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                </div>
+                <hr>                          
+            </div>
+        </div>
+		{% endif %}
+    </div>
+</div>
+
+<!-- single__product__end -->
+{% load cache %}
+{% cache 600 "description" product.pk %}
+<div class="descriptionarea sp_bottom_80 ">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 descriptionarea__tab__wrapper">
+                <ul class="nav  descriptionarea__tab__button" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                      <button class="descriptionarea__link active" data-bs-toggle="tab" data-bs-target="#description" type="button" aria-selected="false" role="tab" tabindex="-1">توضیحات</button>
+                    </li>
+                </ul>
+                  <div class="tab-content tab__content__wrapper" id="myTabContent1">
+                    <div class="tab-pane fade active show" id="description" role="tabpanel" aria-labelledby="description">  
+                        {{ product.content|safe }}
+                    <span>کد محصول: <span id="product-code"></span></span>
+                    <ul class="none" id="product-code-container">
+                    {% for size in product.sizes.all %}
+                    <li class="product-code-items">{{ size.product_code }}</li>
+                    {% endfor %}
+                    </ul>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endcache %}
+<script>
+    stocks = document.querySelector("#stock").querySelectorAll("li");
+    let totalStock = 0
+    stocks.forEach((i) => {
+        totalStock += parseInt(i.innerHTML)
+    });
+    if (totalStock === 0) {
+        document.querySelector(".single__product__price").querySelector("span").style.display = "none";
+        document.querySelector("#custum-add-to-cart-btn").style.display = "none";
+        document.querySelector("#snapppay-dynamic-price").style.display = "none";
+        document.querySelector(".alert-info").style.display = "none";
+    }
+	document.addEventListener("DOMContentLoaded", () => {
+
+		modal = document.querySelector(".modal");
+		closeButton = document.querySelector(".close");
+		modalImage = document.getElementById("modalImage");
+
+
+		document.querySelectorAll(".product-image").forEach(image => {
+		image.addEventListener("click", (e) => {
+			modal.style.display = "flex";
+			modalImage.src = e.target.src;
+			modalImage.alt = e.target.alt;
+		})
+	});
+
+	document.querySelector(".close").addEventListener("click", () => {
+		modal.style.display = "none";
+	});
+	});
+
+    const sizes = document.querySelectorAll('.pillsPicker_option__ZNzXO');
+    sizes[0].querySelector('.pillsPicker_optionLabel__etHEh').querySelector("#size-letter").innerHTML = 'S';
+    sizes[1].querySelector('.pillsPicker_optionLabel__etHEh').querySelector("#size-letter").innerHTML = 'M';
+    sizes[2].querySelector('.pillsPicker_optionLabel__etHEh').querySelector("#size-letter").innerHTML = 'L';
+    sizes[3].querySelector('.pillsPicker_optionLabel__etHEh').querySelector("#size-letter").innerHTML = 'XL';
+
+    function selectDefaultOption() {
+    if (Number(document.getElementById("stock").querySelectorAll("li")[0].innerHTML) !== 0) {
+    const firstOption = sizes[0];
+    const firstLabel = firstOption.querySelector('.pillsPicker_optionLabel__etHEh');
+    const selectOne = document.getElementById("select-size");
+    const optionOne = selectOne.querySelectorAll(".form-select-size")[0];
+    const textOne = optionOne.innerHTML;
+    const firstOptionTextPrice = textOne.match(/-\s*([\d,]+)\s*تومان/)[1];
+    
+    document.getElementById("dynamic-price").innerHTML = parseInt(firstOptionTextPrice).toLocaleString();
+  
+    // Add active class to the first option
+    firstOption.classList.add('pillsPicker_activeOption__Chq3g');
+    firstLabel.querySelector('#unit').classList.remove('none');
+    firstLabel.querySelector('.pillsPicker_optionDescription__NOp2H').classList.remove('none');
+  
+    // Check the first radio button and set the form value
+    const firstRadio = firstOption.querySelector('.pillsPicker_radio__gzr5z');
+    firstRadio.checked = true;
+    document.getElementById("select-size").value = firstRadio.value;
+    document.getElementById("product-code").innerHTML = document.getElementById("product-code-container").querySelectorAll("li")[0].innerHTML;
+    } else if (Number(document.getElementById("stock").querySelectorAll("li")[1].innerHTML) !== 0) {
+    const secondOption = sizes[1];
+    const secondLabel = secondOption.querySelector('.pillsPicker_optionLabel__etHEh');
+    
+    const selectTwo = document.getElementById("select-size");
+    const optionTwo = selectTwo.querySelectorAll(".form-select-size")[1];
+    const textTwo = optionTwo.innerHTML;
+    const secondOptionTextPrice = textTwo.match(/-\s*([\d,]+)\s*تومان/)[1];
+    
+    document.getElementById("dynamic-price").innerHTML = parseInt(secondOptionTextPrice).toLocaleString();
+  
+    // Add active class to the first option
+    secondOption.classList.add('pillsPicker_activeOption__Chq3g');
+    secondLabel.querySelector('#unit').classList.remove('none');
+    secondLabel.querySelector('.pillsPicker_optionDescription__NOp2H').classList.remove('none');
+  
+    // Check the first radio button and set the form value
+    const secondRadio = secondOption.querySelector('.pillsPicker_radio__gzr5z');
+    secondRadio.checked = true;
+    document.getElementById("select-size").value = secondRadio.value;
+    document.getElementById("product-code").innerHTML = document.getElementById("product-code-container").querySelectorAll("li")[1].innerHTML;
+    } else if (Number(document.getElementById("stock").querySelectorAll("li")[2].innerHTML) !== 0) {
+    const thirdOption = sizes[2];
+    const thirdLabel = thirdOption.querySelector('.pillsPicker_optionLabel__etHEh');
+    
+    const selectThree = document.getElementById("select-size");
+    const optionThree = selectThree.querySelectorAll(".form-select-size")[2];
+    const textThree = optionThree.innerHTML;
+    const thirdOptionTextPrice = textThree.match(/-\s*([\d,]+)\s*تومان/)[1];
+    
+    document.getElementById("dynamic-price").innerHTML = parseInt(thirdOptionTextPrice).toLocaleString();
+  
+    // Add active class to the first option
+    thirdOption.classList.add('pillsPicker_activeOption__Chq3g');
+    thirdLabel.querySelector('#unit').classList.remove('none');
+    thirdLabel.querySelector('.pillsPicker_optionDescription__NOp2H').classList.remove('none');
+  
+    // Check the first radio button and set the form value
+    const thirdRadio = thirdOption.querySelector('.pillsPicker_radio__gzr5z');
+    thirdRadio.checked = true;
+    document.getElementById("select-size").value = thirdRadio.value;
+    document.getElementById("product-code").innerHTML = document.getElementById("product-code-container").querySelectorAll("li")[2].innerHTML;
+    } else if (Number(document.getElementById("stock").querySelectorAll("li")[3].innerHTML) !== 0) {
+    const forthOption = sizes[3];
+    const forthLabel = forthOption.querySelector('.pillsPicker_optionLabel__etHEh');
+    
+    const selectFour = document.getElementById("select-size");
+    const optionFour = selectFour.querySelectorAll(".form-select-size")[3];
+    const textFour = optionFour.innerHTML;
+    const fourthOptionTextPrice = textFour.match(/-\s*([\d,]+)\s*تومان/)[1];
+    
+    document.getElementById("dynamic-price").innerHTML = parseInt(fourthOptionTextPrice).toLocaleString();
+  
+    // Add active class to the first option
+    forthOption.classList.add('pillsPicker_activeOption__Chq3g');
+    forthLabel.querySelector('#unit').classList.remove('none');
+    forthLabel.querySelector('.pillsPicker_optionDescription__NOp2H').classList.remove('none');
+  
+    // Check the first radio button and set the form value
+    const forthRadio = forthOption.querySelector('.pillsPicker_radio__gzr5z');
+    forthRadio.checked = true;
+    document.getElementById("select-size").value = forthRadio.value;
+    document.getElementById("product-code").innerHTML = document.getElementById("product-code-container").querySelectorAll("li")[3].innerHTML;
+    }
+    }
+
+    // Run this function when the page loads
+    document.addEventListener('DOMContentLoaded', selectDefaultOption);
+
+
+
+    // JavaScript for handling active state
+    document.querySelectorAll('.pillsPicker_option__ZNzXO').forEach(option => {
+    option.addEventListener('click', function () {
+    // Remove active class from all options
+    document.querySelectorAll('.pillsPicker_option__ZNzXO').forEach(el => {
+      el.classList.remove('pillsPicker_activeOption__Chq3g');
+      const a = el.querySelector(".pillsPicker_optionLabel__etHEh");
+      a.querySelector('#unit').classList.add("none");
+      a.querySelector(".pillsPicker_optionDescription__NOp2H").classList.add("none");
+    });
+
+    // Add active class to the selected option
+    const a = this.querySelector(".pillsPicker_optionLabel__etHEh");
+    a.querySelector('#unit').classList.remove("none");
+    a.querySelector(".pillsPicker_optionDescription__NOp2H").classList.remove("none");
+    this.classList.add('pillsPicker_activeOption__Chq3g');
+    const b = this.querySelector(".pillsPicker_radio__gzr5z");
+    let value = b.value;
+    document.getElementById("select-size").value = value;
+    });
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const selectOne = document.getElementById("select-size");
+        const optionOne = selectOne.querySelectorAll(".form-select-size")[0];
+        const textOne = optionOne.innerHTML;
+        const firstOptionTextPrice = textOne.match(/-\s*([\d,]+)\s*تومان/)[1];
+        
+        const selectTwo = document.getElementById("select-size");
+        const optionTwo = selectTwo.querySelectorAll(".form-select-size")[1];
+        const textTwo = optionTwo.innerHTML;
+        const secondOptionTextPrice = textTwo.match(/-\s*([\d,]+)\s*تومان/)[1];
+        
+        const selectThree = document.getElementById("select-size");
+        const optionThree = selectThree.querySelectorAll(".form-select-size")[2];
+        const textThree = optionThree.innerHTML;
+        const thirdOptionTextPrice = textThree.match(/-\s*([\d,]+)\s*تومان/)[1];
+        
+        const selectFour = document.getElementById("select-size");
+        const optionFour = selectFour.querySelectorAll(".form-select-size")[3];
+        const textFour = optionFour.innerHTML;
+        const fourthOptionTextPrice = textFour.match(/-\s*([\d,]+)\s*تومان/)[1];
+        
+        const stock_one = Number(document.getElementById("stock").querySelectorAll("li")[0].innerHTML);
+        const stock_two = Number(document.getElementById("stock").querySelectorAll("li")[1].innerHTML);
+        const stock_three = Number(document.getElementById("stock").querySelectorAll("li")[2].innerHTML);
+        const stock_four = Number(document.getElementById("stock").querySelectorAll("li")[3].innerHTML);
+        // Button One
+        document.querySelectorAll(".pillsPicker_option__ZNzXO")[0].addEventListener("click", () => {
+            document.getElementById("dynamic-price").innerHTML = parseInt(firstOptionTextPrice);
+            document.getElementById("product-code").innerHTML = "";
+            document.getElementById("product-code").innerHTML = document.getElementById("product-code-container").querySelectorAll("li")[0].innerHTML;
+            document.querySelector("#snapppay-dynamic-price").innerHTML = (parseInt(document.querySelector("#dynamic-price").innerHTML) / 4);
+            document.querySelector("#snapppay-dynamic-price").innerHTML = parseInt(document.querySelector("#snapppay-dynamic-price").innerHTML.replace(/,/g, ""), 10).toLocaleString("en-US");
+            document.querySelector("#dynamic-price").innerHTML = parseInt(document.querySelector("#dynamic-price").innerHTML.replace(/,/g, ""), 10).toLocaleString("en-US");
+            if (stock_one === 0) {
+                document.getElementById("custum-add-to-cart-btn").classList.add("none");
+                document.getElementById("no-stock-btn").classList.remove("none");
+            } else {
+                document.getElementById("custum-add-to-cart-btn").classList.remove("none");
+                document.getElementById("no-stock-btn").classList.add("none");
+            }
+            if (document.querySelectorAll(".dynamic-discount-price").length > 0) {
+                document.querySelectorAll(".dynamic-discount-price")[0].classList.remove("none");
+                document.querySelectorAll(".dynamic-discount-price")[1].classList.add("none");
+                document.querySelectorAll(".dynamic-discount-price")[2].classList.add("none");
+                document.querySelectorAll(".dynamic-discount-price")[3].classList.add("none");
+            }
+            if (document.querySelectorAll(".discount-label").length > 0) {
+                document.querySelectorAll(".discount-label")[0].classList.remove("none");
+                document.querySelectorAll(".discount-label")[1].classList.add("none");
+                document.querySelectorAll(".discount-label")[2].classList.add("none");
+                document.querySelectorAll(".discount-label")[3].classList.add("none");
+            }
+        });
+        // Button Two
+        document.querySelectorAll(".pillsPicker_option__ZNzXO")[1].addEventListener("click", () => {
+            document.getElementById("dynamic-price").innerHTML = parseInt(secondOptionTextPrice);
+            document.getElementById("product-code").innerHTML = "";
+            document.getElementById("product-code").innerHTML = document.getElementById("product-code-container").querySelectorAll("li")[1].innerHTML;
+            document.querySelector("#snapppay-dynamic-price").innerHTML = (parseInt(document.querySelector("#dynamic-price").innerHTML) / 4);
+            document.querySelector("#snapppay-dynamic-price").innerHTML = parseInt(document.querySelector("#snapppay-dynamic-price").innerHTML.replace(/,/g, ""), 10).toLocaleString("en-US");
+            document.querySelector("#dynamic-price").innerHTML = parseInt(document.querySelector("#dynamic-price").innerHTML.replace(/,/g, ""), 10).toLocaleString("en-US");
+            if (stock_two === 0) {
+                document.getElementById("custum-add-to-cart-btn").classList.add("none");
+                document.getElementById("no-stock-btn").classList.remove("none");
+            } else {
+                document.getElementById("custum-add-to-cart-btn").classList.remove("none");
+                document.getElementById("no-stock-btn").classList.add("none");
+            }
+            if (document.querySelectorAll(".dynamic-discount-price").length > 0) {
+                document.querySelectorAll(".dynamic-discount-price")[1].classList.remove("none");
+                document.querySelectorAll(".dynamic-discount-price")[0].classList.add("none");
+                document.querySelectorAll(".dynamic-discount-price")[2].classList.add("none");
+                document.querySelectorAll(".dynamic-discount-price")[3].classList.add("none");
+            }
+            if (document.querySelectorAll(".discount-label").length > 0) {
+                document.querySelectorAll(".discount-label")[1].classList.remove("none");
+                document.querySelectorAll(".discount-label")[0].classList.add("none");
+                document.querySelectorAll(".discount-label")[2].classList.add("none");
+                document.querySelectorAll(".discount-label")[3].classList.add("none");
+                }
+        });
+        // Button Three
+        document.querySelectorAll(".pillsPicker_option__ZNzXO")[2].addEventListener("click", () => {
+            document.getElementById("dynamic-price").innerHTML = parseInt(thirdOptionTextPrice);
+            document.getElementById("product-code").innerHTML = "";
+            document.getElementById("product-code").innerHTML = document.getElementById("product-code-container").querySelectorAll("li")[2].innerHTML;
+            document.querySelector("#snapppay-dynamic-price").innerHTML = (parseInt(document.querySelector("#dynamic-price").innerHTML) / 4);
+            document.querySelector("#snapppay-dynamic-price").innerHTML = parseInt(document.querySelector("#snapppay-dynamic-price").innerHTML.replace(/,/g, ""), 10).toLocaleString("en-US");
+            document.querySelector("#dynamic-price").innerHTML = parseInt(document.querySelector("#dynamic-price").innerHTML.replace(/,/g, ""), 10).toLocaleString("en-US");
+            if (stock_three === 0) {
+                document.getElementById("custum-add-to-cart-btn").classList.add("none");
+                document.getElementById("no-stock-btn").classList.remove("none");
+            } else {
+                document.getElementById("custum-add-to-cart-btn").classList.remove("none");
+                document.getElementById("no-stock-btn").classList.add("none");
+            }
+            if (document.querySelectorAll(".dynamic-discount-price").length > 0) {
+                document.querySelectorAll(".dynamic-discount-price")[2].classList.remove("none");
+                document.querySelectorAll(".dynamic-discount-price")[0].classList.add("none");
+                document.querySelectorAll(".dynamic-discount-price")[1].classList.add("none");
+                document.querySelectorAll(".dynamic-discount-price")[3].classList.add("none");
+            }
+            if (document.querySelectorAll(".discount-label").length > 0) {
+                document.querySelectorAll(".discount-label")[2].classList.remove("none");
+                document.querySelectorAll(".discount-label")[0].classList.add("none");
+                document.querySelectorAll(".discount-label")[1].classList.add("none");
+                document.querySelectorAll(".discount-label")[3].classList.add("none");
+            }
+        });
+        // Button Four
+        document.querySelectorAll(".pillsPicker_option__ZNzXO")[3].addEventListener("click", () => {
+            document.getElementById("dynamic-price").innerHTML = parseInt(fourthOptionTextPrice);
+            document.getElementById("product-code").innerHTML = "";
+            document.getElementById("product-code").innerHTML = document.getElementById("product-code-container").querySelectorAll("li")[3].innerHTML;
+            document.querySelector("#snapppay-dynamic-price").innerHTML = (parseInt(document.querySelector("#dynamic-price").innerHTML) / 4);
+            document.querySelector("#snapppay-dynamic-price").innerHTML = parseInt(document.querySelector("#snapppay-dynamic-price").innerHTML.replace(/,/g, ""), 10).toLocaleString("en-US");
+            document.querySelector("#dynamic-price").innerHTML = parseInt(document.querySelector("#dynamic-price").innerHTML.replace(/,/g, ""), 10).toLocaleString("en-US");
+            if (stock_four === 0) {
+                document.getElementById("custum-add-to-cart-btn").classList.add("none");
+                document.getElementById("no-stock-btn").classList.remove("none");
+            } else {
+                document.getElementById("custum-add-to-cart-btn").classList.remove("none");
+                document.getElementById("no-stock-btn").classList.add("none");
+            }
+            if (document.querySelectorAll(".dynamic-discount-price").length > 0) {
+                document.querySelectorAll(".dynamic-discount-price")[3].classList.remove("none");
+                document.querySelectorAll(".dynamic-discount-price")[2].classList.add("none");
+                document.querySelectorAll(".dynamic-discount-price")[0].classList.add("none");
+                document.querySelectorAll(".dynamic-discount-price")[1].classList.add("none");
+            }
+            if (document.querySelectorAll(".discount-label").length > 0) {
+                document.querySelectorAll(".discount-label")[3].classList.remove("none");
+                document.querySelectorAll(".discount-label")[2].classList.add("none");
+                document.querySelectorAll(".discount-label")[0].classList.add("none");
+                document.querySelectorAll(".discount-label")[1].classList.add("none");
+            }
+        });
+    
+        // Handling discounts
+        if (document.querySelectorAll(".dynamic-discount-price")[0]) {
+            document.querySelectorAll(".dynamic-discount-price")[0].classList.remove("none");
+        }
+        if (document.querySelectorAll(".discount-label")[0]) {
+            document.querySelectorAll(".discount-label")[0].classList.remove("none");
+        }
+    });
+ </script>
+<!-- Putting Footer Out -->
+</div></div></div></div>
+{% endblock %}

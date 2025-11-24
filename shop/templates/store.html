@@ -1,0 +1,222 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+	{{ category.seo_title }}
+{% endblock %}
+{% block meta_description %}
+	{{ category.meta }}
+{% endblock %}
+{% block content %}
+{% load cache %}
+{% cache 600 "breadcrumb-store" category.pk %}
+<!-- breadcrumb__start -->
+<div class="breadcrumb">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-12">
+				<div class="breadcrumb__title">
+					<h1>تابلو طرح {{ category.persian_name }}</h1>
+					<ul>
+						<li>
+							<a href="{% url 'index' %}">خانه</a>
+						</li>
+						{% if not category.persian_name %}
+						<li class="color__blue">
+							<a href="{% url 'store' title=category.title %}">{{ category }}</a>
+						</li>
+						{% else %}
+						<li class="color__blue">
+							<a href="{% url 'store' title=category.title %}">{{ category.persian_name }}</a>
+						</li>
+						{% endif %}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endcache %}
+ <!-- breadcrumb__end -->
+ <div class="shop sp_top_80">
+	<div class="container">
+		<div class="row grid__responsive">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<!--<div class="shop__right__wraper" id="top-bar-filter-sort">-->
+				<!--	<button style="display:none;" type="button" class="default__button sidebar-collapse-btn" id="filter-btn" data-aos="fade-up" data-aos-duration="1800" style="background-color: white; color: black; border: 1px solid black; border: none;">-->
+				<!--		<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 0 32 32" width="24"><g id="Layer_2" data-name="Layer 2"><path d="m28.552 6.184h-2.671a4.556 4.556 0 0 0 -8.659 0h-13.774a1.449 1.449 0 0 0 0 2.9h13.774a4.556 4.556 0 0 0 8.659 0h2.671a1.449 1.449 0 0 0 0-2.9zm-7 3.138a1.69 1.69 0 1 1 1.689-1.69 1.692 1.692 0 0 1 -1.689 1.69z"></path><path d="m28.552 14.552h-13.774a4.556 4.556 0 0 0 -8.659 0h-2.671a1.448 1.448 0 0 0 0 2.9h2.671a4.556 4.556 0 0 0 8.659 0h13.774a1.448 1.448 0 0 0 0-2.9zm-18.1 3.138a1.69 1.69 0 1 1 1.686-1.69 1.692 1.692 0 0 1 -1.69 1.69z"></path><path d="m28.552 22.919h-2.671a4.556 4.556 0 0 0 -8.659 0h-13.774a1.449 1.449 0 0 0 0 2.9h13.774a4.556 4.556 0 0 0 8.659 0h2.671a1.449 1.449 0 0 0 0-2.9zm-7 3.138a1.69 1.69 0 1 1 1.689-1.689 1.692 1.692 0 0 1 -1.689 1.689z"></path></g></svg>-->
+				<!--		فیلتر-->
+				<!--	</button>-->
+				<!--	<div class="shop__selecte">-->
+				<!--		<select class="nice-select" name="SortBy" id="SortBy">-->
+							
+				<!--			<option value="">ترتیب نمایش</option>-->
+				<!--			<option value="new_to_old"> جدید به قدیم</option>-->
+				<!--			<option value="old_to_new"> قدیم به جدید</option>-->
+				<!--			</select>-->
+				<!--	</div>-->
+				<!--	<form action="" method="get" id="sortForm"></form>-->
+				<!--</div>-->
+				<!--<div class="shop__right__wraper_custom" id="filter-options-buttons" style="display: none;">-->
+					<!--<h6 class="filter-title">محتوا</h6>-->
+					<!--<ul class="filter-options">-->
+					<!--  <li style="text-decoration: underline; cursor: pointer;">برکینگ بد</li>-->
+					<!--  <li style="text-decoration: underline; cursor: pointer;">والتر وایت</li>-->
+					<!--  <li style="text-decoration: underline; cursor: pointer;">breaking bad</li>-->
+					<!--  <li style="text-decoration: underline; cursor: pointer;">اردک</li>-->
+					<!--</ul>-->
+					<!--<form action="" method="get" id="filterForm"></form>-->
+					<!-- <h6 class="filter-title">رنگ قاب</h6>
+					<ul class="filter-options">
+						<li><a href="?color=white"><span class="filter-color" style="background-color: rgb(222, 222, 222);"></span></a></li>
+						<li><a href="?color=red"><span class="filter-color" style="background-color: rgb(250, 0, 0);"></span></a></li>
+						<li><a href="?color=blue"><span class="filter-color" style="background-color: rgb(50, 1, 248);"></span></a></li>
+						<li><a href="?color=black"><span class="filter-color" style="background-color: rgb(0, 0, 0);"></span></a></li>
+						<li><a href="?color=brown"><span class="filter-color" style="background-color: rgb(117, 60, 22);"></span></a></li>
+						<li><a href="?color=golden"><span class="filter-color" style="background-color: rgb(255, 152, 84);"></span></a></li>
+					</ul> -->
+				<!--</div>-->
+				<div class="tab-content " id="myTabContent">
+					<div class="tab-pane fade active show" id="projects__one" role="tabpanel" aria-labelledby="projects__one">
+						<div class="row grid__responsive">
+							{% for product_data in products_data %}
+							{% if  product_data.product_size_stocks > 0 %}
+							<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6">
+								<div class="grid__wraper">
+									<div class="grid__wraper__img">
+										<div class="grid__wraper__img__inner">
+											<a href="{% url 'product' product_slug=product_data.product.product_slug %}">
+												<img class="primary__image" src="{{ product_data.product.image_optimized.url }}" alt="خرید و قیمت {{ product_data.product.title }}">
+												<img class="secondary__image" src="{{ product_data.product.image_optimized_two.url }}" alt="خرید و قیمت {{ product_data.product.title }}">
+											</a>
+										</div>
+										<div class="grid__wraper__badge">
+											{% if product_data.product_size.discount_percent > 0 %}
+											<span class="sale__badge">{{product_data.product_size.discount_percent}}%-</span>
+											{% endif %}
+										</div>
+									</div>
+									<div class="grid__wraper__info">
+										<h3 class="grid__wraper__tittle">
+											<a href="{% url 'product' product_slug=product_data.product.product_slug %}" tabindex="0">{{ product_data.product.title }}</a>
+										</h3>
+										<div class="grid__wraper__price">
+											{% if product_data.product_size.discount_percent > 0 %}
+											<del><span class="product-price">{{ product_data.product_size.price }}</span> تومان</del>
+											<span><span class="product-price">{{ product_data.product_size.discount_price }}</span> تومان</span>
+											{% else %}
+											<span><span class="product-price">{{ product_data.product_size.price }}</span> تومان</span>
+											{% endif %} 
+										</div>
+									</div>
+								</div>
+							</div>
+							{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+				</div>
+				<div class="pagination__wraper text-center sp_top_40" style="margin-bottom: 40px;">
+					<ul>
+					  <li class="disabled prev">
+						{% if page_obj.has_previous %}
+						<a href="?page={{ page_obj.previous_page_number }}&sort={{ sort }}">
+						  <span>
+							
+							<i class="fas fa-angle-double-right"></i>
+							
+						  </span>
+						</a>
+					  	{% else %}
+						  <a href="">
+							<span>
+							  
+							  <i class="fas fa-angle-double-right"></i>
+							  
+							</span>
+						  </a>
+						{% endif %}
+					  </li>
+					  {% for i in page_obj.paginator.page_range %}
+					  {% if page_obj.number == i %}
+					  <li><a class="active" href="">{{ i }}</a></li>
+					  {% else %}
+					  <li><a class="" href="?page={{ i }}&sort={{ sort }}">{{ i }}</a></li>
+					  {% endif %}
+					  {% endfor %}
+					  <li class="next">
+						{% if page_obj.has_next %}
+						<a href="?page={{ page_obj.next_page_number }}&sort={{ sort }}">
+						  <span aria-hidden="true">
+							<i class="fas fa-angle-double-left"></i>
+						  </span>
+						</a>
+						{% else %}
+						<a href="">
+							<span aria-hidden="true">
+							  <i class="fas fa-angle-double-left"></i>
+							</span>
+						  </a>
+						{% endif %}
+					  </li>
+					</ul>
+				  </div>
+				  <div class="category-content">
+					{{ category.content|safe }}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	document.addEventListener("DOMContentLoaded", () => {
+        const productPrice = document.querySelectorAll(".product-price");
+        productPrice.forEach(productElement => {
+            let rawProductPrice = productElement.innerHTML;
+            let formattedPrice = parseInt(rawProductPrice).toLocaleString();
+            productElement.innerHTML = formattedPrice;
+        })
+    })
+
+	document.getElementById("SortBy").addEventListener('change', () => {
+			const form = document.getElementById("sortForm");
+			const sortValue = event.target.value;
+			form.innerHTML = '';
+			const input = document.createElement('input');
+			input.type = 'hidden';
+			input.name = 'sort';
+			input.value = sortValue;
+
+			form.appendChild(input);
+			form.submit();
+		})
+
+	const parsedURL = new URL(window.location.href)
+	const param = parsedURL.searchParams.get("sort");
+	options = document.getElementById("SortBy").querySelectorAll("option");
+    options.forEach( 
+        option => {
+            if (option.value == param) {
+                option.selected = true;
+            }
+        }
+    );
+	
+	document.addEventListener("DOMContentLoaded", () => {
+		document.querySelector(".filter-options").querySelectorAll("li").forEach(
+			(item) => {
+				item.addEventListener("click", () => {
+					const clickedItemText = event.target.innerHTML;
+					const form = document.getElementById("filterForm");
+					const input = document.createElement("input");
+					input.type = "hidden";
+					input.name = "content";
+					input.value = clickedItemText;
+					form.appendChild(input);
+					form.submit();
+				})
+			}
+		)
+    });
+</script>
+	
+{% endblock %}

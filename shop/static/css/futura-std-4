@@ -1,0 +1,122 @@
+﻿@font-face {
+    font-family: 'Futura Std';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Futura Std'), url('../s/30938/FuturaStdBook.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: italic;
+    font-weight: 400;
+    src: local('Futura Std'), url('../s/30938/FuturaStdBookOblique.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Futura Std'), url('../s/30938/FuturaStdCondensedLight.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: normal;
+    font-weight: 300;
+    src: local('Futura Std'), url('../s/30938/FuturaStdLight.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: italic;
+    font-weight: 300;
+    src: local('Futura Std'), url('../s/30938/FuturaStdCondensedLightObl.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: italic;
+    font-weight: 300;
+    src: local('Futura Std'), url('../s/30938/FuturaStdLightOblique.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Futura Std'), url('../s/30938/FuturaStdCondensed.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: normal;
+    font-weight: 500;
+    src: local('Futura Std'), url('../s/30938/FuturaStdMedium.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: italic;
+    font-weight: 500;
+    src: local('Futura Std'), url('../s/30938/FuturaStdCondensedOblique.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: italic;
+    font-weight: 500;
+    src: local('Futura Std'), url('../s/30938/FuturaStdMediumOblique.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: normal;
+    font-weight: 650;
+    src: local('Futura Std'), url('../s/30938/FuturaStdHeavy.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: italic;
+    font-weight: 650;
+    src: local('Futura Std'), url('../s/30938/FuturaStdHeavyOblique.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Futura Std'), url('../s/30938/FuturaStdBold.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Futura Std'), url('../s/30938/FuturaStdCondensedBold.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: italic;
+    font-weight: 700;
+    src: local('Futura Std'), url('../s/30938/FuturaStdBoldOblique.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: italic;
+    font-weight: 700;
+    src: local('Futura Std'), url('../s/30938/FuturaStdCondensedBoldObl.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: normal;
+    font-weight: 750;
+    src: local('Futura Std'), url('../s/30938/FuturaStdCondensedExtraBd.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: normal;
+    font-weight: 750;
+    src: local('Futura Std'), url('../s/30938/FuturaStdExtraBold.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: italic;
+    font-weight: 750;
+    src: local('Futura Std'), url('../s/30938/FuturaStdCondExtraBoldObl.woff') format('woff');
+}
+@font-face {
+    font-family: 'Futura Std';
+    font-style: italic;
+    font-weight: 750;
+    src: local('Futura Std'), url('../s/30938/FuturaStdExtraBoldOblique.woff') format('woff');
+}
+
+

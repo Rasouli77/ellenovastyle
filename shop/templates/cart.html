@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+	سبد خرید
+{% endblock %}
+{% block meta_description %}
+	سبد خرید
+{% endblock %}
+{% block content %}
+<style>
+    @media screen and (min-width: 991px) {
+        #empty-cart-image {
+        width: 150px;
+        }
+    }
+
+    @media screen and (max-width: 991px) {
+        #empty-cart-image {
+        width: 85px;
+        }
+    }
+    
+    .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5); /* Grey transparent background */
+        z-index: 1000;
+    }
+
+    /* Modal Container */
+    .mymodal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 400px;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+        z-index: 1100;
+    }
+
+    /* Modal Content */
+    .modal-content {
+        text-align: center;
+    }
+
+    .modal-content p {
+        margin: 10px 0 20px;
+        font-size: 16px;
+        color: #333;
+    }
+
+    /* Hidden Class */
+    .hidden {
+        display: none;
+    }
+</style>
+<!-- Modal Structure -->
+<div id="overlay" class="overlay hidden"></div>
+<div id="modal" class="mymodal hidden">
+    <div class="modal-content">
+        <p>به دلیل اتمام موجودی:</p><br>
+        {% if changed %}
+            {% for item in products_to_del_dispaly %}
+                <p>{{ item.title }}</p><br>
+            {% endfor %}
+        {% endif %}
+        <p>از سبد خرید حذف شد</p>
+        <a class="default__button" id="modal-button">بازگشت به سبد</a>
+    </div>
+</div>
+<!-- cart__section__start -->
+<div class="cartarea sp_bottom_100 sp_top_100">
+    <div class="container">
+    {% if all_quantity == 0 %}
+    <div class="row">
+        <div class="col-12">
+            <div class="cartarea__grand__totall cartarea__tax">
+                <div id="empty-cart-container" class="cartarea__title">
+                    <img id="empty-cart-image" src="{% static './img/logo/no-cart.png' %}" alt="سبد خرید خالی">
+                    <h4>سبد خرید شما خالی می باشد.</h4>
+                    <a id="empty-cart-btn" class="default__button" href="{% url 'index' %}">بازگشت</a> 
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-12">
+            <div class="cartarea__table__content table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>تصویر</th>
+                            <th>اطلاعات محصول</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in cart %}
+                        <tr>
+                            <td class="cartarea__product__thumbnail">
+                                <a href="{% url 'product' product_slug=item.product.product_slug %}">
+                                    <img src="{{ item.product.image.url }}" alt="cart">
+                                </a>
+                            </td>
+                            <td class="cartarea__product__name"><a href="{% url 'product' product_slug=item.product.product_slug %}">{{ item.product.title }}</a><br>
+                            <span class="amount">
+                                ابعاد: {{ item.size.height }}x{{ item.size.width }}
+                            </span><br>
+                            {% if item.size.discount_price %}
+                            <span class="amount"><span class="num">{{ item.size.discount_price }}</span> تومان</span><br>
+                            <del class="amount"><span class="num">{{ item.size.price }}</span> تومان</del><br>
+                            {% else %}
+                            <span class="amount"><span class="num">{{ item.size.price }}</span> تومان</span><br>
+                            {% endif %}
+                            <span class="amount">تعداد: {{ item.quantity }}</span><br>
+                            <span class="amount">مبلغ کل: <span class="num">{{ item.total }}</span> تومان</span><br>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cartarea__product__subtotal">
+                                <a href="{% url 'product' product_slug=item.product.product_slug %}">مشاهده محصول</a>
+                            </td>
+                            <td class="cartarea__product__remove">
+                                
+                                <a href="{% url 'remove_from_cart' cart_key=cart_key %}" style="color: red;">
+                                    حذف از سبد
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-6 col-12">
+            <div class="cartarea__grand__totall cartarea__tax">
+                <div class="cartarea__title">
+                    <h4>جمع کل سبد خرید</h4> 
+                </div>
+            <h5>تعداد کل
+                <span>{{ all_quantity }}</span>
+            </h5>
+            <h5>جمع کل بدون تخفیف (تومان)
+                <span class="amount"> <span class="num" id="pure_total_price">{{ pure_total_price }}</span></span>
+            </h5>
+            <h5>جمع کل (تومان)
+                <span class="amount"> <span class="num" id="all_total">{{ all_total }}</span></span>
+            </h5>
+            <h5>جمع تخفیف (تومان)
+                <span class="amount"> <span class="num" id="discount_profit"></span></span>
+            </h5>
+            <a class="default__button" href="{% url 'checkout' %}">ادامه به پرداخت</a>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    </div>
+    <p id="changed" style="display: none;">{{changed}}</p>
+</div>
+<!-- cart__section__end-->
+<script>
+if (document.querySelector("#changed").innerHTML === "True") {
+    document.querySelector('#modal').classList.remove("hidden");
+    document.querySelector("#modal-button").addEventListener("click", () => {
+        document.querySelector('#modal').classList.add("hidden");
+        document.querySelector('#overlay').classList.add("hidden");
+    });
+    document.getElementById("modal-button").style.display = "block";
+    document.querySelector('#overlay').classList.remove("hidden");
+}
+// Discount Profit Calculation On Page Load
+document.getElementById("discount_profit").innerHTML = parseInt(document.getElementById("pure_total_price").innerHTML) - parseInt(document.getElementById("all_total").innerHTML)
+</script>
+
+{% endblock %}

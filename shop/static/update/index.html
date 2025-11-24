@@ -1,0 +1,459 @@
+﻿{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+		<!-- <div class="instagram">
+			<div class="container">
+				<div class="row">
+					<div class="section__title text-center">	
+						<h2>دسته‌بندی‌ها</h2>
+					</div>
+				</div>
+			</div>
+		<div class="instagram__img__wraper">
+			<div class="row row__custom__class instagram__slider__active slider__default__arrow slider__default__arrow slider__default__arrow--2">
+				{% for category in categories %}
+				<div class="col-sm-12 column__custom__class">
+					<div class="instagram__img">
+						<a class="" href="{% url 'store' title=category.title %}"> <img src="{{ category.image.url }}" alt="Instagram Gallery Image"></a>
+						<a class="" href="{% url 'store' title=category.title %}"> {{ category.title }}</a>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		</div> -->
+		<div id="hero-container">
+		<div class="row" id="row" style="justify-content: center; margin-top: 36px;">
+            <div id="collection-container" class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+				<div id="scrollable-container">
+                <div class="row scroll-item">
+					<div class="col-6">
+						<h3 class="collection-header">سلام</h3>
+						<p class="collection-text">سلام چطوری خوبه منم خوبه قربانت</p>
+					</div>
+					<div class="col-6">
+						<img class="scroll-image" src="{% static './herobanner/sm-h.png' %}" alt="blank">
+					</div>
+				</div>
+				<div class="row scroll-item">
+					<div class="col-6">
+						<h3 class="collection-header">سلام</h3>
+						<p class="collection-text">سلام چطوری خوبه منم خوبه قربانت</p>
+					</div>
+					<div class="col-6">
+						<img class="scroll-image" src="{% static './herobanner/sm-h.png' %}" alt="blank">
+					</div>
+				</div>
+				<div class="row scroll-item">
+					<div class="col-6">
+						<h3 class="collection-header">سلام</h3>
+						<p class="collection-text">سلام چطوری خوبه منم خوبه قربانت</p>
+					</div>
+					<div class="col-6">
+						<img class="scroll-image" src="{% static './herobanner/sm-h.png' %}" alt="blank">
+					</div>
+				</div>
+				<div class="row scroll-item">
+					<div class="col-6">
+						<h3 class="collection-header">سلام</h3>
+						<p class="collection-text">سلام چطوری خوبه منم خوبه قربانت</p>
+					</div>
+					<div class="col-6">
+						<img class="scroll-image" src="{% static './herobanner/sm-h.png' %}" alt="blank">
+					</div>
+				</div>
+				</div>
+            </div>
+            <div id="picture-container" class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+				<div class="ltn__banner-area full-width-banner">
+                    <div class="justify-content-center">
+                      <div class="ltn__banner-item-full-width">         
+                        <div class="ltn__banner-video">
+                          <img class="desktop-media-header" autoplay="" muted="" loop="" id="heroVideo" src="{% static './herobanner/bg-h.jpg' %}">
+						  <img class="mobile-media-header" src="{% static './herobanner/sm-h.jpg' %}" style="width: 100%;">
+                        </div>          
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+		</div>
+
+		<!-- categories -->
+		
+		<div class="instagram">
+			<div class="container">
+				<div class="row">
+					<div class="section__title text-center">	
+						<h2>دسته بندی</h2>
+					</div>
+				</div>
+			</div>
+		<div class="instagram__img__wraper">
+			<div class="row row__custom__class instagram__slider__active slider__default__arrow slider__default__arrow slider__default__arrow--2">
+
+				<div class="col-sm-12 column__custom__class">
+					<div class="instagram__img">
+					
+					<div class="card" style="width: 100%; margin: 0px 25px; border: none;">
+						<a href=""><img class="card-img-top" src="{% static './img/title.webp' %}" alt="Card image cap" style="border-radius: 10px;"></a>
+					  </div>
+					
+					</div>
+				</div>
+
+				<div class="col-sm-12 column__custom__class">
+					<div class="instagram__img">
+					
+					<div class="card" style="width: 100%; margin: 0px 25px; border: none;">
+						<a href=""><img class="card-img-top" src="{% static './img/title.webp' %}" alt="Card image cap" style="border-radius: 10px;"></a>
+					  </div>
+					
+					</div>
+				</div>
+
+				<div class="col-sm-12 column__custom__class">
+					<div class="instagram__img">
+					
+					<div class="card" style="width: 100%; margin: 0px 25px; border: none;">
+						<a href=""><img class="card-img-top" src="{% static './img/title.webp' %}" alt="Card image cap" style="border-radius: 10px;"></a>
+					  </div>
+					
+					</div>
+				</div>
+
+				<div class="col-sm-12 column__custom__class">
+					<div class="instagram__img">
+					
+					<div class="card" style="width: 100%; margin: 0px 25px; border: none">
+						<a href=""><img class="card-img-top" src="{% static './img/title.webp' %}" alt="Card image cap" style="border-radius: 10px;"></a>
+					  </div>
+					
+					</div>
+				</div>
+
+				<div class="col-sm-12 column__custom__class">
+					<div class="instagram__img">
+					
+					<div class="card" style="width: 100%; margin: 0px 25px; border: none;">
+						<a href=""><img class="card-img-top" src="{% static './img/title.webp' %}" alt="Card image cap" style="border-radius: 10px;"></a>
+					  </div>
+					
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		</div>
+
+		<!-- titles -->
+		<div class="instagram">
+			<div class="container">
+				<div class="row">
+					<div class="section__title text-center">	
+						<h2>عنوان‌ها</h2>
+					</div>
+				</div>
+			</div>
+		<div class="instagram__img__wraper">
+			<div class="row row__custom__class instagram__slider__active slider__default__arrow slider__default__arrow slider__default__arrow--2">
+
+				<div class="col-sm-12 column__custom__class">
+					<div class="instagram__img">
+					
+					<div class="card" style="width: 100%; margin: 0px 25px;">
+						<a href=""><img class="card-img-top" src="{% static './img/title.webp' %}" alt="Card image cap"></a>
+						<div class="card-body" style="justify-content: center;">
+						<a href="#" style="display: flex; justify-content: center;">
+						  <h6 class="card-title">عنوان کارت</h6>
+						</a>
+						</div>
+					  </div>
+					
+					</div>
+				</div>
+
+				<div class="col-sm-12 column__custom__class">
+					<div class="instagram__img">
+					
+					<div class="card" style="width: 100%; margin: 0px 25px;">
+						<a href=""><img class="card-img-top" src="{% static './img/title.webp' %}" alt="Card image cap"></a>
+						<div class="card-body" style="justify-content: center;">
+						<a href="#" style="display: flex; justify-content: center;">
+						  <h6 class="card-title">عنوان کارت</h6>
+						</a>
+						</div>
+					  </div>
+					
+					</div>
+				</div>
+
+				<div class="col-sm-12 column__custom__class">
+					<div class="instagram__img">
+					
+					<div class="card" style="width: 100%; margin: 0px 25px;">
+						<a href=""><img class="card-img-top" src="{% static './img/title.webp' %}" alt="Card image cap"></a>
+						<div class="card-body" style="justify-content: center;">
+						<a href="#" style="display: flex; justify-content: center;">
+						  <h6 class="card-title">عنوان کارت</h6>
+						</a>
+						</div>
+					  </div>
+					
+					</div>
+				</div>
+
+				<div class="col-sm-12 column__custom__class">
+					<div class="instagram__img">
+					
+					<div class="card" style="width: 100%; margin: 0px 25px;">
+						<a href=""><img class="card-img-top" src="{% static './img/title.webp' %}" alt="Card image cap"></a>
+						<div class="card-body" style="justify-content: center;">
+						<a href="#" style="display: flex; justify-content: center;">
+						  <h6 class="card-title">عنوان کارت</h6>
+						</a>
+						</div>
+					  </div>
+					
+					</div>
+				</div>
+
+				<div class="col-sm-12 column__custom__class">
+					<div class="instagram__img">
+					
+					<div class="card" style="width: 100%; margin: 0px 25px;">
+						<a href=""><img class="card-img-top" src="{% static './img/title.webp' %}" alt="Card image cap"></a>
+						<div class="card-body" style="justify-content: center;">
+						<a href="#" style="display: flex; justify-content: center;">
+						  <h6 class="card-title">عنوان کارت</h6>
+						</a>
+						</div>
+					  </div>
+					
+					</div>
+				</div>
+
+				<div class="col-sm-12 column__custom__class">
+					<div class="instagram__img">
+					
+					<div class="card" style="width: 100%; margin: 0px 25px;">
+						<a href=""><img class="card-img-top" src="{% static './img/title.webp' %}" alt="Card image cap"></a>
+						<div class="card-body" style="justify-content: center;">
+						<a href="#" style="display: flex; justify-content: center;">
+						  <h6 class="card-title">عنوان کارت</h6>
+						</a>
+						</div>
+					  </div>
+					
+					</div>
+				</div>
+				
+			</div>
+		</div>
+		</div>
+
+		<!-- end -->
+	   
+	   <div class="shop sp_top_80">
+		<div class="container">
+			<div class="row">
+				<div class="section__title text-center">
+					<h2>جدیدترین ها</h2>
+				</div>
+			</div>
+			<div class="row grid__responsive">
+				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+					<div class="shop__right__wraper" id="store-options">
+						<button type="button" class="default__button sidebar-collapse-btn" data-aos="fade-up" data-aos-duration="1800">
+							<svg xmlns="http://www.w3.org/2000/svg" height="24" viewbox="0 0 32 32" width="24"><g id="Layer_2" data-name="Layer 2"><path d="m28.552 6.184h-2.671a4.556 4.556 0 0 0 -8.659 0h-13.774a1.449 1.449 0 0 0 0 2.9h13.774a4.556 4.556 0 0 0 8.659 0h2.671a1.449 1.449 0 0 0 0-2.9zm-7 3.138a1.69 1.69 0 1 1 1.689-1.69 1.692 1.692 0 0 1 -1.689 1.69z"></path><path d="m28.552 14.552h-13.774a4.556 4.556 0 0 0 -8.659 0h-2.671a1.448 1.448 0 0 0 0 2.9h2.671a4.556 4.556 0 0 0 8.659 0h13.774a1.448 1.448 0 0 0 0-2.9zm-18.1 3.138a1.69 1.69 0 1 1 1.686-1.69 1.692 1.692 0 0 1 -1.69 1.69z"></path><path d="m28.552 22.919h-2.671a4.556 4.556 0 0 0 -8.659 0h-13.774a1.449 1.449 0 0 0 0 2.9h13.774a4.556 4.556 0 0 0 8.659 0h2.671a1.449 1.449 0 0 0 0-2.9zm-7 3.138a1.69 1.69 0 1 1 1.689-1.689 1.692 1.692 0 0 1 -1.689 1.689z"></path></g></svg>
+							فیلتر
+						</button>
+						<div class="shop__selecte">
+							<select class="nice-select" name="SortBy" id="SortBy">
+								
+								<option value="">ترتیب نمایش را انتخاب کنید</option>
+								<option value="new_to_old">تاریخ، جدید به قدیم</option>
+								<option value="old_to_new">تاریخ، قدیم به جدید</option>
+								</select>
+						</div>
+						<form action="" method="get" id="sortForm"></form>
+					</div>
+	
+					
+					<div class="tab-content " id="myTabContent">
+						<div class="tab-pane fade active show" id="projects__one" role="tabpanel" aria-labelledby="projects__one">
+							<div class="row grid__responsive" id="products-container">
+								
+								{% for product_data in products_data %}
+								{% if  product_data.product_size_stocks > 0 %}
+								<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6">
+									<div class="grid__wraper">
+										<div class="grid__wraper__img">
+											<div class="grid__wraper__img__inner">
+												<a href="{% url 'product' product_slug=product_data.product.product_slug %}">
+													<img class="primary__image" src="{{ product_data.product.image.url }}" alt="Primary Image">
+													<img class="secondary__image" src="{{ product_data.product_image_url.image.url }}" alt="Secondary Image">
+												</a>
+											</div>
+											<div class="grid__wraper__badge">
+												{% if product_data.product_size.discount_percent > 0 %}
+                                                <span class="sale__badge">{{product_data.product_size.discount_percent}}%-</span>
+												{% endif %}
+                                            </div>
+										</div>
+										<div class="grid__wraper__info">
+											<h3 class="grid__wraper__tittle">
+												<a href="{% url 'product' product_slug=product_data.product.product_slug %}" tabindex="0">{{ product_data.product.title }}</a>
+											</h3>
+											{% if request.user.is_vendor == True %}
+											<div class="grid__wraper__price">
+												{% if product_data.product_size.discount_percent > 0 %}
+												<del><span class="product-price">{{ product_data.product_size.price }}</span> تومان</del>
+												<span><span class="product-price" >{{ product_data.product_size.discount_price }}</span> تومان</span>
+												{% else %}
+												<span><span class="product-price">{{ product_data.product_size.price }}</span> تومان</span>
+												{% endif %} 
+											</div>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+								{% endif %}
+								{% endfor %}
+
+								<div id="loading-indicator" style="display: none; text-align: center; margin-top: 20px;">
+									<div class="spinner"></div>
+									<p>در حال بارگذاری...</p>
+								</div>
+		
+		
+							</div>
+						</div>	
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- product lazy load script -->
+
+		
+	<script>
+
+		document.addEventListener("DOMContentLoaded", () => {
+        const productPrice = document.querySelectorAll(".product-price");
+        productPrice.forEach(productElement => {
+            let rawProductPrice = productElement.innerHTML;
+            let formattedPrice = parseInt(rawProductPrice).toLocaleString();
+            productElement.innerHTML = formattedPrice;
+        	});
+    	});
+
+		document.getElementById("SortBy").addEventListener('change', () => {
+			const form = document.getElementById("sortForm");
+			const sortValue = event.target.value;
+			form.innerHTML = '';
+			const input = document.createElement('input');
+			input.type = 'hidden';
+			input.name = 'sort';
+			input.value = sortValue;
+
+			form.appendChild(input);
+			form.submit();
+		})
+	
+
+	
+
+		let offset = 3; 
+		const limit = 3; 
+		let loading = false;
+
+
+		const sortBy = document.getElementById("SortBy");
+		let currentOrder = sortBy ? sortBy.value : "new_to_old";
+		sortBy.addEventListener("change", (event) => {
+			offset = 3;
+			currentOrder = event.target.value;
+		})
+
+
+		const loadMoreProducts = () => {
+    	if (loading) return;
+    	loading = true;
+    	const container = document.getElementById('products-container');
+    	const loadingIndicator = document.getElementById('loading-indicator');
+
+    	
+    	container.appendChild(loadingIndicator);
+    	loadingIndicator.style.display = 'block';
+
+    	
+    	setTimeout(() => {
+        fetch(`load/load_more_products/?offset=${offset}&limit=${limit}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.products.length === 0) {
+                    loadingIndicator.style.display = 'none';
+                    return;
+                }
+
+                data.products.forEach(product => {
+                    const productHTML = `
+                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 product-item">
+                            <div class="grid__wraper">
+                                <div class="grid__wraper__img">
+                                    <div class="grid__wraper__img__inner">
+                                        <a href="/product/${product.slug}">
+                                            <img class="primary__image" src="${product.image_url}" alt="Primary Image">
+                                            <img class="secondary__image" src="${product.product_image_url}" alt="Secondary Image">
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="grid__wraper__info">
+                                    <h3 class="grid__wraper__tittle">
+                                        <a href="/product/${product.slug}" tabindex="0">${product.title}</a>
+                                    </h3>
+									{% if request.user.is_vendor == True %}
+                                    <div class="grid__wraper__price">
+                                        <span><span class="load-product-price">${product.price}</span> تومان</span>
+                                    </div>
+									{% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    container.insertAdjacentHTML('beforeend', productHTML);
+                });
+
+                offset += limit;
+                loadingIndicator.style.display = 'none';
+                loading = false;
+            })
+            .catch(error => {
+                console.error('Error loading products:', error);
+                loading = false;
+                loadingIndicator.style.display = 'none';
+            });
+    		}, 800); 
+		};
+
+	window.addEventListener('scroll', () => {
+    	if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 890) {
+        	loadMoreProducts();
+			const loadproductPrice = document.querySelector(".load-product-price");
+            let loadrawProductPrice = loadproductPrice.innerHTML.replace(/,/g, '').trim();
+            let loadformattedPrice = parseInt(loadrawProductPrice).toLocaleString();
+            loadproductPrice.innerHTML = loadformattedPrice;
+        	
+    	}
+	});
+
+	</script>
+	
+		
+
+{% endblock %}
+		
+
+		

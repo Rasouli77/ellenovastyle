@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+	مجله وب سایت آرتینو گیم
+{% endblock %}
+{% block meta_description %}
+	آخرین اخبار دنیای گیم در مجله آرتینو گیم
+{% endblock %}
+{% block content %}
+<!-- breadcrumb__start -->
+<div class="breadcrumb">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="breadcrumb__title">
+                    <h1>مجله آنلاین آرتینو</h1>
+                    <ul>
+                        <li>
+                            <a href="{% url 'index' %}">خانه</a>
+                        </li>
+                        <li class="color__blue">
+                          <a href="{% url 'blog' %}">بلاگ</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+ <!-- breadcrumb__end -->
+
+<!-- blog__section__start -->
+    <div class="blog sp_bottom_80 sp_top_80">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-12 col-12">
+                    <div class="blog__sidebar">
+                        <h4 class="blog__sidebar__title">جستجو</h4>
+                        <div class="blog__search">
+                          <form action="blog/search" method="get" role="search">
+                            <input type="text" name="q" placeholder="جست و جوی مطالب">
+                            <button type="submit"><i class="fas fa-search"></i></button>
+                          </form>
+                        </div>
+                    </div>
+
+                    <div class="blog__sidebar">
+                        <h4 class="blog__sidebar__title">پست های اخیر</h4>
+
+                            <ul>
+                              {% for blog in blogs %}
+                                <li class="blog__sidebar__list">
+                                    <div class="blog__popular">
+                                        <div class="blog__popular__img">
+                                            <a href="{% url 'blog_details' slug=blog.slug %}"> <img src="{{ blog.image.url }}" alt="{{ blog.title }}"></a>
+                                         </div>
+                                         <div class="blog__small__text">
+                                             <h6><a href="{% url 'blog_details' slug=blog.slug %}">{{ blog.title }}</a></h6>
+                                             <div class="blog__small__meta">
+                                               <ul>
+                                                 <li class="blog__small__date">
+                                                   <i class="far fa-calendar-alt"></i>{{ blog.date_created }}
+                                                 </li>
+                                               </ul>
+                                             </div>
+                                         
+                                     </div>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                       
+                    </div>
+
+
+                        
+
+                        
+
+
+                 </div>
+
+                 <div class="col-xl-9 col-lg-9 col-md-12 col-12">
+
+                        <div class="row">
+                            {% for blog in page_obj %}
+                            <div class="col-xl-6 col-lg-6 col-md-6 col-12">
+                                <div class="blog__single__wrap">
+                                    <div class="blog__img">
+                                       <a href="{% url 'blog_details' slug=blog.slug %}"> <img src="{{ blog.image.url }}" alt="{{ blog.title }}"></a>
+                                    </div>
+                
+                                    <div class="blog__meta">
+                                        <ul>
+                                            <li class="blog__date"><i class="far fa-calendar-alt"></i>{{ blog.date_created }}</li>
+                                            <!-- <li class="blog__commemts">
+                                                <a href="blog-details.html"><i class="fas fa-comment"></i>2 نظر</a>
+                                            </li> -->
+                                        </ul>
+                                      </div>
+                
+                                      <div class="blog__title">
+                                        <h2><a href="{% url 'blog_details' slug=blog.slug %}" tabindex="0">{{ blog.meta }}</a></h2>
+                                      </div>
+                
+                                      <div class="blog__button">
+                                        <a href="{% url 'blog_details' slug=blog.slug %}" tabindex="0">ادامه مطلب</a>
+                                      </div>
+                
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <hr>
+
+                            <div class="pagination__wraper text-center sp_top_40" style="margin-bottom: 40px;">
+                              <ul>
+                                <li class="disabled prev">
+                                {% if page_obj.has_previous %}
+                                <a href="?page={{ page_obj.previous_page_number }}">
+                                  <span>
+                                  
+                                  <i class="fas fa-angle-double-right"></i>
+                                  
+                                  </span>
+                                </a>
+                                  {% else %}
+                                  <a href="">
+                                  <span>
+                                    
+                                    <i class="fas fa-angle-double-right"></i>
+                                    
+                                  </span>
+                                  </a>
+                                {% endif %}
+                                </li>
+                                  
+                                
+                                
+                                
+                                {% for i in page_obj.paginator.page_range %}
+                                {% if page_obj.number == i %}
+                                <li><a class="active" href="">{{ i }}</a></li>
+                                {% else %}
+                                <li><a class="" href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                                {% endfor %}
+                                
+                                
+                                
+                                
+                                <li class="next">
+                                {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">
+                                  <span aria-hidden="true">
+                                  
+                                  <i class="fas fa-angle-double-left"></i>
+                                  
+                                  </span>
+                                </a>
+                                {% else %}
+                                <a href="">
+                                  <span aria-hidden="true">
+                                    
+                                    <i class="fas fa-angle-double-left"></i>
+                                    
+                                  </span>
+                                  </a>
+                                {% endif %}
+                                </li>
+                                
+                              </ul>
+                              </div>
+
+                        </div>
+                    </div>
+
+              
+        </div>
+    </div>
+</div>
+<!-- blog__section__end -->
+{% endblock %}

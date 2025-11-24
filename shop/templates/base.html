@@ -1,0 +1,584 @@
+<!doctype html>
+{% load static %}
+<html class="no-js" lang="zxx" dir="rtl">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>{% block title %}تابلو گیمینگ | فروشگاه آنلاین تابلو گیمینگ و خرید تابلو گیمینگ | آرتینو گیم{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %} خرید و قیمت انواع تابلو گیمینگ ، انیمه و انیمیشن در تنوع بالا با قیمت مناسب در آرتینو گیم{% endblock %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="canonical" href="{% block canonical %}{{ request.build_absolute_uri }}{% endblock %}"/>
+    <link rel="shortcut icon" type="image/x-icon" href="{% static './img/logo/artino-game-favicon.png' %}">
+    <!-- Place favicon.ico in the root directory -->
+{% load cache %}
+{% cache 600 "head" %}                                                          
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/futura-std-4' %}">
+    <link rel="stylesheet" href="{% static 'css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        h1 {
+            font-size: 18px;
+        }
+        h2 {
+            font-size: 16px;
+        }
+        p {
+            font-size: 12.5px;
+        }
+    </style>
+</head>
+{% endcache %}
+<body>
+
+	<div class="search-desktop-click-capture"></div>
+    <main class="main_wrapper body__overlay overflow__hidden">
+        
+<!-- header section start -->
+
+<header>
+	<div class="headerarea header__sticky">
+		<div class="container desktop__menu__wrapper">
+			<div class="row common__row position-relative">
+				<div class="col-xl-2 col-lg-2 col-md-6">
+					<div class="headerarea__logo">
+						<a href="{% url 'index' %}"><img id="logo-image-desktop" src="{% static './img/logo/artino-game-logo.png' %}" alt=""></a>
+					</div>
+				</div>
+
+
+				<div class="col-xl-8 col-lg-8 col-md-6 main_menu_wrap">
+
+					<div class="headerarea__main__menu ">
+						<nav class="search-container">
+							<svg role="presentation" stroke-width="2" focusable="false" width="22" height="22" class="icon icon-search" id="icon-search" viewbox="0 0 22 22">
+								<circle cx="11" cy="10" r="7" fill="none" stroke="currentColor"></circle>
+								<path d="m16 15 3 3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+							</svg>
+							<input type="text" name="" id="search-input" style="width: 75%;">
+						</nav>
+					</div>
+
+				</div>
+
+
+				<div class="col-xl-2 col-lg-2 col-md-6">
+
+					<div class="headerarea__right">
+
+						<ul class="headerarea__right__nav">
+							<li>
+								<div class="setting__wrap cursor__pointer">
+									<div class="setting__wrap__active">
+										<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewbox="0 0 512 512">
+											<path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></path>
+											<path d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
+										</svg>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="headermiddle__bar cursor__pointer">
+									<div class="headermiddle__account">
+										<div class="headermiddle__account__img">
+											<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewbox="0 0 512 512">
+												<circle cx="176" cy="416" r="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle>
+												<circle cx="400" cy="416" r="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle>
+												<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M48 80h64l48 272h256"></path>
+												<path d="M160 288h249.44a8 8 0 007.85-6.43l28.8-144a8 8 0 00-7.85-9.57H128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></path>
+											</svg>
+											<span class="bigcounter">{{ all_quantity }}</span>
+										</div>
+									</div>
+								</div>
+							</li>
+						</ul>
+
+					</div>
+
+				</div>
+
+			</div>
+
+
+		</div>
+	</div>
+	<hr id="line-bottom-desktop" style="margin: 0px;">
+
+	<!-- second nav desktop -->
+
+	<nav class="navbar navbar-expand-lg">
+		<div class="collapse navbar-collapse" id="navbarNav" style="justify-content: center; align-items: center;">
+		  <ul class="navbar-nav">
+			<li class="nav-item">
+				<a class="nav-link" href="https://artinogame.com/category/game">گیم</a>
+			  </li>
+			<li class="nav-item">
+			  <a class="nav-link" href="https://artinogame.com/category/tv-shows">فیلم</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="https://artinogame.com/category/anime-and-manga">انیمه</a>
+			  </li>
+			  <li class="nav-item">
+				<a class="nav-link" href="https://artinogame.com/category/music">موسیقی</a>
+			  </li>
+		  </ul>
+		</div>
+	  </nav>
+	<hr id="line-bottom-desktop" style="margin: 0px;">
+
+	<!-- second nav desktop end -->
+
+	<div class="container-fluid mob_menu_wrapper headerarea header__sticky">
+		<div class="row align-items-center">
+			<div class="col-sm-4 col-4">
+				<div class="mobile-off-canvas">
+					<a class="mobile-aside-button" href="#">
+						<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
+							<line x1="3" y1="12" x2="21" y2="12"></line>
+							<line x1="3" y1="6" x2="21" y2="6"></line>
+							<line x1="3" y1="18" x2="21" y2="18"></line>
+						</svg>
+					</a>
+				</div>
+			</div>
+			<div class="col-sm-4 col-4">
+				<div class="mobile-logo">
+					<a class="logo__mobile" href="{% url 'index' %}"><img src="{% static './img/logo/artino-game-logo-mobile.png' %}" alt="logo"></a>
+				</div>
+			</div>
+			<div class="col-sm-4 col-4">
+				<div class="header-right-wrap">
+
+
+					<div class="header__right__inner__wrap d-flex align-items-center justify-content-end">
+
+						<ul class="headerarea__right headerarea__right__mobail__menu">
+							<li>
+								<div class="headerarea__search cursor__pointer" id="headerarea__search">
+
+									<svg role="presentation" stroke-width="2" focusable="false" width="22" height="22" class="icon icon-search" viewbox="0 0 22 22">
+										<circle cx="11" cy="10" r="7" fill="none" stroke="currentColor"></circle>
+										<path d="m16 15 3 3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+									</svg>
+
+								</div>
+							</li>
+
+							<li>
+								<div class="setting__wrap cursor__pointer">
+									<div class="setting__wrap__active">
+
+										<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewbox="0 0 512 512">
+											<path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></path>
+											<path d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
+										</svg>
+
+									</div>
+								</div>
+							</li>
+
+							<li>
+								<div class="headermiddle__bar cursor__pointer">
+									<div class="headermiddle__account">
+										<div class="headermiddle__account__img">
+											<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewbox="0 0 512 512">
+												<circle cx="176" cy="416" r="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle>
+												<circle cx="400" cy="416" r="16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></circle>
+												<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M48 80h64l48 272h256"></path>
+												<path d="M160 288h249.44a8 8 0 007.85-6.43l28.8-144a8 8 0 00-7.85-9.57H128" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></path>
+											</svg>
+											<span class=" bigcounter">{{ all_quantity }}</span>
+
+										</div>
+
+									</div>
+								</div>
+
+
+							</li>
+
+						</ul>
+
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<nav class="search-container-mobile">
+		<svg role="presentation" stroke-width="2" focusable="false" width="22" height="22" class="icon icon-search" id="icon-search-mobile" viewbox="0 0 22 22">
+			<circle cx="11" cy="10" r="7" fill="none" stroke="currentColor"></circle>
+			<path d="m16 15 3 3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+		</svg>
+		<input type="text" name="q" name="" id="search-input-mobile" style="width: 90%;" placeholder="جست و جوی طرح ها">
+	</nav>
+	<hr id="line-bottom-mobile" style="margin: 0px;">
+	<!-- Mobile Menu Start Here -->
+	<div class="mobile-off-canvas-active">
+		<a class="mobile-aside-close"><i class="fa fa-close"></i></a>
+		<div class="header-mobile-aside-wrap">
+
+			<div class="mobile__logo">
+				<a href="">
+					<img src="{% static './img/logo/artino-game-logo-mobile.png' %}" alt="logo">
+				</a>
+			</div>
+
+			<div class="mobile-search">
+				<form class="search-form" action="/search" method="get" role="search">
+					<input type="text" name="q" placeholder="جستجوی کل فروشگاه…">
+					<button type="submit" class="button-search"><i class="fa fa-search"></i></button>
+				</form>
+			</div>
+			<div class="mobile-menu-wrap">
+
+				<div class="mobile-navigation">
+
+					<nav>
+						<ul class="mobile-menu">
+							<li class="menu-item-has-children"><a href="categories.html">دسته‌بندی‌ها</a>
+								<ul class="dropdown">
+									{% for category in categories %}
+									<li class="menu-item-has-children">
+										<a class="menu__title" href="{% url 'store' title=category.title %}">{{ category.title }}</a>
+									</li>
+									{% endfor %}
+
+								</ul>
+							</li>
+							<li><a href="{% url 'store-locator' %}">فروشگاه حضوری</a>
+							</li>
+							<li><a href="{% url 'faqs' %}">تماس با ما</a>
+							</li>
+						</ul>
+					</nav>
+
+				</div>
+
+
+			</div>
+			<div class="mobile-curr-lang-wrap">
+				<div class="single-mobile-curr-lang">
+					<a class="mobile-account-active" href="#">حساب من <i class="fa fa-angle-down"></i></a>
+					<div class="lang-curr-dropdown account-dropdown-active">
+						<ul>
+							{% if user.is_authenticated %}
+							<li><a href="{% url 'profile_panel' %}">حساب کاربری</a></li>
+							<li><a href="{% url 'logout' %}">خروج</a></li>
+							{% else %}
+							<li><a href="{% url 'register' %}">ورود / ثبت نام</a></li>
+							<!-- <li><a href="{% url 'cart' %}">سبد خرید</a></li> -->
+							{% endif %}
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="mobile-social-wrap">
+				<a class="facebook" href="#"><i class="fab fa-facebook"></i></a>
+				<a class="twitter" href="#"><i class="fab fa-twitter"></i></a>
+				<a class="pinterest" href="#"><i class="fab fa-pinterest"></i></a>
+				<a class="instagram" href="#"><i class="fab fa-instagram"></i></a>
+				<a class="google" href="#"><i class="fab fa-youtube"></i></a>
+			</div>
+		</div>
+	</div>
+	<!-- Mobile Menu end Here -->
+	<!-- setting__wrap__list__start -->
+	<div class="setting__wrap__list">
+		<button class="setting__wrap__close">
+			<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewbox="0 0 512 512">
+				<title>بستن</title>
+				<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"></path>
+			</svg></button>
+		<div class="setting__wrap__list__inner">
+			<ul>
+				{% if user.is_authenticated %}
+				<li>
+					<a href="{% url 'profile_panel' %}">پنل کاربری</a>
+            	</li>
+            	<li>
+					<form action="{% url 'logout' %}" method="post">
+					{% csrf_token %}
+                	<button type="submit" style="border: none; background-color: white;"><a>خروج</a></button>
+					</form>
+            	</li>
+        		{% else %}
+				<li>
+					<a href="{% url 'register' %}">ورود / ثبت نام</a>
+				</li>
+				{% endif %}
+				<!-- <li>
+					<a href="{% url 'cart' %}">سبد خرید</a>
+				</li> -->
+			</ul>
+		</div>
+	</div>
+	<!-- setting__wrap__list__end -->
+
+	<!-- header__search -->
+	<div class="headersearch__active">
+		<div class="headersearch__active__icon">
+			<button class="headersearch__active__close">
+				<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewbox="0 0 512 512">
+					<title>بستن</title>
+					<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"></path>
+				</svg></button>
+		</div>
+		<div class="headersearch__active__input">
+			<form action="/search" method="get" role="search" style="position: relative;" id="form">
+				<div class="header__form__search">
+					<input type="search" id="old-input" name="q" value="" placeholder=" جستجو کنید" class="input-text" autocomplete="off">
+					<button type="submit"><i class="fa fa-search"></i></button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- header__search -->
+		
+	<!-- minicart__section__start -->
+	<section class="minicart">
+		<div class="minicart__inner">
+			<div class="minicart__wrapper">
+				<div class="minicart__close__icon">
+					<div class="minicart__cart__text ">
+						<strong>سبد خرید</strong>
+					</div>
+					<button class="minicart__close__btn">
+						<i class="fa fa-close"></i>
+					</button>
+
+				</div>
+				
+				<div class="minicart__single__wraper">
+				{% if all_quantity > 0 %}
+					{% for item in cart %}
+					<div class="minicart__single">
+
+						<div class="minicart__single__img">
+							<a href="{% url 'product' product_slug=item.product.product_slug %}">
+								<img src="{{ item.product.image.url }}" alt="محصول">
+							</a>
+							<div class="minicart__single__close">
+								<button title="حذف"><a href="{% url 'remove_from_cart' cart_key=cart_key %}"><i class="fa fa-close"></i></a></button>
+							</div>
+						</div>
+						<div class="minicart__single__content">
+							<h4><a href="{% url 'product' product_slug=item.product.product_slug %}">{{ item.product.title }}</a></h4>
+							{% if item.size.discount_price %}
+							<span><span class="money num">{{ item.size.discount_price }} تومان</span> x {{ item.quantity }}</span><br>
+							<span><del class="money num">{{ item.size.price }} تومان</del></span><br>
+							{% else %}
+							<span><span class="money num">{{ item.size.price }} تومان</span> x {{ item.quantity }}</span><br>
+							{% endif %}
+							<span>ابعاد: {{ item.size.height }}x{{ item.size.width }}</span>
+						</div>
+						<br>
+					</div>
+					{% endfor %}
+				{% else %}
+				<div class="minicart__single">
+
+					
+					<div class="minicart__single__content">
+						<h4>هیچ محصولی وجود ندارد</h4>
+						
+
+					</div>
+
+				</div>
+				{% endif %}
+				</div>
+				{% if all_quantity > 0 %}
+				<div class="minicart__footer">
+					<div class="minicart__subtotal">
+						<span class="subtotal__title"> جمع کل:</span>
+						<span class="subtotal__amount num">{{ all_total }} تومان</span>
+					</div>
+					<div class="minicart__button">
+						<a href="{% url 'cart' %}" class="default__button">مشاهده سبد خرید</a>
+						<!--<a href="{% url 'checkout' %}" class="default__button">پرداخت</a>-->
+					</div>
+					<!-- <div class="cart__note__text">
+						<p>ارسال رایگان برای تمام سفارشات بالای  تومان 100!</p>
+					</div> -->
+				</div>
+				{% else %}
+				<div class="minicart__footer">
+				</div>
+				{% endif %}
+			</div>
+		</div>
+	</section>
+	<!-- minicart__section__end -->
+</header>
+<!-- header section end -->
+{% block content %}
+{% endblock %}
+<!-- footer__section__start -->
+{% load cache %}
+{% cache 600 "footer" %}
+<div class="footer ">
+    <div class="footer__inner sp_top_80">
+        <div class="container sp_bottom_60">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="footer__widget">
+                        <h4 class="footer__title">درباره ما</h4>
+                        <div class="footer__content">
+                            <p>خرید تابلو از فروشگاه آرتینو گیم که تنوع بالایی از این محصول را با سبک‌ها و طراحی‌های مختلف در اختیار شما قرار می‌دهد، باعث می‌شود تا براساس سلیقه خود بهترین گزینه را تهیه کرده و محیط مورد نظرتان را به زیبایی هرچه تمام‌تر طراحی کنید.</p>
+                        </div>
+                        <div class="footer__bottom">
+    					<h5>فروشگاه آرتینو گیم</h5>
+                            
+                    </div>
+                    </div>
+                </div>
+    
+                <div class="col-xl-2 col-lg-2 col-md-6 col-sm-4 col-6">
+                    <div class="footer__widget">
+                        <h4 class="footer__title">خدمات مشتریان</h4>
+                        <div class="footer__menu">
+                        <ul>
+                            <li><a href="tel:09301103505">پشتیبانی: 09301103505</a></li>
+                            <li><a href="{% url 'faqs' %}">سوالات متداول </a></li>
+                            <li><a href="{% url 'terms-and-conditions' %}"> شرایط و ضوابط</a></li>
+                            <li><a href="{% url 'privacy' %}">حریم خصوصی</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                </div>
+    
+                <div class="col-xl-2 col-lg-2 col-md-6 col-sm-4 col-6">
+                    <div class="footer__widget">
+                        <h4 class="footer__title"> درباره آرتینو گیم</h4>
+                        <div class="footer__menu">
+                        <ul>
+                            <li><a href="{% url 'store-locator' %}">نمایندگی‌های فروش</a></li>
+    						<li><a href="{% url 'blog' %}">مجله آنلاین</a></li>
+                            <li><a href="{% url 'about-us' %}">درباره ما</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                </div>
+    
+                <div class="col-xl-2 col-lg-2 col-md-6 col-sm-4 col-6">
+                    <div class="footer__widget">
+                        <h4 class="footer__title">نماد اعتماد</h4>
+                        <div class="footer__menu">
+                        <ul>
+                            <li>
+    							<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=596501&Code=D3IVR2my4rsUDzqekHr7emBIHIZfTyPH'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=596501&Code=D3IVR2my4rsUDzqekHr7emBIHIZfTyPH' alt='' style='cursor:pointer' code='D3IVR2my4rsUDzqekHr7emBIHIZfTyPH'></a>
+    						</li>
+                        </ul>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endcache %}
+ <!-- footer__section__end -->
+</main>
+<!-- JS here -->
+<script src="{% static 'js/vendor/modernizr-3.5.0.min.js' %}"></script>
+<!-- 1. JQuery -->
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<!-- 2. Select2 JS & CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<!-- 3. Initialize Select2 -->
+<script>
+$(document).ready(function() {
+    $('#city_edit').select2({
+        placeholder: "شهر خود را انتخاب کنید",
+        allowClear: true,
+        dropdownParent: $('.checkoutarea')
+    });
+    $('#town_edit').select2({
+        placeholder: "شهرستان خود را انتخاب کنید",
+        allowClear: true,
+        dropdownParent: $('.checkoutarea')
+    });
+    $('.info').on('select2:open', function () {
+        document.querySelector('.select2-container--open .select2-search__field').focus();
+    });
+});
+</script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'js/one-page-nav-min.js' %}"></script>
+<script src="{% static 'js/slick.min.js' %}"></script>
+<script src="{% static 'js/jquery.meanmenu.min.js' %}"></script>
+<script src="{% static 'js/ajax-form.js' %}"></script>
+<script src="{% static 'js/wow.min.js' %}"></script>
+<script src="{% static 'js/jquery.scrollUp.min.js' %}"></script>
+<script src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'js/waypoints.min.js' %}"></script>
+<script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'js/fontawesome.min.js' %}"></script>
+<script src="{% static 'js/plugins.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+	searchBtn = document.getElementById("icon-search")
+	form = document.getElementById("form")
+	newInput = document.getElementById("search-input")
+	oldInput = document.getElementById("old-input")
+	
+	// Search Mobile
+	searchInputMobile = document.getElementById("search-input-mobile")
+	searchMobileBtn = document.getElementById("icon-search-mobile")
+
+	searchBtn.addEventListener("click", () => {
+		oldInput.value = newInput.value;
+		form.submit()
+	})
+
+	searchMobileBtn.addEventListener("click", () => {
+		oldInput.value = searchInputMobile.value ;
+		form.submit()
+	})
+
+	newInput.addEventListener("keydown", function (event) {
+		if (event.key === "Enter") {
+			oldInput.value = newInput.value;
+			form.submit()
+			}
+		})
+	
+		searchInputMobile.addEventListener("keydown", function (event) {
+		if (event.key === "Enter") {
+			oldInput.value = searchInputMobile.value ;
+			form.submit()
+		}
+	});
+	// snapppay price 
+	document.querySelector("#snapppay-dynamic-price").innerHTML = (parseInt(document.querySelector("#dynamic-price").innerHTML) / 4)*1000;
+	document.querySelector("#snapppay-dynamic-price").innerHTML = parseInt(document.querySelector("#snapppay-dynamic-price").innerHTML.replace(/,/g, ""), 10).toLocaleString("en-US")
+	});
+</script>
+<script>
+    // Separator
+    document.addEventListener("DOMContentLoaded", () => {
+        const nums = document.querySelectorAll(".num");
+        nums.forEach((num) => {
+            num.innerHTML = parseInt(num.textContent.replace(/,/g, ""), 10).toLocaleString("en-US");
+        });
+    });
+</script>
+</body>
+</html>
+
+
+

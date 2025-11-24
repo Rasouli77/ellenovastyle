@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+	سفارشات کاربر
+{% endblock %}
+{% block meta_description %}
+	سفارشات کاربر
+{% endblock %}
+{% block content %}
+<style>
+    #order {
+        margin-top: 50px !important;
+    }
+    @media screen and (min-width: 991px) {
+        #empty-order-image {
+        width: 150px;
+        }
+    }
+
+    @media screen and (max-width: 991px) {
+        #empty-order-image {
+        width: 85px;
+        }
+    }
+</style>
+<div class="cartarea sp_bottom_100 sp_top_100">
+    <div class="container">
+    {% if order_data %}
+    {% for key, value in order_data.items %}
+    <div class="row" id="order">
+        <div class="col-lg-6 col-md-6 col-12">
+            <div class="cartarea__table__content table-responsive">
+                <p>تاریخ سفارش: {{ key.date_created }}</p>
+                <p>وضعیت سفارش: <span class="order-status">{{ key.status }}</span></p> 
+                <p>مبلغ کل: {{ key.total_price }}</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>تصویر</th>
+                            <th>اطلاعات محصول</th>
+                        </tr>
+                    </thead>
+                    {% for order_item in value %}
+                    <tbody>
+                        <tr>
+                            <td class="cartarea__product__thumbnail">
+                                <a href="{% url 'product' product_slug=order_item.product.product_slug %}">
+                                    <img src="{{ order_item.product.image.url }}" alt="{{ order_item.product.title }}"><br>
+                                    <h6 style="margin-top: 30px;">مشاهده محصول</h6>
+                                </a>
+                            </td>
+                            <td class="cartarea__product__name"><a href=""></a><br>
+                            <span class="amount">نام محصول: {{ order_item.product.title }}</span><br>
+                            <span class="amount">تعداد: {{ order_item.quantity }}</span><br>
+                            <span class="amount">قیمت: {{ order_item.price }} تومان</span><br>
+                            </td>
+                        </tr>
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    <a id="empty-cart-btn" class="default__button" href="{% url 'profile_panel' %}" style="margin-top: 35px;">بازگشت</a>
+    {% else %}
+    <div class="row">
+        <div class="col-lg-6 col-lg-6 col-md-6 col-12">
+            <div class="cartarea__grand__totall cartarea__tax">
+                <div id="empty-cart-container" class="cartarea__title">
+                    <img id="empty-order-image" src="{% static './img/logo/no-order.png' %}" alt="سفارش وجود ندارد">
+                    <h4>سفارشی وجود ندارد</h4>
+                    <a id="empty-cart-btn" class="default__button" href="{% url 'index' %}">بازگشت</a> 
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    </div>
+</div>
+<script>
+    document.querySelectorAll(".order-status").forEach((a) => {
+        if (a.innerText === "FA") {
+            a.innerText = "ناموفق"
+        }
+        
+        if (a.innerHTML === "DO") {
+            a.innerText = "موفق"
+        }
+    });
+</script>
+
+{% endblock %}
