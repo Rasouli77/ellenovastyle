@@ -11,7 +11,6 @@ from .models import (
     OrderProduct,
     Attribute,
     AttributeValue,
-    ProductAttributeValue,
     ProductImage,
     ProductSize,
     Discount,
@@ -92,9 +91,6 @@ class ProductResource(resources.ModelResource):
             "status",
             "category",
             "content_code",
-            "glass",
-            "frame",
-            "color",
         )
 
 
@@ -103,8 +99,6 @@ class ProductSizeResource(resources.ModelResource):
         model = ProductSize
         fields = (
             "product",
-            "width",
-            "height",
             "product_code",
             "price",
             "stock",
@@ -129,8 +123,6 @@ class ProductSizeAdmin(ImportExportModelAdmin, admin.ModelAdmin):
     list_display = [
         "product",
         "product_code",
-        "height",
-        "width",
         "stock",
         "price",
         "discount_percent",
@@ -148,10 +140,10 @@ class ProductSizeInline(admin.TabularInline):
 class ProductOrderInline(admin.TabularInline):
     model = OrderProduct
     extra = 0
-    readonly_fields = ["picture", "price", "width", "height", "current_price", "order_item_discount"]
+    readonly_fields = ["picture", "price", "current_price", "order_item_discount"]
     search_fields = ["size"]
     autocomplete_fields = ["size"]
-    fields = ["picture", "product", "size", "width", "height", "current_price", "quantity", "price", "order_item_discount"]
+    fields = ["picture", "product", "size", "current_price", "quantity", "price", "order_item_discount"]
     def width(self, obj):
         width = obj.size.width
         return format_html("<span>{}</span>", width)
@@ -195,9 +187,6 @@ class ProductAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         "title",
         "category",
         "content_code",
-        "glass",
-        "frame",
-        "color",
         "status",
     ]
     list_filter = [
@@ -205,9 +194,6 @@ class ProductAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         HasImage,
         "category",
         "status",
-        "frame",
-        "glass",
-        "color",
         NoSEOContent,
     ]
     search_fields = ["title", "content_code"]
@@ -340,11 +326,6 @@ class AttributeAdmin(admin.ModelAdmin):
 class AttributeValueAdmin(admin.ModelAdmin):
     pass
 
-
-class ProductAttributeValueAdmin(admin.ModelAdmin):
-    pass
-
-
 class DiscountAdmin(admin.ModelAdmin):
     list_display = [
         "name",
@@ -368,6 +349,5 @@ admin.site.register(OrderProduct, OrderProductAdmin)
 admin.site.register(PaymentLog, PaymentLogAdmin)
 admin.site.register(Attribute)
 admin.site.register(AttributeValue)
-admin.site.register(ProductAttributeValue, ProductAttributeValueAdmin)
 admin.site.register(ProductSize, ProductSizeAdmin)
 admin.site.register(Discount, DiscountAdmin)

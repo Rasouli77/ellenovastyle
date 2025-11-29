@@ -112,37 +112,12 @@ class Product(BaseModel):
     content_code = models.CharField(
         max_length=255, null=True, blank=True, verbose_name="کد محتوا", db_index=True
     )
-    glass = models.CharField(
-        max_length=255, choices=Glasses, null=True, blank=True, verbose_name="شیشه"
-    )
-    frame = models.CharField(max_length=255, choices=Frames, null=True, blank=True)
-    color = models.CharField(max_length=255, choices=Colors, null=True, blank=True)
     date_created = models.DateTimeField(
         default=timezone.now, verbose_name="تاریخ ساخت", null=True, blank=True
     )
     modified_date = models.DateTimeField(
         auto_now=True, verbose_name="تاریخ تغییر", null=True, blank=True
     )
-
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            code = self.content_code[:3] + self.content_code[5:]
-            base_title = "تابلو " + self.title + " کد " + code
-            self.title = base_title
-            n = 1
-
-            while self.__class__.objects.filter(title=self.title).exists():
-                self.title = f"{base_title}{n}"
-                n += 1
-
-        if self.product_slug is None:
-            title = self.title
-            slug_title = title.replace("تابلو ", "").replace(" کد ", "")
-            slug_title_final = slug_title.replace(" ", "_")
-            content_code = self.content_code
-            self.product_slug = slug_title_final
-
-        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
@@ -205,33 +180,26 @@ class AttributeValue(BaseModel):
 
     def __str__(self):
         return f"{self.value}"
-
-
-class ProductAttributeValue(BaseModel):
-    product = models.ForeignKey(
-        Product, on_delete=models.CASCADE, verbose_name="محصول", db_index=True
-    )
-    attribute = models.ForeignKey(
-        Attribute, on_delete=models.CASCADE, verbose_name="مشخصه", db_index=True
-    )
-    value = models.ForeignKey(
-        AttributeValue, on_delete=models.CASCADE, verbose_name="ارزش", db_index=True
-    )
-
-    def __str__(self):
-        return f"{self.attribute}: {self.value}"
-
-    class Meta:
-        verbose_name = "مشخصه های فنی محصولات"
-        verbose_name_plural = "مشخصه های فنی محصولات"
-
+    
 
 class ProductSize(BaseModel):
+    '''
+    It is of immense importance to note that ProductSize refers to a product variation.    
+    Do not confuse it with the actual size of the product.
+    This is just a metaphor for the first thing that can come to mind when it comes to product variations.
+    There is no simple product. All products must be tied to at least one variation.
+    So a simple product is a kind of product that has a single variation
+    This so-called ProductSize in this application or product variation can be anything ranging from color to size or anything. 
+    '''
     product = models.ForeignKey(
         Product, related_name="sizes", on_delete=models.CASCADE, verbose_name="محصول"
     )
-    width = models.CharField(max_length=255, verbose_name="عرض")
-    height = models.CharField(max_length=255, verbose_name="طول")
+    attribute = models.ForeignKey(
+        Attribute, on_delete=models.CASCADE, verbose_name="مشخصه", db_index=True, null=True, blank=False # Remove null in production
+    )
+    value = models.ForeignKey(
+        AttributeValue, on_delete=models.CASCADE, verbose_name="ارزش", db_index=True, null=True, blank=False # Remove null in production
+    )
     product_code = models.CharField(
         max_length=255, null=True, blank=True, verbose_name="کد محصول"
     )
@@ -243,11 +211,11 @@ class ProductSize(BaseModel):
     )
 
     class Meta:
-        verbose_name = "محصول به تفکیک ابعاد"
-        verbose_name_plural = "محصول به تفکیک ابعاد"
+        verbose_name = "محصول به تفکیک مشخصه"
+        verbose_name_plural = "محصول به تفکیک مشخصه"
 
     def __str__(self):
-        return f"{self.width, self.height, self.price}"
+        return f"{self.product.title}"
 
     def save(self):
         if self.discount_percent or self.discount_percent == 0:

@@ -6,7 +6,6 @@ from .models import (
     OrderProduct,
     Attribute,
     AttributeValue,
-    ProductAttributeValue,
     ProductImage,
     ProductSize,
 )
@@ -42,9 +41,6 @@ def index(request):
             "meta",
             "date_created",
             "modified_date",
-            "glass",
-            "frame",
-            "color",
             "content_code",
         )
         .filter(status=True)
@@ -88,9 +84,6 @@ def store(request, title: str):
             "meta",
             "date_created",
             "modified_date",
-            "glass",
-            "frame",
-            "color",
             "content_code",
         )
         .filter(status=True, category=category)
@@ -913,8 +906,6 @@ def add_to_cart(request):
             "product_id": product_id,
             "size_id": size_id,
             "quantity": int(quantity),
-            "width": product_size.width,
-            "height": product_size.height,
             "price": (
                 int(product_size.discount_price)
                 if product_size.discount_price
@@ -1022,9 +1013,6 @@ def load_more_products(request):
             "meta",
             "date_created",
             "modified_date",
-            "glass",
-            "frame",
-            "color",
             "content_code",
         ).filter(status=True).prefetch_related("sizes").annotate(stock=Sum("sizes__stock")).filter(stock__gt=0).order_by("-id")
 

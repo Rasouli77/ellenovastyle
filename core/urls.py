@@ -15,7 +15,7 @@ from django.contrib.sitemaps.views import sitemap
 sitemaps = {"products": ProductSitemap, "categories": StaticCategorySitemap}
 
 urlpatterns = [
-    path("admin-panel-BpZ-E(SRtjc4sgJq@yb5m7/", admin.site.urls),
+    path("admin/", admin.site.urls),
     path("checkout/", views.checkout, name="checkout"),
     path("bank-gateway/<int:order_id>", views.bank_gateway, name="bank-gateway"),
     path(
@@ -64,3 +64,7 @@ urlpatterns = [
 ]
 
 handler404 = "shop.views.custom_404"
+
+# This serves media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

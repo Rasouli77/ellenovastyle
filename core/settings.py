@@ -138,8 +138,9 @@ USE_I18N = True
 USE_TZ = False
 
 # Media files configuration
-MEDIA_URL = "/media/"
-MEDIA_ROOT = "/home/artinoga/public_html/media"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+# MEDIA_ROOT = "/home/artinoga/public_html/media"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
