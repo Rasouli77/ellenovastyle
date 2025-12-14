@@ -352,7 +352,7 @@ def checkout(request):
         res = check_snapppay_eligibility_and_display(jwt_token_for_snapppay_display, shipping_and_total_for_snapppay_display)
         title_message_for_snapppay_display = res["title_message"]
         description_for_snapppay_display = res["description"]
-    return render(request, "checkout.html", {"pure_total_price": pure_total_price, "title_message_for_snapppay_display": title_message_for_snapppay_display, "description_for_snapppay_display": description_for_snapppay_display})
+    return render(request, "checkout.html", {"pure_total_price": pure_total_price})
 
 
 @login_required(login_url="register")

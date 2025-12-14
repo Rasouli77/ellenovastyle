@@ -2,74 +2,83 @@
 {% load static %}
 {% block content %}
 {% load cache %}
-{% cache 600 'hero-container' %}
-<div id="hero-container">
-    <div class="row" id="row" style="justify-content: center; margin-top: 36px;">
-        {% if messages %}
-            {% for message in messages %}
-                <div id="index-register-alert" class="alert alert-success alert-dismissible fade show" role="alert">
-                        <strong>{{ message }}</strong>
-                </div>
-            {% endfor %}
-        {% endif %}
-        <div id="collection-container" class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-    		<div id="scrollable-container">
-            <div class="row scroll-item">
-    			<div class="col-6">
-    				<a href="https://artinogame.com/category/game"><h3 class="collection-header">کالکشن تابلو های گیمینگ</h3></a>
-    				<a href="https://artinogame.com/category/game"><p class="collection-text">انواع تابلو های گیمینگ در طرح های متنوع</p></a>
-    			</div>
-    			<div class="col-6">
-    				<a href="https://artinogame.com/category/game"><img class="scroll-image" src="{% static './index_images/gaming-side.jpg' %}" alt="blank"></a>
-    			</div>
-    		</div>
-    		<div class="row scroll-item">
-    			<div class="col-6">
-    				<a href="https://artinogame.com/category/anime-and-manga"><h3 class="collection-header">کالکشن تابلو های انیمه و مانگا</h3></a>
-    				<a href="https://artinogame.com/category/anime-and-manga"><p class="collection-text">انواع تابلو های انیمه و مانگا در طرح های متنوع </p></a>
-    			</div>
-    			<div class="col-6">
-    				<a href="https://artinogame.com/category/anime-and-manga"><img class="scroll-image" src="{% static './index_images/anime-side.jpg' %}" alt="blank"></a>
-    			</div>
-    		</div>
-    		<div class="row scroll-item">
-    			<div class="col-6">
-    				<a href="https://artinogame.com/category/tv-shows"><h3 class="collection-header">کالکشن تابلو های فیلم و سریال</h3></a>
-    				<a href="https://artinogame.com/category/tv-shows"><p class="collection-text">انواع تابلو های فیلم و سریال در طرح های متنوع</p></a>
-    			</div>
-    			<div class="col-6">
-    				<a href="https://artinogame.com/category/tv-shows"><img class="scroll-image" src="{% static './index_images/tv-show-side.jpg' %}" alt="blank"></a>
-    			</div>
-    		</div>
-    		<div class="row scroll-item">
-    			<div class="col-6">
-    				<a href="https://artinogame.com/category/music"><h3 class="collection-header">کالکشن تابلو های موسیقی</h3></a>
-    				<a href="https://artinogame.com/category/music"><p class="collection-text">انواع تابلو با تم موسیقی در طرح های متنوع</p></a>
-    			</div>
-    			<div class="col-6">
-    				<a href="https://artinogame.com/category/music"><img class="scroll-image" src="{% static './index_images/music-side.jpg' %}" alt="blank"></a>
-    			</div>
-    		</div>
-    		</div>
-        </div>
-        <div id="picture-container" class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
-    		<div class="ltn__banner-area full-width-banner">
-                <div class="justify-content-center">
-                  <div class="ltn__banner-item-full-width">         
-                    <div class="ltn__banner-video">
-                     <a href="https://artinogame.com/category/game"><img class="desktop-media-header" autoplay="" muted="" loop="" id="heroVideo" src="{% static './index_images/desktop-header.jpg' %}"></a>
-    				  <a href="https://artinogame.com/category/game"><img class="mobile-media-header" src="{% static './index_images/mobile-header.jpg' %}" style="width: 100%;"></a>
-                    </div>          
-                  </div>
-                </div>
-              </div>
-        </div>
-    </div>
-    </div>
-    {% endcache %}
+    <!-- herobanner__start -->
+	<div class="herobannerarea__slider  slider__default__arrow herobanner__arrow slider__default__dot herobanner__dot">
+
+		<div class="herobannerarea__slider__single position-relative">
+
+			<div class="herobannerarea__slider__image">
+				<img class="img-fluid" src="{% static 'img/herobanner/main_herobanner__7.png' %}" alt="slide Image">
+			</div>
+
+			<div class="herobanner__inner__3">
+				<div class="herobanner__text__wraper herobanner__text__wraper--3 ltn__slide-animation">
+
+					<h4 class="herobanner__small__title">مجموعه طبیعی</h4>
+					<h1 class="herobanner__title animated"><strong>مراقبت از پوست صورت</strong></h1>
+					<div class="herobanner__text animated">
+						<p>سبک‌های جذاب برای روح‌های رویایی.</p>
+					</div>
+
+					<div class="herobanner__button  animated">
+						<a href="#" class="default__button" tabindex="0">اکنون خرید کنید</a>
+					</div>
+				</div>
+			</div> 
+
+		</div> 
+
+
+		<div class="herobannerarea__slider__single position-relative">
+
+			<div class="herobannerarea__slider__image">
+				<img class="img-fluid" src="{% static 'img/herobanner/main_herobanner__6.png' %}" alt="slide Image">
+			</div>
+
+			<div class="herobanner__inner__3">
+				<div class="herobanner__text__wraper herobanner__text__wraper--3 ltn__slide-animation">
+
+					<h4 class="herobanner__small__title">مجموعه طبیعی</h4>
+					<h1 class="herobanner__title animated"><strong>مراقبت از پوست صورت</strong></h1>
+					<div class="herobanner__text animated">
+						<p>سبک‌های جذاب برای روح‌های رویایی.</p>
+					</div>
+
+					<div class="herobanner__button  animated">
+						<a href="#" class="default__button" tabindex="0">اکنون خرید کنید</a>
+					</div>
+				</div>
+			</div> 
+
+		</div> 
+
+		<div class="herobannerarea__slider__single position-relative">
+
+			<div class="herobannerarea__slider__image">
+				<img class="img-fluid" src="{% static 'img/herobanner/main_herobanner__8.png' %}" alt="slide Image">
+			</div>
+
+			<div class="herobanner__inner__3">
+				<div class="herobanner__text__wraper herobanner__text__wraper--3 ltn__slide-animation" >
+
+					<h4 class="herobanner__small__title">مجموعه طبیعی</h4>
+					<h1 class="herobanner__title animated"><strong>مراقبت از پوست صورت</strong></h1>
+					<div class="herobanner__text animated">
+						<p>سبک‌های جذاب برای روح‌های رویایی.</p>
+					</div>
+
+					<div class="herobanner__button  animated">
+						<a href="#" class="default__button" tabindex="0">اکنون خرید کنید</a>
+					</div>
+				</div>
+			</div> 
+
+		</div> 
+	</div>
+    <!-- herobanner__end -->
     <!-- categories -->
     <!-- titles -->
-    {% load cache %}
+    <!-- {% load cache %}
     {% cache 600 'titles' %}
     <div class="instagram">
     	<div class="container">
@@ -164,7 +173,7 @@
     	</div>
     </div>
     </div>
-    {% endcache %}
+    {% endcache %} -->
     <!-- end -->
     <div class="shop sp_top_80">
     <div class="container">
@@ -354,11 +363,11 @@
         });
     });
     
-    document.addEventListener("DOMContentLoaded", () => {
-        setTimeout(() => {
-        document.getElementById("index-register-alert").classList.add("index-hide");
-        }, 3000);
-    })
+    // document.addEventListener("DOMContentLoaded", () => {
+    //    setTimeout(() => {
+    //    document.getElementById("index-register-alert").classList.add("index-hide");
+    //    }, 3000);
+    // })
 </script>
 {% endblock %}
 		

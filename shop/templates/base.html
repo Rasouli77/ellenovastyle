@@ -8,10 +8,9 @@
     <meta name="description" content="{% block meta_description %}خرید انواع محصولات زنانه با قیمت و کیفیت مناسب در النوا استایل{% endblock %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="canonical" href="{% block canonical %}{{ request.build_absolute_uri }}{% endblock %}"/>
-    <link rel="shortcut icon" type="image/x-icon" href="{% static './img/logo/artino-game-favicon.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static './img/logo/' %}">
     <!-- Place favicon.ico in the root directory -->
-{% load cache %}
-{% cache 600 "head" %}                                                          
+{% load cache %}                                                       
     <!-- CSS here -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
@@ -31,8 +30,40 @@
             font-size: 12.5px;
         }
     </style>
+	<!-- New Style -->
+	<style>
+	.headerarea__logo {
+    	display: flex !important;
+    	justify-content: center !important;
+    	align-items: center !important;
+	}
+	</style>
+	<style>
+		@media (min-width: 1200px) {
+			.container, .container-lg, .container-md, .container-sm, .container-xl {
+				max-width: 100% !important;
+				padding: 0px !important;
+			}
+		}
+		@media (min-width: 1400px) {
+			.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+				max-width: 100% !important;
+				padding: 0px !important;
+			}
+		}
+		@media (min-width: 1500px) and (max-width: 1920px) {
+			.container {
+				max-width: 100% !important;
+				padding: 0px !important;
+			}
+		}
+		@media (min-width: 991px) {
+			.headerarea.header__sticky {
+				padding: 8px 0px;
+			}
+		}
+	</style>
 </head>
-{% endcache %}
 <body>
 
 	<div class="search-desktop-click-capture"></div>
@@ -45,15 +76,17 @@
 		<div class="container desktop__menu__wrapper">
 			<div class="row common__row position-relative">
 				<div class="col-xl-2 col-lg-2 col-md-6">
-					<div class="headerarea__logo">
-						<a href="{% url 'index' %}"><img id="logo-image-desktop" src="{% static './img/logo/artino-game-logo.png' %}" alt=""></a>
-					</div>
+					<svg role="presentation" stroke-width="2" focusable="false" width="22" height="22" class="icon icon-search" id="icon-search-mobile" viewbox="0 0 22 22">
+						<circle cx="11" cy="10" r="7" fill="none" stroke="currentColor"></circle>
+						<path d="m16 15 3 3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+					</svg>
+					<input type="text" name="" id="search-input" style="width: 100%; border: none; padding-right: 60px;" placeholder="جست و جو محصولات...">
 				</div>
 
 
 				<div class="col-xl-8 col-lg-8 col-md-6 main_menu_wrap">
 
-					<div class="headerarea__main__menu ">
+					<!-- <div class="headerarea__main__menu ">
 						<nav class="search-container">
 							<svg role="presentation" stroke-width="2" focusable="false" width="22" height="22" class="icon icon-search" id="icon-search" viewbox="0 0 22 22">
 								<circle cx="11" cy="10" r="7" fill="none" stroke="currentColor"></circle>
@@ -61,14 +94,16 @@
 							</svg>
 							<input type="text" name="" id="search-input" style="width: 75%;">
 						</nav>
+					</div> -->
+					<div class="headerarea__logo">
+						<a href="{% url 'index' %}"><img id="logo-image-desktop" src="{% static './img/logo/artino-game-logo.png' %}" alt=""></a>
 					</div>
-
 				</div>
 
 
 				<div class="col-xl-2 col-lg-2 col-md-6">
 
-					<div class="headerarea__right">
+					<div class="headerarea__right" style="display: flex; flex-direction: column;">
 
 						<ul class="headerarea__right__nav">
 							<li>
@@ -78,6 +113,25 @@
 											<path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></path>
 											<path d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
 										</svg>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="setting__wrap cursor__pointer">
+									<div class="">
+										<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+											<path d="M352 80c-44.7 0-86.5 24.1-96 64
+													c-9.5-39.9-51.3-64-96-64
+													c-52.9 0-96 43.1-96 96
+													c0 87.1 151.2 208 192 256
+													c40.8-48 192-168.9 192-256
+													c0-52.9-43.1-96-96-96z"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="32"
+													stroke-linecap="round"
+													stroke-linejoin="round"/>
+											</svg>
 									</div>
 								</div>
 							</li>
@@ -107,28 +161,28 @@
 
 		</div>
 	</div>
-	<hr id="line-bottom-desktop" style="margin: 0px;">
+	<!-- <hr id="line-bottom-desktop" style="margin: 0px;"> -->
 
 	<!-- second nav desktop -->
 
-	<nav class="navbar navbar-expand-lg">
+	<!-- <nav class="navbar navbar-expand-lg">
 		<div class="collapse navbar-collapse" id="navbarNav" style="justify-content: center; align-items: center;">
 		  <ul class="navbar-nav">
 			<li class="nav-item">
-				<a class="nav-link" href="https://artinogame.com/category/game">گیم</a>
+				<a class="nav-link" href="">کیف</a>
 			  </li>
 			<li class="nav-item">
-			  <a class="nav-link" href="https://artinogame.com/category/tv-shows">فیلم</a>
+			  <a class="nav-link" href="">کفش</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="https://artinogame.com/category/anime-and-manga">انیمه</a>
+				<a class="nav-link" href="">ساعت</a>
 			  </li>
 			  <li class="nav-item">
-				<a class="nav-link" href="https://artinogame.com/category/music">موسیقی</a>
+				<a class="nav-link" href="">آرایشی</a>
 			  </li>
 		  </ul>
 		</div>
-	  </nav>
+	  </nav> -->
 	<hr id="line-bottom-desktop" style="margin: 0px;">
 
 	<!-- second nav desktop end -->
@@ -158,16 +212,6 @@
 					<div class="header__right__inner__wrap d-flex align-items-center justify-content-end">
 
 						<ul class="headerarea__right headerarea__right__mobail__menu">
-							<li>
-								<div class="headerarea__search cursor__pointer" id="headerarea__search">
-
-									<svg role="presentation" stroke-width="2" focusable="false" width="22" height="22" class="icon icon-search" viewbox="0 0 22 22">
-										<circle cx="11" cy="10" r="7" fill="none" stroke="currentColor"></circle>
-										<path d="m16 15 3 3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-									</svg>
-
-								</div>
-							</li>
 
 							<li>
 								<div class="setting__wrap cursor__pointer">
@@ -211,13 +255,13 @@
 
 		</div>
 	</div>
-	<nav class="search-container-mobile">
+	<!-- <nav class="search-container-mobile">
 		<svg role="presentation" stroke-width="2" focusable="false" width="22" height="22" class="icon icon-search" id="icon-search-mobile" viewbox="0 0 22 22">
 			<circle cx="11" cy="10" r="7" fill="none" stroke="currentColor"></circle>
 			<path d="m16 15 3 3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
 		</svg>
 		<input type="text" name="q" name="" id="search-input-mobile" style="width: 90%;" placeholder="جست و جوی طرح ها">
-	</nav>
+	</nav> -->
 	<hr id="line-bottom-mobile" style="margin: 0px;">
 	<!-- Mobile Menu Start Here -->
 	<div class="mobile-off-canvas-active">
@@ -258,7 +302,6 @@
 							</li>
 						</ul>
 					</nav>
-
 				</div>
 
 
@@ -564,8 +607,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	});
 	// snapppay price 
-	document.querySelector("#snapppay-dynamic-price").innerHTML = (parseInt(document.querySelector("#dynamic-price").innerHTML) / 4)*1000;
-	document.querySelector("#snapppay-dynamic-price").innerHTML = parseInt(document.querySelector("#snapppay-dynamic-price").innerHTML.replace(/,/g, ""), 10).toLocaleString("en-US")
+	// document.querySelector("#snapppay-dynamic-price").innerHTML = (parseInt(document.querySelector("#dynamic-price").innerHTML) / 4)*1000;
+	// document.querySelector("#snapppay-dynamic-price").innerHTML = parseInt(document.querySelector("#snapppay-dynamic-price").innerHTML.replace(/,/g, ""), 10).toLocaleString("en-US")
 	});
 </script>
 <script>
