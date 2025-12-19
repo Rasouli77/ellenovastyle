@@ -836,8 +836,8 @@ li {
   }
 }
 .default__button:hover {
-  background-color: var(--whiteColor);
-  color: #1185ed;
+  background-color: white;
+  color: #000000;
   border: 1px solid var(--blackColor);
 }
 .default__button__2 {
@@ -5619,10 +5619,6 @@ blockquote i {
   padding: 3px;
 }
 
-.featurearea__single__big__img img {
-  width: 100%;
-}
-
 .featurearea__details__img {
   position: sticky;
   margin-bottom: 0;
@@ -5649,9 +5645,7 @@ blockquote i {
 .featurearea__thumb__img.slider__default__arrow .slick-arrow.next_class {
   right: 45px;
 }
-.featurearea__single__big__img img {
-  width: 100%;
-}
+
 .featurearea__single__thumb__img {
   padding: 0 5px;
 }
@@ -7729,9 +7723,6 @@ button#no-stock-btn {
   color: #ffffff;
   border-radius: 54px; /* Keeps pill shape intact */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.form-select-size {
-  display: none;
 }
 #select-form {
   width: 100%;

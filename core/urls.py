@@ -41,7 +41,6 @@ urlpatterns = [
     ),
     path("about-us/", views.about, name="about-us"),
     path("privacy/", views.privacy, name="privacy"),
-    path("store-locator", views.store_locator, name="store-locator"),
     path(
         "terms-and-conditions", views.terms_and_conditions, name="terms-and-conditions"
     ),

@@ -4,8 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}فروشگاه النوا استایل{% endblock %}</title>
-    <meta name="description" content="{% block meta_description %}خرید انواع محصولات زنانه با قیمت و کیفیت مناسب در النوا استایل{% endblock %}">
+    <title>{% block title %}فروشگاه النوا {% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}خرید انواع محصولات زنانه با قیمت و کیفیت مناسب در النوا {% endblock %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="canonical" href="{% block canonical %}{{ request.build_absolute_uri }}{% endblock %}"/>
     <link rel="shortcut icon" type="image/x-icon" href="{% static './img/logo/' %}">
@@ -296,8 +296,6 @@
 
 								</ul>
 							</li>
-							<li><a href="{% url 'store-locator' %}">فروشگاه حضوری</a>
-							</li>
 							<li><a href="{% url 'faqs' %}">تماس با ما</a>
 							</li>
 						</ul>
@@ -465,8 +463,6 @@
 {% block content %}
 {% endblock %}
 <!-- footer__section__start -->
-{% load cache %}
-{% cache 600 "footer" %}
 <div class="footer ">
     <div class="footer__inner sp_top_80">
         <div class="container sp_bottom_60">
@@ -475,10 +471,10 @@
                     <div class="footer__widget">
                         <h4 class="footer__title">درباره ما</h4>
                         <div class="footer__content">
-                            <p>خرید تابلو از فروشگاه آرتینو گیم که تنوع بالایی از این محصول را با سبک‌ها و طراحی‌های مختلف در اختیار شما قرار می‌دهد، باعث می‌شود تا براساس سلیقه خود بهترین گزینه را تهیه کرده و محیط مورد نظرتان را به زیبایی هرچه تمام‌تر طراحی کنید.</p>
+                            <p>النوا</p>
                         </div>
                         <div class="footer__bottom">
-    					<h5>فروشگاه آرتینو گیم</h5>
+    					<h5>فروشگاه النوا</h5>
                             
                     </div>
                     </div>
@@ -489,7 +485,7 @@
                         <h4 class="footer__title">خدمات مشتریان</h4>
                         <div class="footer__menu">
                         <ul>
-                            <li><a href="tel:09301103505">پشتیبانی: 09301103505</a></li>
+                            <li><a href="tel:09301103505">پشتیبانی: </a></li>
                             <li><a href="{% url 'faqs' %}">سوالات متداول </a></li>
                             <li><a href="{% url 'terms-and-conditions' %}"> شرایط و ضوابط</a></li>
                             <li><a href="{% url 'privacy' %}">حریم خصوصی</a></li>
@@ -500,11 +496,9 @@
     
                 <div class="col-xl-2 col-lg-2 col-md-6 col-sm-4 col-6">
                     <div class="footer__widget">
-                        <h4 class="footer__title"> درباره آرتینو گیم</h4>
+                        <h4 class="footer__title"> درباره </h4>
                         <div class="footer__menu">
                         <ul>
-                            <li><a href="{% url 'store-locator' %}">نمایندگی‌های فروش</a></li>
-    						<li><a href="{% url 'blog' %}">مجله آنلاین</a></li>
                             <li><a href="{% url 'about-us' %}">درباره ما</a></li>
                         </ul>
                       </div>
@@ -527,7 +521,6 @@
         </div>
     </div>
 </div>
-{% endcache %}
  <!-- footer__section__end -->
 </main>
 <!-- JS here -->
@@ -573,45 +566,6 @@ $(document).ready(function() {
 <script src="{% static 'js/plugins.js' %}"></script>
 <script src="{% static 'js/main.js' %}"></script>
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-	searchBtn = document.getElementById("icon-search")
-	form = document.getElementById("form")
-	newInput = document.getElementById("search-input")
-	oldInput = document.getElementById("old-input")
-	
-	// Search Mobile
-	searchInputMobile = document.getElementById("search-input-mobile")
-	searchMobileBtn = document.getElementById("icon-search-mobile")
-
-	searchBtn.addEventListener("click", () => {
-		oldInput.value = newInput.value;
-		form.submit()
-	})
-
-	searchMobileBtn.addEventListener("click", () => {
-		oldInput.value = searchInputMobile.value ;
-		form.submit()
-	})
-
-	newInput.addEventListener("keydown", function (event) {
-		if (event.key === "Enter") {
-			oldInput.value = newInput.value;
-			form.submit()
-			}
-		})
-	
-		searchInputMobile.addEventListener("keydown", function (event) {
-		if (event.key === "Enter") {
-			oldInput.value = searchInputMobile.value ;
-			form.submit()
-		}
-	});
-	// snapppay price 
-	// document.querySelector("#snapppay-dynamic-price").innerHTML = (parseInt(document.querySelector("#dynamic-price").innerHTML) / 4)*1000;
-	// document.querySelector("#snapppay-dynamic-price").innerHTML = parseInt(document.querySelector("#snapppay-dynamic-price").innerHTML.replace(/,/g, ""), 10).toLocaleString("en-US")
-	});
-</script>
-<script>
     // Separator
     document.addEventListener("DOMContentLoaded", () => {
         const nums = document.querySelectorAll(".num");
@@ -619,6 +573,19 @@ document.addEventListener("DOMContentLoaded", () => {
             num.innerHTML = parseInt(num.textContent.replace(/,/g, ""), 10).toLocaleString("en-US");
         });
     });
+</script>
+<script>
+$(document).ready(function () {
+  $('.image-popup').magnificPopup({
+    type: 'image',
+    closeOnContentClick: false,
+    closeBtnInside: true,
+    mainClass: 'mfp-zoom-in',
+    image: {
+      verticalFit: true
+    }
+  });
+});
 </script>
 </body>
 </html>

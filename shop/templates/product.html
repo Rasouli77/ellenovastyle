@@ -20,6 +20,47 @@
             height: 42px !important;
         } 
     }
+    .slick-track {
+        margin-right: 20px !important;
+    }
+
+    @media screen and (max-width: 768px) {
+        #desktop-product-gallery {
+            display: none !important;
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        #mobile-product-gallery {
+            display: none !important;
+        }
+    }
+
+    #select-form {
+        background: white;
+        padding: 0px !important;
+        display: flex;
+    }
+
+    .form-select-size {
+        display: none !important;
+    }
+
+    #add-to-cart-wishlist {
+        display: flex;
+    }
+
+    .image-popup {
+        cursor: zoom-in;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    body {
+        cursor: default;
+    }
+
 </style>
 <div id="imageModal" class="modal">
 	<span class="close">&times;</span>
@@ -45,14 +86,27 @@
                         </ul>
 				    </div>
                 </div>
-                <h1 style="padding-right: 20px; margin-top: 25px; font-size: xx-large;">{{ product.title }}</h1>
+                <h1 style="padding-right: 20px; margin-top: 25px; font-size: x-large;">{{ product.title }}</h1>
+                <div id="desktop-product-gallery" class="featurearea__thumb__img featurearea__thumb__img__slider__active slider__default__arrow">
+                    <div class="featurearea__single__thumb__img">
+                        <img src="{{ product.image.url }}" alt="خرید و قیمت {{ product.title }}">
+                    </div>
+                    {% if product_images %}
+                    {% for product_image in product_images %}
+                    <div class="featurearea__single__thumb__img">
+                        <img src="{{ product_image.image.url }}" alt="خرید و قیمت {{ product.title }}">
+                    </div>
+                    {% endfor %}
+                    {% endif %}
+                </div>
             </div>
             <div class="col-xl-6 col-lg-7 col-md-12">
                 <div class="featurearea__details__img" dir="ltr" >
-
                     <div class="featurearea__big__img" >
                         <div class="featurearea__single__big__img">
-                            <img src="{{ product.image.url }}" alt="خرید و قیمت {{ product.title }}" class="product-image">
+                            <a href="{{ product.image.url }}" style="text-decoration: none;" class="image-popup">
+                                <img src="{{ product.image.url }}" alt="خرید و قیمت {{ product.title }}" class="product-image">
+                            </a>
                         </div>
 						{% if product_images %}
 						{% for product_image in product_images %}
@@ -62,7 +116,7 @@
 						{% endfor %}
 						{% endif %}
                     </div>
-                    <div class=" featurearea__thumb__img featurearea__thumb__img__slider__active slider__default__arrow">
+                    <div id="mobile-product-gallery" class="featurearea__thumb__img featurearea__thumb__img__slider__active slider__default__arrow">
                         <div class="featurearea__single__thumb__img">
                             <img src="{{ product.image.url }}" alt="خرید و قیمت {{ product.title }}">
                         </div>
@@ -78,67 +132,50 @@
             </div>
             <div class="col-xl-3 col-lg-3 col-md-12">
                 <div class="single__product__wrap">
-                    <div class="single__product__price">
-                        <span><span id="dynamic-price"></span>تومان</span>
-                        {% for size in product.sizes.all %}
-                            {% if size.discount_price %}
-                            <del class="dynamic-discount-price num none">{{ size.price }} تومان</del>
-                            <label class="discount-label none">{{ size.discount_percent }}%</label>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
                     <ul id="stock">
                         {% for size in product.sizes.all %}
                         <li>{{ size.stock }}</li>
                         {% endfor %}
                     </ul>
-                    <label for="size">انتخاب</label>
-                    <div class="SizePickerMobile_wrapper__OqE9G" style="display: flex; flex-direction: column; align-items: center;">
-                        <div class="SizePickerMobile_inputWrapper__AVuvW" style="margin-top: 12px;">
-                            <div class="pillsPicker_container__CDlRW" style="display: flex; background-color: #eceff4; border-radius: 54px; width: fit-content; position: relative; transition: width .2s ease-in-out; width: auto;">
-                                {% for size in product.sizes.all %}
-                                <label class="pillsPicker_option__ZNzXO pillsPicker_capitalizeOff__lcpoU">
-                                    <input class="pillsPicker_radio__gzr5z" value="{{ size.id }}" name="M" type="radio">
-                                    <div class="pillsPicker_optionLabel__etHEh">
-                                        <span id="unit" class="none">سانت</span>
-                                        
-                                        <span id="size-letter"></span>
-                                        
-                                        <span class="pillsPicker_optionDescription__NOp2H pillsPicker_activeOptionDescription__FY9Y5 none">{{ size.height }} × {{ size.width }}</span>
-                                    </div>
-                                </label>
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="single__product__special__feature">
-                    </div>
-                    <form method="POST" action="{% url 'add_to_cart' %}" id="select-form">
-                        {% csrf_token %}
-                        <input type="hidden" name="product" value="{{ product.id }}">
-                        <label class="form-select-size" for="size">انتخاب سایز:</label>
-                        <select class="form-select-size" id="select-size" name="size" required>
-                            {% for size in product.sizes.all %}
-                            {% if  size.discount_price %}
-                            <option class="form-select-size" value="{{ size.id }}">
-                                {{ size.width }}x{{ size.height }} - {{ size.discount_price }} تومان
-                            </option>
-                            {% else %}
-                            <option class="form-select-size" value="{{ size.id }}">
-                                {{ size.width }}x{{ size.height }} - {{ size.price }} تومان
-                            </option>
-                            {% endif %}
-                            {% endfor %}
-                        </select><br>
-                        <label class="form-select-size" for="quantity">تعداد:</label>
-                        <input class="form-select-size" type="number" name="quantity" min="1" value="1" required>
-                        <button type="submit" class="default__button" id="custum-add-to-cart-btn">افرودن به سبد</button>
-                        <button class="default__button none" id="no-stock-btn" style="background-color: #646769; border-color: #646769;" disabled>ناموجود</button>
-                        <button type="submit" class="default__button" id="add-to-wishlist"><i class="fa-regular fa-heart"></i></button>
-                    </form>
-                    <div class="descriptionarea sp_bottom_80" style="margin-top: 20px; padding-left: 30px; ">
+                    <div class="descriptionarea sp_bottom_80" style="margin-top: 20px; padding-left: 15px; ">
                         <div class="container">
                             <div class="row">
+                                <div class="col-lg-12 col-md-12 descriptionarea__tab__wrapper" style="border-radius: 8px; background-color: white; margin-bottom: 15px;">
+                                     <div class="single__product__price">
+                                        <span><span id="dynamic-price"></span>تومان</span>
+                                        {% for size in product.sizes.all %}
+                                            {% if size.discount_price %}
+                                            <del class="dynamic-discount-price num none">{{ size.price }} تومان</del>
+                                            <label class="discount-label none">{{ size.discount_percent }}%</label>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </div>
+                                    <div id="add-to-cart-wishlist">
+                                        <form method="POST" action="{% url 'add_to_cart' %}" id="select-form">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="product" value="{{ product.id }}">
+                                            <label class="form-select-size" for="size">انتخاب:</label>
+                                            <select class="form-select-size" id="select-size" name="size" required>
+                                                {% for size in product.sizes.all %}
+                                                {% if  size.discount_price %}
+                                                <option class="form-select-size" value="{{ size.id }}">
+                                                    {{ size.width }}x{{ size.height }} - {{ size.discount_price }} تومان
+                                                </option>
+                                                {% else %}
+                                                <option class="form-select-size" value="{{ size.id }}">
+                                                    {{ size.width }}x{{ size.height }} - {{ size.price }} تومان
+                                                </option>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </select><br>
+                                            <label class="form-select-size" for="quantity">تعداد:</label>
+                                            <input class="form-select-size" type="number" name="quantity" min="1" value="1" required>
+                                            <button type="submit" class="default__button" id="custum-add-to-cart-btn">افرودن به سبد</button>
+                                            <button class="default__button none" id="no-stock-btn" style="background-color: #646769; border-color: #646769;" disabled>ناموجود</button>
+                                        </form>
+                                        <button type="submit" class="default__button" id="add-to-wishlist"><i class="fa-regular fa-heart"></i></button>
+                                    </div>
+                                </div>
                                 <div class="col-lg-12 col-md-12 descriptionarea__tab__wrapper" style="border-radius: 8px; background-color: white;">
                                     <ul class="nav  descriptionarea__tab__button" id="myTab" role="tablist">
                                         <li class="nav-item" role="presentation">

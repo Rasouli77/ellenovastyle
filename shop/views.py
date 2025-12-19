@@ -1051,10 +1051,6 @@ def privacy(request):
     return render(request, "privacy.html")
 
 
-def store_locator(request):
-    return render(request, "store-locator.html")
-
-
 def terms_and_conditions(request):
     return render(request, "terms-and-conditions.html")
 
