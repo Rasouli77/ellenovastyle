@@ -109,9 +109,6 @@ class Product(BaseModel):
         verbose_name="دسته بندی",
         db_index=True,
     )
-    content_code = models.CharField(
-        max_length=255, null=True, blank=True, verbose_name="کد محتوا", db_index=True
-    )
     date_created = models.DateTimeField(
         default=timezone.now, verbose_name="تاریخ ساخت", null=True, blank=True
     )
@@ -127,7 +124,6 @@ class Product(BaseModel):
         verbose_name_plural = "محصول"
         indexes = [
             models.Index(fields=["status"]),
-            models.Index(fields=["content_code"]),
         ]
 
     def get_absolute_url(self):
@@ -173,7 +169,7 @@ class AttributeValue(BaseModel):
         Attribute, on_delete=models.CASCADE, verbose_name="مشخصه"
     )
     value = models.CharField(max_length=255, verbose_name="ارزش مشخصه")
-
+    secondary_value = models.CharField(max_length=255, null=True, blank=True, verbose_name="ارزش دوم مشخصه")
     class Meta:
         verbose_name = "ارزش مشخصه"
         verbose_name_plural = "ارزش مشخصه"
@@ -203,7 +199,8 @@ class ProductSize(BaseModel):
     product_code = models.CharField(
         max_length=255, null=True, blank=True, verbose_name="کد محصول"
     )
-    price = models.PositiveIntegerField(verbose_name="قیمت")
+    real_price = models.PositiveIntegerField(verbose_name="قیمت به دلار", null=True, blank=True)
+    price = models.PositiveIntegerField(verbose_name="قیمت به تومان")
     stock = models.PositiveIntegerField(null=True)
     discount_percent = models.PositiveIntegerField(null=True, blank=True)
     discount_price = models.PositiveIntegerField(

@@ -90,7 +90,6 @@ class ProductResource(resources.ModelResource):
             "content",
             "status",
             "category",
-            "content_code",
         )
 
 
@@ -186,7 +185,6 @@ class ProductAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         "id",
         "title",
         "category",
-        "content_code",
         "status",
     ]
     list_filter = [
@@ -196,7 +194,7 @@ class ProductAdmin(ImportExportModelAdmin, admin.ModelAdmin):
         "status",
         NoSEOContent,
     ]
-    search_fields = ["title", "content_code"]
+    search_fields = ["title"]
 
     def image_thumbnail(self, obj):
         if obj.image:

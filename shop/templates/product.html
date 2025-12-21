@@ -61,6 +61,34 @@
         cursor: default;
     }
 
+    .color-circles {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .story-circle {
+        width: clamp(50px, 10vw, 70px);
+        height: clamp(50px, 10vw, 70px);
+        border-radius: 50%;
+        background: #cdcdcd;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+
+    .story-circle .fill {
+        width: 85%;
+        height: 85%;
+        border-radius: 50%;
+        background-color: #ccc;
+        border: 3px solid #fff;
+    }
+
+    .slick-track {
+        transform: translate3d(0, 0, 0) !important;
+    }
 </style>
 <div id="imageModal" class="modal">
 	<span class="close">&times;</span>
@@ -70,48 +98,52 @@
 <div class="single__product sp_top_50 sp_bottom_80" style="margin: 0px; background: #d9d9d9;">
     <div class="container" id="product-container">
         <div class="row" id="product-row">
-            <div class="col-xl-3 col-lg-2 col-md-12">
-                <div class="single__product__heding">
-                    <div class="breadcrumb__title">
-                        <ul>
-                            <li>
-                                <a href="{% url 'index' %}">خانه</a>
-                            </li>
-                            <li class="color__blue">
-                                <a href="{% url 'store' title=product.category.title %}">{{ product.category }}</a>
-                            </li>
-                            <li class="color__blue">
-                                <a href="{% url 'product' product_slug=product.product_slug %}">{{ product.title }}</a>
-                            </li>
-                        </ul>
-				    </div>
-                </div>
-                <h1 style="padding-right: 20px; margin-top: 25px; font-size: x-large;">{{ product.title }}</h1>
-                <div id="desktop-product-gallery" class="featurearea__thumb__img featurearea__thumb__img__slider__active slider__default__arrow">
-                    <div class="featurearea__single__thumb__img">
-                        <img src="{{ product.image.url }}" alt="خرید و قیمت {{ product.title }}">
+            <div class="col-xl-3 col-lg-2 col-md-12" style="padding-top: 20px;">
+                <div id="id-container" style="background-color: white; padding: 15px; border-radius: 8px; margin-right: 6.5px; margin-bottom: 20px;">
+                    <div class="single__product__heding">
+                        <div class="breadcrumb__title">
+                            <ul>
+                                <li>
+                                    <a href="{% url 'index' %}" style="text-decoration: underline;">خانه</a>
+                                </li>
+                                <li class="color__blue">
+                                    <a href="{% url 'store' title=product.category.title %}" style="text-decoration: underline;">{{ product.category }}</a>
+                                </li>
+                                <li class="color__blue">
+                                    <a href="{% url 'product' product_slug=product.product_slug %}" style="text-decoration: underline;">{{ product.title }}</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    {% if product_images %}
-                    {% for product_image in product_images %}
-                    <div class="featurearea__single__thumb__img">
-                        <img src="{{ product_image.image.url }}" alt="خرید و قیمت {{ product.title }}">
+                    <h1 style="padding-right: 20px; margin-top: 25px; font-size: x-large;">{{ product.title }}</h1>
+                    <div id="desktop-product-gallery" class="featurearea__thumb__img featurearea__thumb__img__slider__active slider__default__arrow">
+                        <div class="featurearea__single__thumb__img">
+                            <img src="{{ product.image.url }}" alt="خرید و قیمت {{ product.title }}">
+                        </div>
+                        {% if product_images %}
+                        {% for product_image in product_images %}
+                        <div class="featurearea__single__thumb__img">
+                            <img src="{{ product_image.image.url }}" alt="خرید و قیمت {{ product.title }}">
+                        </div>
+                        {% endfor %}
+                        {% endif %}
                     </div>
-                    {% endfor %}
-                    {% endif %}
                 </div>
             </div>
             <div class="col-xl-6 col-lg-7 col-md-12">
                 <div class="featurearea__details__img" dir="ltr" >
                     <div class="featurearea__big__img" >
                         <div class="featurearea__single__big__img">
-                            <a href="{{ product.image.url }}" style="text-decoration: none;" class="image-popup">
+                            <a href="{{ product.image.url }}" style="text-decoration: none; cursor:pointer;" class="image-popup">
                                 <img src="{{ product.image.url }}" alt="خرید و قیمت {{ product.title }}" class="product-image">
                             </a>
                         </div>
 						{% if product_images %}
 						{% for product_image in product_images %}
                         <div class="featurearea__single__big__img">
-                            <img src="{{ product_image.image.url }}" alt="خرید و قیمت {{ product.title }}" class="product-image">
+                            <a href="{{ product_image.image.url }}" style="text-decoration: none; cursor:pointer;" class="image-popup">
+                                <img src="{{ product_image.image.url }}" alt="خرید و قیمت {{ product.title }}" class="product-image">
+                            </a>
                         </div>
 						{% endfor %}
 						{% endif %}
@@ -141,7 +173,31 @@
                         <div class="container">
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 descriptionarea__tab__wrapper" style="border-radius: 8px; background-color: white; margin-bottom: 15px;">
-                                     <div class="single__product__price">
+                                    {% with first_var=product.sizes.all|first %}
+                                        <!-- color -->
+                                        {% if first_var.attribute.name == 'رنگ' %}
+                                            <div class="color-circles">
+                                                {% for var in product.sizes.all %}
+                                                <div class="story-circle" data-color="#{{ var.value.value }}" id="{{ var.id }}">
+                                                    <span class="fill" style="background-color:#{{ var.value.value }}"></span>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                        <!-- size -->
+                                        {% if first_var.attribute.name == 'اندازه' %}
+                                            <div class="color-circles">
+                                                {% for var in product.sizes.all %}
+                                                <div class="story-circle" data-color="#{{ var.value.value }}" id="{{ var.id }}">
+                                                    <span style="color: white;">{{ var.value.value }}</span>
+                                                </div>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    {% endwith %}
+                                </div>
+                                <div class="col-lg-12 col-md-12 descriptionarea__tab__wrapper" style="border-radius: 8px; background-color: white; margin-bottom: 15px;">
+                                    <div class="single__product__price">
                                         <span><span id="dynamic-price"></span>تومان</span>
                                         {% for size in product.sizes.all %}
                                             {% if size.discount_price %}
@@ -158,12 +214,12 @@
                                             <select class="form-select-size" id="select-size" name="size" required>
                                                 {% for size in product.sizes.all %}
                                                 {% if  size.discount_price %}
-                                                <option class="form-select-size" value="{{ size.id }}">
-                                                    {{ size.width }}x{{ size.height }} - {{ size.discount_price }} تومان
+                                                <option class="form-select-size" value="{{ size.id }}" aria-label="{{ size.value }}">
+                                                    {{ size.discount_price }}
                                                 </option>
                                                 {% else %}
-                                                <option class="form-select-size" value="{{ size.id }}">
-                                                    {{ size.width }}x{{ size.height }} - {{ size.price }} تومان
+                                                <option class="form-select-size" value="{{ size.id }}" aria-label="{{ size.value }}">
+                                                    {{ size.price }}
                                                 </option>
                                                 {% endif %}
                                                 {% endfor %}
@@ -186,9 +242,9 @@
                                         <div class="tab-pane fade active show" id="description" role="tabpanel" aria-labelledby="description">  
                                             {{ product.content|safe }}
                                         <span>کد محصول: <span id="product-code"></span></span>
-                                        <ul class="none" id="product-code-container">
+                                        <ul id="product-code-container">
                                         {% for size in product.sizes.all %}
-                                        <li class="product-code-items">{{ size.product_code }}</li>
+                                        <li class="product-code-items none" aria-label="{{size.id}}">{{ size.product_code }}</li>
                                         {% endfor %}
                                         </ul>
                                         </div>
@@ -203,4 +259,55 @@
     </div>
 </div>
 </div></div></div></div>
+<script>
+    const wholeProduct = document.querySelector('.single__product');
+    const selectVar = document.querySelector('#select-size');
+    const storyCircles = document.querySelectorAll('.story-circle');
+    const options = document.querySelectorAll('option');
+    const dynamicPrice = document.querySelector('#dynamic-price');
+    function changeCode() {
+        productCodeItems.forEach(i => {
+            if (selectVar.value === i.ariaLabel) {
+                i.classList.remove('none');
+            } else {
+                i.classList.add('none');
+            }
+        });
+    }
+    storyCircles[0].style.background = 'black';
+    options.forEach(o => {
+        if (o.value === selectVar.value) {
+            o.classList.add('selected');
+        } else {
+            o.classList.remove('selected');
+        }
+    });
+    const productCodeItems = document.querySelectorAll('.product-code-items');
+    productCodeItems[0].classList.remove('none');
+    dynamicPrice.innerHTML = document.querySelector('.selected').innerText;
+    if (storyCircles) {
+        storyCircles.forEach(i => {
+            i.addEventListener('click', () => {
+                selectVar.value = i.id;
+                options.forEach(o => {
+                    if (o.value === selectVar.value) {
+                        o.classList.add('selected');
+                    } else {
+                        o.classList.remove('selected');
+                    }
+                });
+                dynamicPrice.innerHTML = document.querySelector('.selected').innerText;
+                storyCircles.forEach(x => {
+                    if (x.id === selectVar.value) {
+                        x.style.background = 'black';
+                    } else {
+                        x.style.background = '#cdcdcd';
+                    }
+                });
+                wholeProduct.style.background = `#${document.querySelector('.selected').ariaLabel}`;
+                changeCode();
+            });
+        });
+    }
+</script>
 {% endblock %}

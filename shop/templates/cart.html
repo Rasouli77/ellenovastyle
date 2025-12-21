@@ -112,8 +112,13 @@
                             </td>
                             <td class="cartarea__product__name"><a href="{% url 'product' product_slug=item.product.product_slug %}">{{ item.product.title }}</a><br>
                             <span class="amount">
-                                ابعاد: {{ item.size.height }}x{{ item.size.width }}
+                                {{ item.size.attribute.name }}: {{ item.size.value.value }}
                             </span><br>
+                            {% if item.size.value.secondary_value %}
+                            <span class="amount">
+                                مشخصه: {{ item.size.value.secondary_value }}
+                            </span><br>
+                            {% endif %}
                             {% if item.size.discount_price %}
                             <span class="amount"><span class="num">{{ item.size.discount_price }}</span> تومان</span><br>
                             <del class="amount"><span class="num">{{ item.size.price }}</span> تومان</del><br>

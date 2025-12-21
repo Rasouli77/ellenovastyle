@@ -418,7 +418,10 @@
 							{% else %}
 							<span><span class="money num">{{ item.size.price }} تومان</span> x {{ item.quantity }}</span><br>
 							{% endif %}
-							<span>ابعاد: {{ item.size.height }}x{{ item.size.width }}</span>
+							<span>{{ item.size.attribute.name }}: {{ item.size.value.value }}</span><br>
+							{% if item.size.value.secondary_value %}
+							<span>مشخصه: {{ item.size.value.secondary_value }}</span>
+							{% endif %}
 						</div>
 						<br>
 					</div>

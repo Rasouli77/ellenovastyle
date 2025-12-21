@@ -373,7 +373,7 @@
 							{% else %}
 							<span><span class="money">{{ item.size.price }} تومان</span> x {{ item.quantity }}</span><br>
 							{% endif %}
-							<span>ابعاد: {{ item.size.height }}x{{ item.size.width }}</span>
+							<span>{{ item.size.attribute.name }}:{{ item.size.value.value }}</span>
 							<!-- <span><span class="money">{{ item.size.height }} x {{ item.size.width }} سانتیمتر</span></span> -->
 						</div>
 						<br>

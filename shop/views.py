@@ -41,7 +41,6 @@ def index(request):
             "meta",
             "date_created",
             "modified_date",
-            "content_code",
         )
         .filter(status=True)
         .prefetch_related("sizes")
@@ -84,7 +83,6 @@ def store(request, title: str):
             "meta",
             "date_created",
             "modified_date",
-            "content_code",
         )
         .filter(status=True, category=category)
         .annotate(stock=Sum("sizes__stock"))
@@ -135,29 +133,11 @@ def product(request, product_slug: str):
         Product.objects.prefetch_related("images"), product_slug=product_slug
     )
 
-    related_products = (
-        Product.objects.filter(content_code=product.content_code, status=True)
-        .exclude(pk=product.pk)
-        .prefetch_related(Prefetch("sizes", to_attr="prefetched_sizes"))
-    )
-
-    related_products_data = []
-    for related_product in related_products:
-        product_size = (
-            related_product.prefetched_sizes[0]
-            if related_product.prefetched_sizes
-            else None
-        )
-        related_products_data.append(
-            {"product": related_product, "product_size": product_size}
-        )
-
     return render(
         request,
         "product.html",
         {
             "product": product,
-            "related_products_data": related_products_data,
             "product_images": product.images.all(),
         },
     )
@@ -1013,7 +993,6 @@ def load_more_products(request):
             "meta",
             "date_created",
             "modified_date",
-            "content_code",
         ).filter(status=True).prefetch_related("sizes").annotate(stock=Sum("sizes__stock")).filter(stock__gt=0).order_by("-id")
 
         products = products[offset : offset + limit]
