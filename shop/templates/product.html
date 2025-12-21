@@ -164,11 +164,6 @@
             </div>
             <div class="col-xl-3 col-lg-3 col-md-12">
                 <div class="single__product__wrap">
-                    <ul id="stock">
-                        {% for size in product.sizes.all %}
-                        <li>{{ size.stock }}</li>
-                        {% endfor %}
-                    </ul>
                     <div class="descriptionarea sp_bottom_80" style="margin-top: 20px; padding-left: 15px; ">
                         <div class="container">
                             <div class="row">
@@ -188,7 +183,7 @@
                                         {% if first_var.attribute.name == 'اندازه' %}
                                             <div class="color-circles">
                                                 {% for var in product.sizes.all %}
-                                                <div class="story-circle" data-color="#{{ var.value.value }}" id="{{ var.id }}">
+                                                <div class="story-circle" id="{{ var.id }}">
                                                     <span style="color: white;">{{ var.value.value }}</span>
                                                 </div>
                                                 {% endfor %}
@@ -198,11 +193,13 @@
                                 </div>
                                 <div class="col-lg-12 col-md-12 descriptionarea__tab__wrapper" style="border-radius: 8px; background-color: white; margin-bottom: 15px;">
                                     <div class="single__product__price">
-                                        <span><span id="dynamic-price"></span>تومان</span>
+                                        <span><span class="num" id="dynamic-price"></span> تومان</span>
                                         {% for size in product.sizes.all %}
                                             {% if size.discount_price %}
-                                            <del class="dynamic-discount-price num none">{{ size.price }} تومان</del>
-                                            <label class="discount-label none">{{ size.discount_percent }}%</label>
+                                            <div class="discount-container none" aria-label="{{size.id}}">
+                                                <del class="dynamic-discount-price num">{{ size.price }} تومان</del>
+                                                <label class="discount-label">{{ size.discount_percent }}%</label>
+                                            </div>
                                             {% endif %}
                                         {% endfor %}
                                     </div>
@@ -210,15 +207,14 @@
                                         <form method="POST" action="{% url 'add_to_cart' %}" id="select-form">
                                             {% csrf_token %}
                                             <input type="hidden" name="product" value="{{ product.id }}">
-                                            <label class="form-select-size" for="size">انتخاب:</label>
                                             <select class="form-select-size" id="select-size" name="size" required>
                                                 {% for size in product.sizes.all %}
                                                 {% if  size.discount_price %}
-                                                <option class="form-select-size" value="{{ size.id }}" aria-label="{{ size.value }}">
+                                                <option class="form-select-size num" value="{{ size.id }}" aria-label="{{ size.value }}" data-stock="{{ size.stock }}">
                                                     {{ size.discount_price }}
                                                 </option>
                                                 {% else %}
-                                                <option class="form-select-size" value="{{ size.id }}" aria-label="{{ size.value }}">
+                                                <option class="form-select-size num" value="{{ size.id }}" aria-label="{{ size.value }}" data-stock="{{ size.stock }}">
                                                     {{ size.price }}
                                                 </option>
                                                 {% endif %}
@@ -227,7 +223,7 @@
                                             <label class="form-select-size" for="quantity">تعداد:</label>
                                             <input class="form-select-size" type="number" name="quantity" min="1" value="1" required>
                                             <button type="submit" class="default__button" id="custum-add-to-cart-btn">افرودن به سبد</button>
-                                            <button class="default__button none" id="no-stock-btn" style="background-color: #646769; border-color: #646769;" disabled>ناموجود</button>
+                                            <button class="default__button" id="no-stock-btn" style="background-color: #646769; border-color: #646769;" disabled>ناموجود</button>
                                         </form>
                                         <button type="submit" class="default__button" id="add-to-wishlist"><i class="fa-regular fa-heart"></i></button>
                                     </div>
@@ -265,6 +261,9 @@
     const storyCircles = document.querySelectorAll('.story-circle');
     const options = document.querySelectorAll('option');
     const dynamicPrice = document.querySelector('#dynamic-price');
+    const discountContainers = document.querySelectorAll('.discount-container');
+    const customAddToCartBtn = document.querySelector('#custum-add-to-cart-btn');
+    const noStockBtn = document.querySelector('#no-stock-btn');
     function changeCode() {
         productCodeItems.forEach(i => {
             if (selectVar.value === i.ariaLabel) {
@@ -274,6 +273,25 @@
             }
         });
     }
+    function showDiscount() {
+        discountContainers.forEach(i => {
+            if (selectVar.value === i.ariaLabel) {
+                i.classList.remove('none');
+            } else {
+                i.classList.add('none');
+            }
+        });
+    }
+    function noStock() {
+        if (document.querySelector('.selected').dataset.stock === '0') {
+            customAddToCartBtn.classList.add('none');
+            noStockBtn.classList.remove('none');
+        } else {
+            customAddToCartBtn.classList.remove('none');
+            noStockBtn.classList.add('none');
+        }
+    }
+    showDiscount();
     storyCircles[0].style.background = 'black';
     options.forEach(o => {
         if (o.value === selectVar.value) {
@@ -282,6 +300,7 @@
             o.classList.remove('selected');
         }
     });
+    noStock();
     const productCodeItems = document.querySelectorAll('.product-code-items');
     productCodeItems[0].classList.remove('none');
     dynamicPrice.innerHTML = document.querySelector('.selected').innerText;
@@ -306,6 +325,8 @@
                 });
                 wholeProduct.style.background = `#${document.querySelector('.selected').ariaLabel}`;
                 changeCode();
+                showDiscount();
+                noStock();
             });
         });
     }

@@ -748,15 +748,15 @@ def snapppay_gateway(request, order_id):
         return render(request, "bank_gateway.html", {"error": f"{str(e)}"})
 
 
-ZP_API_REQUEST = f"https://payment.zarinpal.com/pg/v4/payment/request.json"
-ZP_API_VERIFY = f"https://payment.zarinpal.com/pg/v4/payment/verify.json"
-ZP_API_STARTPAY = f"https://payment.zarinpal.com/pg/StartPay/"
+ZP_API_REQUEST = f"https://sandbox.zarinpal.com/pg/v4/payment/request.json" # change this later
+ZP_API_VERIFY = f"https://sandbox.zarinpal.com/pg/v4/payment/verify.json" # change this later
+ZP_API_STARTPAY = f"https://sandbox.zarinpal.com/pg/StartPay/" # change this later
 
 amount = 1000  # Rial / Required
 description = "توضیحات مربوط به تراکنش را در این قسمت وارد کنید"  # Required
 phone = "YOUR_PHONE_NUMBER"  # Optional
 
-CallbackURL = "http://artinogame.com/verify/"
+CallbackURL = "http://127.0.0.1:8000/verify/" # change this later
 
 
 @login_required

@@ -45,7 +45,7 @@ urlpatterns = [
         "terms-and-conditions", views.terms_and_conditions, name="terms-and-conditions"
     ),
     path("faqs", views.faqs, name="faqs"),
-    path("verify", views.verify, name="verify"),
+    path("verify/", views.verify, name="verify"),
     path("snapppay-result", views.snapppay_payment_result, name="snapppay_result"),
     path("snapppay-verify", views.snapppay_payment_verify, name="snapppay_verify"),
     path("snapppay-cancel/<str:snapppay_payment_token>", views.snapppay_payment_cancel, name="snapppay_cancel"),

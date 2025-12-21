@@ -1,17 +1,16 @@
 <!doctype html>
 {% load static %}
 <html class="no-js" lang="zxx" dir="rtl">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>{% block title %}تابلو گیمینگ | فروشگاه آنلاین تابلو گیمینگ و خرید تابلو گیمینگ | آرتینو گیم{% endblock %}</title>
-    <meta name="description" content="{% block meta_description %} خرید و قیمت انواع تابلو گیمینگ ، انیمه و انیمیشن در تنوع بالا با قیمت مناسب در آرتینو گیم{% endblock %}">
+    <title>{% block title %}فروشگاه النوا {% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}خرید انواع محصولات زنانه با قیمت و کیفیت مناسب در النوا {% endblock %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="canonical" href="{% block canonical %}{{ request.build_absolute_uri }}{% endblock %}"/>
-    <link rel="shortcut icon" type="image/x-icon" href="{% static './img/logo/artino-favicon.jpg' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static './img/logo/' %}">
     <!-- Place favicon.ico in the root directory -->
-                                                             
+{% load cache %}                                                       
     <!-- CSS here -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/animate.min.css' %}">
@@ -20,32 +19,74 @@
     <link rel="stylesheet" href="{% static 'css/futura-std-4' %}">
     <link rel="stylesheet" href="{% static 'css/slick.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
-
-
+    <style>
+        h1 {
+            font-size: 18px;
+        }
+        h2 {
+            font-size: 16px;
+        }
+        p {
+            font-size: 12.5px;
+        }
+    </style>
+	<!-- New Style -->
+	<style>
+	.headerarea__logo {
+    	display: flex !important;
+    	justify-content: center !important;
+    	align-items: center !important;
+	}
+	</style>
+	<style>
+		@media (min-width: 1200px) {
+			.container, .container-lg, .container-md, .container-sm, .container-xl {
+				max-width: 100% !important;
+				padding: 0px !important;
+			}
+		}
+		@media (min-width: 1400px) {
+			.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+				max-width: 100% !important;
+				padding: 0px !important;
+			}
+		}
+		@media (min-width: 1500px) and (max-width: 1920px) {
+			.container {
+				max-width: 100% !important;
+				padding: 0px !important;
+			}
+		}
+		@media (min-width: 991px) {
+			.headerarea.header__sticky {
+				padding: 8px 0px;
+			}
+		}
+	</style>
 </head>
-
-
 <body>
 
 	<div class="search-desktop-click-capture"></div>
     <main class="main_wrapper body__overlay overflow__hidden">
         
 <!-- header section start -->
+
 <header>
 	<div class="headerarea header__sticky">
 		<div class="container desktop__menu__wrapper">
 			<div class="row common__row position-relative">
 				<div class="col-xl-2 col-lg-2 col-md-6">
-					<div class="headerarea__logo">
-						<a href="{% url 'index' %}"><img id="logo-image-desktop" src="{% static './img/logo/artino-logo-header.png' %}" alt=""></a>
-					</div>
+					<svg role="presentation" stroke-width="2" focusable="false" width="22" height="22" class="icon icon-search" id="icon-search-mobile" viewbox="0 0 22 22">
+						<circle cx="11" cy="10" r="7" fill="none" stroke="currentColor"></circle>
+						<path d="m16 15 3 3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
+					</svg>
+					<input type="text" name="" id="search-input" style="width: 100%; border: none; padding-right: 60px;" placeholder="جست و جو محصولات...">
 				</div>
 
 
 				<div class="col-xl-8 col-lg-8 col-md-6 main_menu_wrap">
 
-					<div class="headerarea__main__menu ">
+					<!-- <div class="headerarea__main__menu ">
 						<nav class="search-container">
 							<svg role="presentation" stroke-width="2" focusable="false" width="22" height="22" class="icon icon-search" id="icon-search" viewbox="0 0 22 22">
 								<circle cx="11" cy="10" r="7" fill="none" stroke="currentColor"></circle>
@@ -53,14 +94,16 @@
 							</svg>
 							<input type="text" name="" id="search-input" style="width: 75%;">
 						</nav>
+					</div> -->
+					<div class="headerarea__logo">
+						<a href="{% url 'index' %}"><img id="logo-image-desktop" src="{% static './img/logo/artino-game-logo.png' %}" alt=""></a>
 					</div>
-
 				</div>
 
 
 				<div class="col-xl-2 col-lg-2 col-md-6">
 
-					<div class="headerarea__right">
+					<div class="headerarea__right" style="display: flex; flex-direction: column;">
 
 						<ul class="headerarea__right__nav">
 							<li>
@@ -70,6 +113,25 @@
 											<path d="M344 144c-3.92 52.87-44 96-88 96s-84.15-43.12-88-96c-4-55 35-96 88-96s92 42 88 96z" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></path>
 											<path d="M256 304c-87 0-175.3 48-191.64 138.6C62.39 453.52 68.57 464 80 464h352c11.44 0 17.62-10.48 15.65-21.4C431.3 352 343 304 256 304z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path>
 										</svg>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="setting__wrap cursor__pointer">
+									<div class="">
+										<svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512">
+											<path d="M352 80c-44.7 0-86.5 24.1-96 64
+													c-9.5-39.9-51.3-64-96-64
+													c-52.9 0-96 43.1-96 96
+													c0 87.1 151.2 208 192 256
+													c40.8-48 192-168.9 192-256
+													c0-52.9-43.1-96-96-96z"
+													fill="none"
+													stroke="currentColor"
+													stroke-width="32"
+													stroke-linecap="round"
+													stroke-linejoin="round"/>
+											</svg>
 									</div>
 								</div>
 							</li>
@@ -99,28 +161,28 @@
 
 		</div>
 	</div>
-	<hr id="line-bottom-desktop" style="margin: 0px;">
+	<!-- <hr id="line-bottom-desktop" style="margin: 0px;"> -->
 
 	<!-- second nav desktop -->
 
-	<nav class="navbar navbar-expand-lg">
+	<!-- <nav class="navbar navbar-expand-lg">
 		<div class="collapse navbar-collapse" id="navbarNav" style="justify-content: center; align-items: center;">
 		  <ul class="navbar-nav">
 			<li class="nav-item">
-				<a class="nav-link" href="#">آیتم 1</a>
+				<a class="nav-link" href="">کیف</a>
 			  </li>
 			<li class="nav-item">
-			  <a class="nav-link" href="#">آیتم 2</a>
+			  <a class="nav-link" href="">کفش</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">آیتم 3</a>
+				<a class="nav-link" href="">ساعت</a>
 			  </li>
 			  <li class="nav-item">
-				<a class="nav-link" href="#">آیتم 4</a>
+				<a class="nav-link" href="">آرایشی</a>
 			  </li>
 		  </ul>
 		</div>
-	  </nav>
+	  </nav> -->
 	<hr id="line-bottom-desktop" style="margin: 0px;">
 
 	<!-- second nav desktop end -->
@@ -140,7 +202,7 @@
 			</div>
 			<div class="col-sm-4 col-4">
 				<div class="mobile-logo">
-					<a class="logo__mobile" href="{% url 'index' %}"><img src="{% static './img/logo/artino-logo-header.png' %}" alt="logo"></a>
+					<a class="logo__mobile" href="{% url 'index' %}"><img src="{% static './img/logo/artino-game-logo-mobile.png' %}" alt="logo"></a>
 				</div>
 			</div>
 			<div class="col-sm-4 col-4">
@@ -150,16 +212,6 @@
 					<div class="header__right__inner__wrap d-flex align-items-center justify-content-end">
 
 						<ul class="headerarea__right headerarea__right__mobail__menu">
-							<li>
-								<div class="headerarea__search cursor__pointer" id="headerarea__search">
-
-									<svg role="presentation" stroke-width="2" focusable="false" width="22" height="22" class="icon icon-search" viewbox="0 0 22 22">
-										<circle cx="11" cy="10" r="7" fill="none" stroke="currentColor"></circle>
-										<path d="m16 15 3 3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-									</svg>
-
-								</div>
-							</li>
 
 							<li>
 								<div class="setting__wrap cursor__pointer">
@@ -203,23 +255,22 @@
 
 		</div>
 	</div>
-	<nav class="search-container-mobile">
+	<!-- <nav class="search-container-mobile">
 		<svg role="presentation" stroke-width="2" focusable="false" width="22" height="22" class="icon icon-search" id="icon-search-mobile" viewbox="0 0 22 22">
 			<circle cx="11" cy="10" r="7" fill="none" stroke="currentColor"></circle>
 			<path d="m16 15 3 3" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
 		</svg>
 		<input type="text" name="q" name="" id="search-input-mobile" style="width: 90%;" placeholder="جست و جوی طرح ها">
-	</nav>
+	</nav> -->
 	<hr id="line-bottom-mobile" style="margin: 0px;">
-		
 	<!-- Mobile Menu Start Here -->
 	<div class="mobile-off-canvas-active">
 		<a class="mobile-aside-close"><i class="fa fa-close"></i></a>
 		<div class="header-mobile-aside-wrap">
 
 			<div class="mobile__logo">
-				<a href="index.html">
-					<img src="{% static './img/logo/logo__1.png' %}" alt="Logo">
+				<a href="">
+					<img src="{% static './img/logo/artino-game-logo-mobile.png' %}" alt="logo">
 				</a>
 			</div>
 
@@ -245,13 +296,10 @@
 
 								</ul>
 							</li>
-							<li><a href="{% url 'store-locator' %}">فروشگاه حضوری</a>
-							</li>
 							<li><a href="{% url 'faqs' %}">تماس با ما</a>
 							</li>
 						</ul>
 					</nav>
-
 				</div>
 
 
@@ -262,6 +310,7 @@
 					<div class="lang-curr-dropdown account-dropdown-active">
 						<ul>
 							{% if user.is_authenticated %}
+							<li><a href="{% url 'profile_panel' %}">حساب کاربری</a></li>
 							<li><a href="{% url 'logout' %}">خروج</a></li>
 							{% else %}
 							<li><a href="{% url 'register' %}">ورود / ثبت نام</a></li>
@@ -281,7 +330,6 @@
 		</div>
 	</div>
 	<!-- Mobile Menu end Here -->
-
 	<!-- setting__wrap__list__start -->
 	<div class="setting__wrap__list">
 		<button class="setting__wrap__close">
@@ -289,15 +337,12 @@
 				<title>بستن</title>
 				<path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32" d="M368 368L144 144M368 144L144 368"></path>
 			</svg></button>
-
-		<div class="setting__wrap__heading">
-			<h6>
-				<a href="#">حساب کاربری</a>
-			</h6>
-		</div>
 		<div class="setting__wrap__list__inner">
 			<ul>
 				{% if user.is_authenticated %}
+				<li>
+					<a href="{% url 'profile_panel' %}">پنل کاربری</a>
+            	</li>
             	<li>
 					<form action="{% url 'logout' %}" method="post">
 					{% csrf_token %}
@@ -368,20 +413,17 @@
 						<div class="minicart__single__content">
 							<h4><a href="{% url 'product' product_slug=item.product.product_slug %}">{{ item.product.title }}</a></h4>
 							{% if item.size.discount_price %}
-							<span><span class="money">{{ item.size.discount_price }} تومان</span> x {{ item.quantity }}</span><br>
-							<span><del class="money">{{ item.size.price }} تومان</del></span><br>
+							<span><span class="money num">{{ item.size.discount_price }} تومان</span> x {{ item.quantity }}</span><br>
+							<span><del class="money num">{{ item.size.price }} تومان</del></span><br>
 							{% else %}
-							<span><span class="money">{{ item.size.price }} تومان</span> x {{ item.quantity }}</span><br>
+							<span><span class="money num">{{ item.size.price }} تومان</span> x {{ item.quantity }}</span><br>
 							{% endif %}
-							<span>ابعاد: {{ item.size.height }}x{{ item.size.width }}</span>
-							<!-- <span><span class="money">{{ item.size.height }} x {{ item.size.width }} سانتیمتر</span></span> -->
+							<span>{{ item.size.attribute.name }}: {{ item.size.value.value }}</span><br>
+							{% if item.size.value.secondary_value %}
+							<span>مشخصه: {{ item.size.value.secondary_value }}</span>
+							{% endif %}
 						</div>
 						<br>
-						<!-- <div class="minicart__single__content">
-							<span><span class="money">{{ item.size.height }} x {{ item.size.width }} سانتیمتر</span></span>
-						</div> -->
-
-
 					</div>
 					{% endfor %}
 				{% else %}
@@ -401,11 +443,11 @@
 				<div class="minicart__footer">
 					<div class="minicart__subtotal">
 						<span class="subtotal__title"> جمع کل:</span>
-						<span class="subtotal__amount">{{ all_total }} تومان</span>
+						<span class="subtotal__amount num">{{ all_total }} تومان</span>
 					</div>
 					<div class="minicart__button">
 						<a href="{% url 'cart' %}" class="default__button">مشاهده سبد خرید</a>
-						<a href="{% url 'checkout' %}" class="default__button">پرداخت</a>
+						<!--<a href="{% url 'checkout' %}" class="default__button">پرداخت</a>-->
 					</div>
 					<!-- <div class="cart__note__text">
 						<p>ارسال رایگان برای تمام سفارشات بالای  تومان 100!</p>
@@ -415,175 +457,141 @@
 				<div class="minicart__footer">
 				</div>
 				{% endif %}
-				
-
-
 			</div>
 		</div>
 	</section>
 	<!-- minicart__section__end -->
-
 </header>
 <!-- header section end -->
 {% block content %}
-
 {% endblock %}
-
-
 <!-- footer__section__start -->
 <div class="footer ">
     <div class="footer__inner sp_top_80">
-    <div class="container sp_bottom_60">
-        <div class="row">
-            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                <div class="footer__widget">
-                    <h4 class="footer__title">درباره ما</h4>
-                    <div class="footer__content">
-                        <p>خرید تابلو از فروشگاه آرتینو که تنوع بالایی از این محصول را با سبک‌ها و طراحی‌های مختلف در اختیار شما قرار می‌دهد، باعث می‌شود تا براساس سلیقه خود بهترین گزینه را تهیه کرده و محیط مورد نظرتان را به زیبایی هرچه تمام‌تر طراحی کنید.</p>
+        <div class="container sp_bottom_60">
+            <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                    <div class="footer__widget">
+                        <h4 class="footer__title">درباره ما</h4>
+                        <div class="footer__content">
+                            <p>النوا</p>
+                        </div>
+                        <div class="footer__bottom">
+    					<h5>فروشگاه النوا</h5>
+                            
                     </div>
-                    <div class="footer__social__icon">
+                    </div>
+                </div>
+    
+                <div class="col-xl-2 col-lg-2 col-md-6 col-sm-4 col-6">
+                    <div class="footer__widget">
+                        <h4 class="footer__title">خدمات مشتریان</h4>
+                        <div class="footer__menu">
                         <ul>
-                            <li><a target="_blank" title="Facebook-f" href="https://www.facebook.com/shopify"><i class="fab fa-facebook-f"></i></a></li>     
-                            
-                            
-                            <li><a target="_blank" title="Twitter" href="https://twitter.com/shopify"><i class="fab fa-twitter"></i></a></li>       
-                               
-                            
-                            
-                            <li><a target="_blank" title="Youtube" href="https://www.youtube.com/user/shopify"><i class="fab fa-youtube"></i></a></li>       
-                            
-                            
-                            <li><a target="_blank" title="Instagram" href="https://www.instagram.com/shopify/"><i class="fab fa-instagram"></i></a></li>       
-                            
-                            
-                            <li><a target="_blank" title="Tiktok" href="https://www.tiktok.com/@shopify"><i class="fab fa-glide"></i></a></li>       
-                            
-                            
-                            </ul>
+                            <li><a href="tel:09301103505">پشتیبانی: </a></li>
+                            <li><a href="{% url 'faqs' %}">سوالات متداول </a></li>
+                            <li><a href="{% url 'terms-and-conditions' %}"> شرایط و ضوابط</a></li>
+                            <li><a href="{% url 'privacy' %}">حریم خصوصی</a></li>
+                        </ul>
+                      </div>
                     </div>
-                    <div class="footer__bottom">
-					<h5>فروشگاه آرتینو</h5>
-                        
                 </div>
+    
+                <div class="col-xl-2 col-lg-2 col-md-6 col-sm-4 col-6">
+                    <div class="footer__widget">
+                        <h4 class="footer__title"> درباره </h4>
+                        <div class="footer__menu">
+                        <ul>
+                            <li><a href="{% url 'about-us' %}">درباره ما</a></li>
+                        </ul>
+                      </div>
+                    </div>
                 </div>
-            </div>
-
-            <!-- <div class="col-xl-2 col-lg-2 col-md-6 col-sm-4 col-6">
-                <div class="footer__widget">
-                    <h4 class="footer__title">راهنمای خرید</h4>
-                    <div class="footer__menu">
-                    <ul>
-                        <li><a href="">روش پرداخت</a></li>
-                        <li><a href="">روش ارسال</a></li>
-                    </ul>
-                  </div>
-                </div>
-            </div> -->
-
-
-            <div class="col-xl-2 col-lg-2 col-md-6 col-sm-4 col-6">
-                <div class="footer__widget">
-                    <h4 class="footer__title">خدمات مشتریان</h4>
-                    <div class="footer__menu">
-                    <ul>
-                        <li><a href="tel:09307007005">پشتیبانی: 09307007005</a></li>
-                        <li><a href="{% url 'faqs' %}">سوالات متداول </a></li>
-                        <li><a href="{% url 'terms-and-conditions' %}"> شرایط و ضوابط</a></li>
-                        <li><a href="{% url 'privacy' %}">حریم خصوصی</a></li>
-                    </ul>
-                  </div>
+    
+                <div class="col-xl-2 col-lg-2 col-md-6 col-sm-4 col-6">
+                    <div class="footer__widget">
+                        <h4 class="footer__title">نماد اعتماد</h4>
+                        <div class="footer__menu">
+                        <ul>
+                            <li>
+    							<a referrerpolicy='origin' target='_blank' href='https://trustseal.enamad.ir/?id=596501&Code=D3IVR2my4rsUDzqekHr7emBIHIZfTyPH'><img referrerpolicy='origin' src='https://trustseal.enamad.ir/logo.aspx?id=596501&Code=D3IVR2my4rsUDzqekHr7emBIHIZfTyPH' alt='' style='cursor:pointer' code='D3IVR2my4rsUDzqekHr7emBIHIZfTyPH'></a>
+    						</li>
+                        </ul>
+                      </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="col-xl-2 col-lg-2 col-md-6 col-sm-4 col-6">
-                <div class="footer__widget">
-                    <h4 class="footer__title"> درباره آرتینو</h4>
-                    <div class="footer__menu">
-                    <ul>
-                        <li><a href="{% url 'store-locator' %}">فروشگاه حضوری</a></li>
-						<li><a href="{% url 'blog' %}">مجله آنلاین</a></li>
-                        <li><a href="{% url 'about-us' %}">درباره ما</a></li>
-                    </ul>
-                  </div>
-                </div>
-            </div>
-
-
-
         </div>
     </div>
 </div>
-
-
-  </div>
  <!-- footer__section__end -->
-
-
 </main>
+<!-- JS here -->
+<script src="{% static 'js/vendor/modernizr-3.5.0.min.js' %}"></script>
+<!-- 1. JQuery -->
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+<!-- 2. Select2 JS & CSS -->
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-
-    <!-- JS here -->
-    <script src="{% static 'js/vendor/modernizr-3.5.0.min.js' %}"></script>
-    <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
-
-    <script src="{% static 'js/popper.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
-    <script src="{% static 'js/one-page-nav-min.js' %}"></script>
-    <script src="{% static 'js/slick.min.js' %}"></script>
-    <script src="{% static 'js/jquery.meanmenu.min.js' %}"></script>
-    <script src="{% static 'js/ajax-form.js' %}"></script>
-    <script src="{% static 'js/wow.min.js' %}"></script>
-    <script src="{% static 'js/jquery.scrollUp.min.js' %}"></script>
-    <script src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
-    <script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
-    <script src="{% static 'js/waypoints.min.js' %}"></script>
-    <script src="{% static 'js/jquery.counterup.min.js' %}"></script>
-    <script src="{% static 'js/fontawesome.min.js' %}"></script>
-    <script src="{% static 'js/plugins.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
-	
+<!-- 3. Initialize Select2 -->
+<script>
+$(document).ready(function() {
+    $('#city_edit').select2({
+        placeholder: "شهر خود را انتخاب کنید",
+        allowClear: true,
+        dropdownParent: $('.checkoutarea')
+    });
+    $('#town_edit').select2({
+        placeholder: "شهرستان خود را انتخاب کنید",
+        allowClear: true,
+        dropdownParent: $('.checkoutarea')
+    });
+    $('.info').on('select2:open', function () {
+        document.querySelector('.select2-container--open .select2-search__field').focus();
+    });
+});
+</script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'js/one-page-nav-min.js' %}"></script>
+<script src="{% static 'js/slick.min.js' %}"></script>
+<script src="{% static 'js/jquery.meanmenu.min.js' %}"></script>
+<script src="{% static 'js/ajax-form.js' %}"></script>
+<script src="{% static 'js/wow.min.js' %}"></script>
+<script src="{% static 'js/jquery.scrollUp.min.js' %}"></script>
+<script src="{% static 'js/imagesloaded.pkgd.min.js' %}"></script>
+<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+<script src="{% static 'js/waypoints.min.js' %}"></script>
+<script src="{% static 'js/jquery.counterup.min.js' %}"></script>
+<script src="{% static 'js/fontawesome.min.js' %}"></script>
+<script src="{% static 'js/plugins.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script>
+    // Separator
+    document.addEventListener("DOMContentLoaded", () => {
+        const nums = document.querySelectorAll(".num");
+        nums.forEach((num) => {
+            num.innerHTML = parseInt(num.textContent.replace(/,/g, ""), 10).toLocaleString("en-US");
+        });
+    });
+</script>
+<script>
+$(document).ready(function () {
+  $('.image-popup').magnificPopup({
+    type: 'image',
+    closeOnContentClick: false,
+    closeBtnInside: true,
+    mainClass: 'mfp-zoom-in',
+    image: {
+      verticalFit: true
+    }
+  });
+});
+</script>
 </body>
-
 </html>
 
-<script>
-	document.addEventListener("DOMContentLoaded", () => {
-		searchBtn = document.getElementById("icon-search")
-		form = document.getElementById("form")
-		newInput = document.getElementById("search-input")
-		oldInput = document.getElementById("old-input")
-		
-		/* Mobile */
-		searchInputMobile = document.getElementById("search-input-mobile")
-		searchMobileBtn = document.getElementById("icon-search-mobile")
 
 
-		searchBtn.addEventListener("click", () => {
-			oldInput.value = newInput.value;
-			form.submit()
-		})
-
-		searchMobileBtn.addEventListener("click", () => {
-			oldInput.value = searchInputMobile.value ;
-			form.submit()
-		})
-
-		newInput.addEventListener("keydown", function (event) {
-			if (event.key === "Enter") {
-				oldInput.value = newInput.value;
-				form.submit()
-				}
-			})
-		
-			searchInputMobile.addEventListener("keydown", function (event) {
-			if (event.key === "Enter") {
-				oldInput.value = searchInputMobile.value ;
-				form.submit()
-			}
-		})
-		
-		})
-
-		
-</script>

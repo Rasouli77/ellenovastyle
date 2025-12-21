@@ -307,27 +307,18 @@
                         <div class="checkoutarea__payment__toggle">
                             <form id="payment" method="post">
                                 {% csrf_token %}
-                               <div class="checkoutarea__payment__total">
-                                <div class="checkoutarea__payment__type" id="zarinpal">
-                                    <input type="radio" name="payment_method" value="zarinpal" style="margin-left: 10px">
-                                    <img src="{% static './img/feature/zarinpal.png' %}" class="payment-image" alt="زرین پال">
-                                    <label for="pay-toggle01">پرداخت با درگاه امن زرین پال</label>
-                                </div>
-                                </div>
                                 <div class="checkoutarea__payment__total">
-                                <div class="checkoutarea__payment__type" id="snapppay">
-                                    <input type="radio" name="payment_method" value="snapppay" style="margin-left: 10px" id="snapppay_payment_option">
-                                    <img src="{% static './img/feature/snapppay.png' %}" class="payment-image" alt="اسنپ پی">
-                                    <label for="pay-toggle01">{{title_message_for_snapppay_display}}<br>
-                                    {{description_for_snapppay_display}}
-                                    </label>
+                                    <div class="checkoutarea__payment__type" id="zarinpal">
+                                        <input type="radio" name="payment_method" value="zarinpal" style="margin-left: 10px">
+                                        <img src="{% static './img/feature/zarinpal.png' %}" class="payment-image" alt="زرین پال">
+                                        <label for="pay-toggle01">پرداخت با درگاه امن زرین پال</label>
+                                    </div>
                                 </div>
-                                </div>
-                                </div>
-                                <div class="checkoutarea__payment__input__box">
-                                    <input type="hidden" name="discount_code" id="discount_code_gateway">
-									<button id="final-btn" type="submit" class="default__button">ثبت سفارش</button>
-                                </div>
+                            </div>
+                            <div class="checkoutarea__payment__input__box">
+                                <input type="hidden" name="discount_code" id="discount_code_gateway">
+                                <button id="final-btn" type="submit" class="default__button">ثبت سفارش</button>
+                            </div>
                             </form>
                         </div>
                     </div>

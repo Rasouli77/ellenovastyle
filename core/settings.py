@@ -181,7 +181,7 @@ UPDATE_PRICE = "a123456789"
 ZARINPAL_API_REQUEST = "https://www.zarinpal.com/pg/v4/payment/request.json"
 ZARINPAL_ZP_API_VERIFY = "https://www.zarinpal.com/pg/v4/payment/verify.json"
 ZARINPAL_API_STARTPAY = "https://www.zarinpal.com/pg/StartPay/"
-ZARINPAL_CALLBACK_URL = "http://artinogame.com/verify"
+ZARINPAL_CALLBACK_URL = "http://127.0.0.1:8000/verify/" # change this later
 MERCHANT = os.getenv("MERCHANT")
 
 SANDBOX = False

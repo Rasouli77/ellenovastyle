@@ -299,7 +299,7 @@ class OrderProduct(BaseModel):
     )
     product = models.ForeignKey(Product, on_delete=models.CASCADE, verbose_name="محصول")
     size = models.ForeignKey(
-        ProductSize, on_delete=models.CASCADE, verbose_name="سایز", null=True
+        ProductSize, on_delete=models.CASCADE, verbose_name="متغیر", null=True
     )
     quantity = models.PositiveIntegerField(verbose_name="تعداد")
     price = models.IntegerField(verbose_name="قیمت")
