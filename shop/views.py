@@ -938,6 +938,44 @@ def remove_from_cart(request, cart_key):
     return redirect(request.META.get("HTTP_REFERER", reverse("index")))
 
 
+@require_http_methods(["POST"])
+def add_to_wishlist(request):
+    product_id = request.POST.get("product")
+    size_id = request.POST.get("size")
+    product = get_object_or_404(Product, id=product_id)
+    product_size = get_object_or_404(ProductSize, id=size_id, product=product)
+    wishlist = request.session.get("wishlist")
+
+    if wishlist is None:
+        wishlist = request.session["wishlist"] = {}
+
+    wishlist_key = f"{product_id}-{size_id}"
+
+    wishlist[wishlist_key] = {
+        "product_id": product_id,
+        "size_id": size_id,
+    }
+
+    request.session.modified = True
+    return redirect(request.META.get("HTTP_REFERER", reverse("index")))
+
+
+def wishlist_detail(request):
+    cal_wishlist = request.session.get("wishlist", {})
+    all_q = len(cal_wishlist)
+    
+    request.session["wishlist"] = cal_wishlist
+    return render(request, "wishlist.html", {"all_q": all_q})
+
+
+def remove_from_wishlist(request, wishlist_key):
+    wishlist = request.session.get("wishlist", {})
+    if wishlist_key in wishlist:
+        del wishlist[wishlist_key]
+        request.session.modified = True
+    return redirect(request.META.get("HTTP_REFERER", reverse("index")))
+
+
 @login_required(login_url="register")
 def edit(request, user_id):
     profile = get_object_or_404(Profile, user_id=user_id)

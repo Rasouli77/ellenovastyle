@@ -6,6 +6,7 @@ from custom_login.models import City
 from tinymce.models import HTMLField
 from django.utils import timezone
 from datetime import datetime
+from .dollar import dollarValue
 
 
 # Create your models here.
@@ -199,8 +200,8 @@ class ProductSize(BaseModel):
     product_code = models.CharField(
         max_length=255, null=True, blank=True, verbose_name="کد محصول"
     )
-    real_price = models.PositiveIntegerField(verbose_name="قیمت به دلار", null=True, blank=True)
-    price = models.PositiveIntegerField(verbose_name="قیمت به تومان")
+    real_price = models.PositiveIntegerField(verbose_name="قیمت به دلار", null=True, blank=True) # Remove null in production
+    price = models.PositiveIntegerField(verbose_name="قیمت به تومان", null=True, blank=True) 
     stock = models.PositiveIntegerField(null=True)
     discount_percent = models.PositiveIntegerField(null=True, blank=True)
     discount_price = models.PositiveIntegerField(
@@ -215,6 +216,11 @@ class ProductSize(BaseModel):
         return f"{self.product.title}"
 
     def save(self):
+        dollar_value = dollarValue()
+        if self.price is None:
+            self.price = self.real_price * dollar_value
+        if self.price == 0:
+            raise ValueError("Price cannot be 0")
         if self.discount_percent or self.discount_percent == 0:
             self.discount_price = int(self.price) * (
                 (100 - self.discount_percent) / 100

@@ -29,6 +29,7 @@ def cart(request):
                     "price": item["price"],  # Price per unit
                     "discount_price": item["discount_price"],  # Discount price (if any)
                     "total": total_price,  # Total price for this line item
+                    "cart_key": cart_key
                 }
             )
             all_total += total_price  # Update the overall total
@@ -49,3 +50,32 @@ def cart(request):
 def category(request):
     categories = Category.objects.defer("content", "seo_title", "meta").all()
     return {"categories": categories}
+
+
+def wishlist(request):
+    wishlist = request.session.get("wishlist", {})
+    print(wishlist)
+    wishlist_key = 0
+    enriched_wishlist = []
+
+    # Process the cart
+    for key, item in wishlist.items():
+        product = Product.objects.filter(id=item["product_id"]).first()
+        product_size = ProductSize.objects.filter(id=item["size_id"]).first()
+        product_id = item["product_id"]
+        size_id = item["size_id"]
+        wishlist_key = f"{product_id}-{size_id}"
+
+        if product and product_size:
+            enriched_wishlist.append(
+                {
+                    "product": product,  # Product object
+                    "size": product_size,  # ProductSize object
+                    "wishlist_key": f"{product_id}-{size_id}"
+                }
+            )
+
+    return {
+        "wishlist": enriched_wishlist,  # Enriched cart data
+        "wishlist_key": wishlist_key,
+    }

@@ -32,6 +32,11 @@ urlpatterns = [
     path(
         "cart/remove/<str:cart_key>/", views.remove_from_cart, name="remove_from_cart"
     ),
+    path("add_to_wishlist", views.add_to_wishlist, name="add_to_wishlist"),
+    path("wishlist", views.wishlist_detail, name="wishlist"),
+    path(
+        "wishlist/remove/<str:wishlist_key>/", views.remove_from_wishlist, name="remove_from_wishlist"
+    ),
     path("profile/edit/<int:user_id>/", views.edit, name="edit_profile"),
     path("profile/orders/<int:user_id>/", views.profile_orders, name="profile_orders"),
     path("profile/dashboard", views.profile_panel, name="profile_panel"),

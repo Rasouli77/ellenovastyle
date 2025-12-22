@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+	 لیست علاقه مندی ها
+{% endblock %}
+{% block meta_description %}
+	 لیست علاقه مندی ها
+{% endblock %}
+{% block content %}
+<style>
+    @media screen and (min-width: 991px) {
+        #empty-cart-image {
+        width: 150px;
+        }
+    }
+
+    @media screen and (max-width: 991px) {
+        #empty-cart-image {
+        width: 85px;
+        }
+    }
+
+    /* Hidden Class */
+    .hidden {
+        display: none;
+    }
+</style>
+<!-- Modal Structure -->
+<div id="overlay" class="overlay hidden"></div>
+<!-- cart__section__start -->
+<div class="cartarea sp_bottom_100 sp_top_100">
+    <div class="container">
+    {% if all_q == 0 %}
+    <div class="row">
+        <div class="col-12">
+            <div class="cartarea__grand__totall cartarea__tax">
+                <div id="empty-cart-container" class="cartarea__title">
+                    <img id="empty-cart-image" src="{% static './img/logo/no-cart.png' %}" alt="سبد خرید خالی">
+                    <h4>لیست محصولات مورد علاقه شما خالی است.</h4>
+                    <a id="empty-cart-btn" class="default__button" href="{% url 'index' %}">بازگشت</a> 
+                </div>
+                <hr>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-12">
+            <div class="cartarea__table__content table-responsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>تصویر</th>
+                            <th>اطلاعات محصول</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in wishlist %}
+                        <tr>
+                            <td class="cartarea__product__thumbnail">
+                                <a href="{% url 'product' product_slug=item.product.product_slug %}">
+                                    <img src="{{ item.product.image.url }}" alt="cart">
+                                </a>
+                            </td>
+                            <td class="cartarea__product__name"><a href="{% url 'product' product_slug=item.product.product_slug %}">{{ item.product.title }}</a><br>
+                            {% if item.size.value.secondary_value %}
+                            <span class="amount">
+                                مشخصه: {{ item.size.value.secondary_value }}
+                            </span><br>
+                            {% endif %}
+                            {% if item.size.discount_price %}
+                            <span class="amount"><span class="num">{{ item.size.discount_price }}</span> تومان</span><br>
+                            <del class="amount"><span class="num">{{ item.size.price }}</span> تومان</del><br>
+                            {% else %}
+                            <span class="amount"><span class="num">{{ item.size.price }}</span> تومان</span><br>
+                            {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="cartarea__product__subtotal">
+                                <a href="{% url 'product' product_slug=item.product.product_slug %}">مشاهده محصول</a>
+                            </td>
+                            <td class="cartarea__product__remove">
+                                
+                                <a href="{% url 'remove_from_wishlist' wishlist_key=item.wishlist_key %}" style="color: red;">
+                                    حذف از لیست
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    </div>
+</div>
+<!-- cart__section__end-->
+
+{% endblock %}

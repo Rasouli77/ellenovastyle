@@ -225,7 +225,25 @@
                                             <button type="submit" class="default__button" id="custum-add-to-cart-btn">افرودن به سبد</button>
                                             <button class="default__button" id="no-stock-btn" style="background-color: #646769; border-color: #646769;" disabled>ناموجود</button>
                                         </form>
-                                        <button type="submit" class="default__button" id="add-to-wishlist"><i class="fa-regular fa-heart"></i></button>
+                                        <form method="POST" action="{% url 'add_to_wishlist' %}" id="select-form">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="product" value="{{ product.id }}">
+                                            <select class="form-select-size" id="select-size-wishlist" name="size" required>
+                                                {% for size in product.sizes.all %}
+                                                {% if  size.discount_price %}
+                                                <option class="form-select-size num" value="{{ size.id }}" aria-label="{{ size.value }}" data-stock="{{ size.stock }}">
+                                                    {{ size.discount_price }}
+                                                </option>
+                                                {% else %}
+                                                <option class="form-select-size num" value="{{ size.id }}" aria-label="{{ size.value }}" data-stock="{{ size.stock }}">
+                                                    {{ size.price }}
+                                                </option>
+                                                {% endif %}
+                                                {% endfor %}
+                                            </select><br>
+                                            <button type="submit" class="default__button" id="add-to-wishlist"><i class="fa-regular fa-heart"></i></button>
+                                        </form>
+                                        
                                     </div>
                                 </div>
                                 <div class="col-lg-12 col-md-12 descriptionarea__tab__wrapper" style="border-radius: 8px; background-color: white;">
@@ -258,6 +276,7 @@
 <script>
     const wholeProduct = document.querySelector('.single__product');
     const selectVar = document.querySelector('#select-size');
+    const selectVarWishList = document.querySelector('#select-size-wishlist');
     const storyCircles = document.querySelectorAll('.story-circle');
     const options = document.querySelectorAll('option');
     const dynamicPrice = document.querySelector('#dynamic-price');
@@ -308,6 +327,7 @@
         storyCircles.forEach(i => {
             i.addEventListener('click', () => {
                 selectVar.value = i.id;
+                selectVarWishList.value = i.id;
                 options.forEach(o => {
                     if (o.value === selectVar.value) {
                         o.classList.add('selected');
