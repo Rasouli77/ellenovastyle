@@ -75,7 +75,8 @@
 
 		</div> 
 	</div>
-    <div class="shop sp_top_80">
+    <div class="shop sp_top_80" style="background: #fff url(https://www.kikocosmetics.com/_next/static/media/shade-login-registration-desktop.ddfd0517.jpg)
+            no-repeat 50% 50% / cover; padding-bottom: 300px;">
     <div class="container">
     	<div class="row">
     		<div class="section__title text-center">
@@ -103,7 +104,7 @@
     					<div class="row grid__responsive" id="products-container">
     						{% for product_data in products_data %}
     						{% if  product_data.product_size_stocks > 0 %}
-    						<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6">
+    						<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6">
     							<div class="grid__wraper">
     								<div class="grid__wraper__img">
     									<div class="grid__wraper__img__inner">
@@ -206,7 +207,7 @@
 
             data.products.forEach(product => {
                 const productHTML = `
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6 product-item">
+                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6 product-item">
                         <div class="grid__wraper">
                             <div class="grid__wraper__img">
                                 <div class="grid__wraper__img__inner">

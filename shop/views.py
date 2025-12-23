@@ -901,7 +901,7 @@ def add_to_cart(request):
 
 
 def cart_detail(request):
-    cal_cart = request.session.get("cart")
+    cal_cart = request.session.get("cart", {})
     pure_total_price = 0
     sub = 0
     changed = False

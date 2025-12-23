@@ -9,11 +9,11 @@
 {% block content %}
 {% if products %}
 <!-- breadcrumb__start -->
-<div class="breadcrumb">
+<div class="breadcrumb" style="padding-top: 20px !important; background-color: transparent;">
 	<div class="container">
 		<div class="row">
 			<div class="col-xl-12">
-				<div class="breadcrumb__title">
+				<div class="breadcrumb__title" style="display: flex; justify-content: center; align-items: center;">
 					<h1>نتایج برای "{{ search_term }}":</h1>
 				</div>
 			</div>
@@ -21,7 +21,8 @@
 	</div>
 </div>
  <!-- breadcrumb__end -->
- <div class="shop sp_top_80">
+ <div class="shop sp_top_80" style="background: #fff url(https://www.kikocosmetics.com/_next/static/media/shade-login-registration-desktop.ddfd0517.jpg)
+            no-repeat 50% 50% / cover; padding-bottom: 200px;">
 	<div class="container">
 		<div class="row grid__responsive">
 			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -47,7 +48,7 @@
 						<div class="row grid__responsive">
 							{% for product_data in products_data %}
 							{% if product_data.product.status %}
-							<div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-6">
+							<div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6">
 								<div class="grid__wraper">
 									<div class="grid__wraper__img">
 										<div class="grid__wraper__img__inner">

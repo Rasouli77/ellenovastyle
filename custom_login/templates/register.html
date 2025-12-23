@@ -15,16 +15,31 @@
             opacity: 0 !important;
             display: none;
         }
+
+        #login-area {
+            background: rgba(255, 255, 255, 0.18); /* transparency */
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px); /* Safari */
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            box-shadow:
+                0 10px 30px rgba(0, 0, 0, 0.15),
+                inset 0 1px 1px rgba(255, 255, 255, 0.4);
+            padding: 32px;
+        }
+
+
     </style>
 
     <!-- login__section__start -->
-    <div class="loginarea  sp_bottom_80 sp_top_80">
+    <div class="loginarea  sp_bottom_80 sp_top_80" style="background: #fff url(https://www.kikocosmetics.com/_next/static/media/shade-login-registration-desktop.ddfd0517.jpg)
+            no-repeat 50% 50% / cover; padding-bottom: 200px;">
         <div class="container">
            <div class="row">
                <div class="tab-content tab__content__wrapper" id="myTabContent">
-                   <div class="tab-pane fade active show" id="projects__one" role="tabpanel" aria-labelledby="projects__one">
-                       <div class="col-xl-8 offset-md-2 loginarea__col">
-                           <div class="loginarea__wraper">
+                   <div class="tab-pane fade active show" id="projects__one" role="tabpanel" aria-labelledby="projects__one" style="display: flex; justify-content: center; align-items: center;">
+                       <div class="col-xl-6 col-md-6 col-sm-6 col-l-6 loginarea__col">
+                           <div class="loginarea__wraper" id="login-area">
                                <div class="loginarea__heading">
                                  {% if messages %}
                                     {% for message in messages %}
@@ -44,7 +59,7 @@
    
                                    </div>
                                    <div class="loginarea__button text-center">
-                                       <button class="default__button" type="submit" style="width: 100%;">ورود / ثبت نام</button>
+                                       <button class="default__button" type="submit">ورود / ثبت نام</button>
                                    </div>
                                </form>
                            </div>

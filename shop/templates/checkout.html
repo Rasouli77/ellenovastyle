@@ -26,7 +26,7 @@
         transform: translate(-50%, -50%);
         width: 90%;
         max-width: 400px;
-        background-color: #fff;
+        background: #fff;
         padding: 20px;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
         border-radius: 8px;
@@ -137,12 +137,12 @@
 </div>
 </div>
 <!-- breadcrumb__start -->
-<div class="breadcrumb">
+<div class="breadcrumb" style="padding-top: 20px !important; background-color: transparent;">
 <div class="container">
     <div class="row">
         <div class="col-xl-12">
-            <div class="breadcrumb__title">
-                <h1>تسویه حساب</h1>
+            <div class="breadcrumb__title" style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
+                <h1>تسویه</h1>
                 <ul>
                     <li>
                         <a href="{% url 'index' %}">خانه</a>
@@ -151,7 +151,7 @@
 						<a href="{% url 'cart' %}">سبد خرید</a>
                     </li>
                     <li class="color__blue">
-						<a href="{% url 'checkout' %}">تسویه حساب</a>
+						<a href="{% url 'checkout' %}">تسویه</a>
                     </li>
                 </ul>
             </div>
@@ -161,7 +161,8 @@
 </div>
 <!-- breadcrumb__end -->
 <!-- checkout__section__start -->
-<div class="checkoutarea sp_bottom_100 sp_top_100">
+<div class="checkoutarea sp_bottom_100 sp_top_100" style="background: #fff url(https://www.kikocosmetics.com/_next/static/media/shade-login-registration-desktop.ddfd0517.jpg)
+            no-repeat 50% 50% / cover; padding-bottom: 200px; padding-left: 20px; padding-right: 20px;">
     <div class="container">
         {% if all_quantity == 0 %}
         <div class="row">
@@ -179,7 +180,13 @@
         {% else %}
         <div class="row">
             <div class="col-xl-6 col-lg-6 col-md-12">
-                <div class="checkoutarea__billing">
+                <div class="checkoutarea__billing" style="background: rgba(255, 255, 255, 0.18);
+                backdrop-filter: blur(14px);
+                -webkit-backdrop-filter: blur(14px);
+                border-radius: 16px;
+                border: 1px solid rgba(255, 255, 255, 0.35);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+                padding: 45px 20px;">
                     <div class="checkoutarea__billing__heading">
                         <h2>جزئیات صورتحساب</h2>
                     </div>
@@ -237,7 +244,13 @@
                 </div>
             </div>
             <div class="col-lg-6 col-md-12 col-12">
-                <div class="checkoutarea__payment__wraper">
+                <div class="checkoutarea__payment__wraper" style="background: rgba(255, 255, 255, 0.18);
+                backdrop-filter: blur(14px);
+                -webkit-backdrop-filter: blur(14px);
+                border-radius: 16px;
+                border: 1px solid rgba(255, 255, 255, 0.35);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.4);
+                padding: 45px 20px;">
                     <div class="checkoutarea__total">
                        <h3>سفارش شما</h3>
                    
@@ -443,20 +456,20 @@
 </script>
 <script>
     document.querySelector("#final-btn").disabled = true;
-    document.querySelector("#final-btn").style.backgroundColor = "#cdcdcd";
+    document.querySelector("#final-btn").style.background = "#cdcdcd";
     document.querySelector("#final-btn").style.borderColor = "#cdcdcd";
     const zarinpal = document.querySelector("#zarinpal");
     const snapppay = document.querySelector("#snapppay");
     zarinpal.addEventListener("click", () => {
         zarinpal.querySelector("input").checked = true;
         document.querySelector("#final-btn").disabled = false;
-        document.querySelector("#final-btn").style.backgroundColor = "#000000";
+        document.querySelector("#final-btn").style.background = "#000000";
         document.querySelector("#final-btn").style.borderColor = "#000000";
     });
     snapppay.addEventListener("click", () => {
         snapppay.querySelector("input").checked = true;
         document.querySelector("#final-btn").disabled = false;
-        document.querySelector("#final-btn").style.backgroundColor = "#000000";
+        document.querySelector("#final-btn").style.background = "#000000";
         document.querySelector("#final-btn").style.borderColor = "#000000";
     });
 </script>
