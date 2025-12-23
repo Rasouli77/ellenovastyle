@@ -65,7 +65,8 @@
         flex-direction: column !important;
     }
 </style>
-<div class="checkoutarea sp_bottom_100 sp_top_100">
+<div class="checkoutarea sp_bottom_100 sp_top_100" style="background: #fff url(https://www.kikocosmetics.com/_next/static/media/shade-login-registration-desktop.ddfd0517.jpg)
+            no-repeat 50% 50% / cover; padding-bottom: 200px; padding-left: 20px; padding-right: 20px;">
     <div class="container">
         <form action="" method="post">
             {% csrf_token %}
@@ -81,8 +82,7 @@
                 <!-- Address -->
                 <div class="col-xl-6">
                     <div class="checkoutarea__inputbox"> 
-                        <label for="address__info">آدرس *</label>
-                        <p>توصیه می شود برای سهولت ارسال کد پستی هم در قسمت آدرس نوشته شود.</p>
+                        <label for="address__info">آدرس * (لطفا برای سهولت ارسال کد پستی هم در کنار آدرس بنویسید)</label>
                         <input type="text" id="address__info_edit" name="address" class="info" placeholder="آدرس و کد پستی" value="{{ form.address.value|default_if_none:'' }}" style="padding-bottom: 100px !important; padding-top: 20px !important;" > 
                     </div> 
                 </div>

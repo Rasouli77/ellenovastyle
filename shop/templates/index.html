@@ -2,80 +2,184 @@
 {% load static %}
 {% block content %}
 {% load cache %}
-    <!-- herobanner__start -->
-	<div class="herobannerarea__slider  slider__default__arrow herobanner__arrow slider__default__dot herobanner__dot">
+<style>
+	@media (min-width: 768px) {
+		#desktop-header {
+			display: block;
+		}
+		#mobile-header {
+			display: none;
+		}
+	}
 
-		<div class="herobannerarea__slider__single position-relative">
+	@media (max-width: 768px) {
+		#desktop-header {
+			display: none;
+		}
+		#mobile-header {
+			display: block;
+		}
+	}
 
-			<div class="herobannerarea__slider__image">
-				<img class="img-fluid" src="{% static 'img/herobanner/main_herobanner__7.png' %}" alt="slide Image">
-			</div>
+	.header-img {
+		width: 100%;
+	}
 
-			<div class="herobanner__inner__3">
-				<div class="herobanner__text__wraper herobanner__text__wraper--3 ltn__slide-animation">
+	/* Full width – no spacing */
+	.category-section {
+		width: 90vw;
+		overflow: hidden;
+		padding: 30px;
+	}
 
-					<h4 class="herobanner__small__title">مجموعه طبیعی</h4>
-					<h1 class="herobanner__title animated"><strong>مراقبت از پوست صورت</strong></h1>
-					<div class="herobanner__text animated">
-						<p>سبک‌های جذاب برای روح‌های رویایی.</p>
-					</div>
+	/* Transparent columns */
+	.category-col {
+		background: transparent;
+	}
 
-					<div class="herobanner__button  animated">
-						<a href="#" class="default__button" tabindex="0">اکنون خرید کنید</a>
-					</div>
-				</div>
-			</div> 
+	/* Category wrapper */
+	.category-item {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+	}
 
-		</div> 
+	/* Image container */
+	.category-image {
+		position: relative;
+		width: 100%;
+		height: 260px; /* medium size */
+		overflow: hidden;
+	}
 
+	/* Images */
+	.category-image img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		border-radius: 0;
+		transition: opacity 0.4s ease;
+	}
 
-		<div class="herobannerarea__slider__single position-relative">
+	/* Hover image */
+	.img-hover {
+		position: absolute;
+		inset: 0;
+		opacity: 0;
+	}
 
-			<div class="herobannerarea__slider__image">
-				<img class="img-fluid" src="{% static 'img/herobanner/main_herobanner__6.png' %}" alt="slide Image">
-			</div>
+	/* Hover / tap effect */
+	.category-item:hover .img-hover,
+	.category-item:active .img-hover {
+		opacity: 1;
+	}
 
-			<div class="herobanner__inner__3">
-				<div class="herobanner__text__wraper herobanner__text__wraper--3 ltn__slide-animation">
+	/* Spacing between image & button */
+	.category-btn {
+		margin-top: 12px;
+	}
 
-					<h4 class="herobanner__small__title">مجموعه طبیعی</h4>
-					<h1 class="herobanner__title animated"><strong>مراقبت از پوست صورت</strong></h1>
-					<div class="herobanner__text animated">
-						<p>سبک‌های جذاب برای روح‌های رویایی.</p>
-					</div>
+	/* Glassy button */
+	.category-btn {
+		width: 100%;
+		padding: 6px 12px;
+		font-size: 16px;
+		text-align: center;
+		border-radius: 8px;
+		border: 1px solid rgba(255, 255, 255, 0.35);
+		background: rgba(255, 255, 255, 0.18);
+		backdrop-filter: blur(14px);
+		-webkit-backdrop-filter: blur(14px);
+		box-shadow:
+			0 10px 30px rgba(0, 0, 0, 0.15),
+			inset 0 1px 1px rgba(255, 255, 255, 0.4);
+		color: #222;
+		cursor: pointer;
+		transition: all 0.3s ease;
+		font-family: 'IRANSans' !important;
+	}
 
-					<div class="herobanner__button  animated">
-						<a href="#" class="default__button" tabindex="0">اکنون خرید کنید</a>
-					</div>
-				</div>
-			</div> 
+	/* Button hover */
+	.category-btn:hover {
+		transform: translateY(-2px);
+		box-shadow:
+			0 15px 35px rgba(0, 0, 0, 0.2),
+			inset 0 0px 0px rgba(255, 255, 255, 0.5);
+		color: white;
+		background: linear-gradient(0deg, #fff, #252b2e 0);
+	}
 
-		</div> 
+	a {
+		text-decoration: none !important;
+		color: black !important;
+	}
 
-		<div class="herobannerarea__slider__single position-relative">
+</style>
+<div id="desktop-header">
+	<img class="header-img" src="{% static './img/banner/desk.jpg' %}" alt="">
+</div>
+<div id="mobile-header">
+	<img class="header-img" src="{% static './img/banner/mob.gif' %}" alt="">
+</div>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
 
-			<div class="herobannerarea__slider__image">
-				<img class="img-fluid" src="{% static 'img/herobanner/main_herobanner__8.png' %}" alt="slide Image">
-			</div>
+<section class="category-section container-fluid px-0 mx-0">
+    <div class="row g-3">
+        <!-- Category Item -->
+        <div class="col-6 col-lg-3 category-col">
+            <div class="category-item">
+                <div class="category-image">
+                    <img src="{% static './img/collection/ct.webp' %}" class="img-main" alt="دکوراسیون">
+                    <img src="{% static './img/collection/ct2.webp' %}" class="img-hover" alt="دکوراسیون">
+                </div>
+                <button class="category-btn">دکوراسیون</button>
+            </div>
+        </div>
 
-			<div class="herobanner__inner__3">
-				<div class="herobanner__text__wraper herobanner__text__wraper--3 ltn__slide-animation" >
+        <div class="col-6 col-lg-3 category-col">
+            <div class="category-item">
+                <div class="category-image">
+                    <img src="{% static './img/collection/ct.webp' %}" class="img-main" alt="تابلو نقاشی">
+                    <img src="{% static './img/collection/ct2.webp' %}" class="img-hover" alt="تابلو نقاشی">
+                </div>
+                <button class="category-btn">تابلو نقاشی</button>
+            </div>
+        </div>
 
-					<h4 class="herobanner__small__title">مجموعه طبیعی</h4>
-					<h1 class="herobanner__title animated"><strong>مراقبت از پوست صورت</strong></h1>
-					<div class="herobanner__text animated">
-						<p>سبک‌های جذاب برای روح‌های رویایی.</p>
-					</div>
+        <div class="col-6 col-lg-3 category-col">
+            <div class="category-item">
+                <div class="category-image">
+                    <img src="{% static './img/collection/ct.webp' %}" class="img-main" alt="مجسمه">
+                    <img src="{% static './img/collection/ct2.webp' %}" class="img-hover" alt="مجسمه">
+                </div>
+                <button class="category-btn">مجسمه</button>
+            </div>
+        </div>
 
-					<div class="herobanner__button  animated">
-						<a href="#" class="default__button" tabindex="0">اکنون خرید کنید</a>
-					</div>
-				</div>
-			</div> 
+        <div class="col-6 col-lg-3 category-col">
+            <div class="category-item">
+                <div class="category-image">
+                    <img src="{% static './img/collection/ct.webp' %}" class="img-main" alt="مینیمال">
+                    <img src="{% static './img/collection/ct2.webp' %}" class="img-hover" alt="مینیمال">
+                </div>
+                <button class="category-btn">مینیمال</button>
+            </div>
+        </div>
 
-		</div> 
-	</div>
-    <div class="shop sp_top_80" style="background: #fff url(https://www.kikocosmetics.com/_next/static/media/shade-login-registration-desktop.ddfd0517.jpg)
+		<div class="col-6 col-lg-3 category-col">
+            <div class="category-item">
+                <div class="category-image">
+                    <img src="{% static './img/collection/ct.webp' %}" class="img-main" alt="مینیمال">
+                    <img src="{% static './img/collection/ct2.webp' %}" class="img-hover" alt="مینیمال">
+                </div>
+                <button class="category-btn">مینیمال</button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<div class="shop sp_top_80" style="background: #fff url(https://www.kikocosmetics.com/_next/static/media/shade-login-registration-desktop.ddfd0517.jpg)
             no-repeat 50% 50% / cover; padding-bottom: 300px;">
     <div class="container">
     	<div class="row">
@@ -222,7 +326,7 @@
                                     <a href="/product/${product.slug}" tabindex="0">${product.title}</a>
                                 </h3>
                                 <div class="grid__wraper__price">
-                                    <span><span class="load-product-price">${product.price}</span> تومان</span>
+                                    <span><span class="load-product-price num" style="font-family: 'IRANSans' !important;">${product.price}</span> تومان</span>
                                 </div>
                             </div>
                         </div>

@@ -265,7 +265,7 @@ svg {
 }
 
 a {
-  color: var(--contentColor);
+  color: black;
 }
 
 a:hover {
@@ -7467,7 +7467,6 @@ display: none;
   font-size: 14px;
   font-weight: 600;
   transition: all 0.3s ease;
-text-decoration: underline;
 }
 
 .filter-title {

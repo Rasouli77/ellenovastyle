@@ -23,13 +23,20 @@
         }
     }
 </style>
-<div class="cartarea sp_bottom_100 sp_top_100">
+<div class="cartarea sp_bottom_100 sp_top_100" style="background: #fff url(https://www.kikocosmetics.com/_next/static/media/shade-login-registration-desktop.ddfd0517.jpg)
+            no-repeat 50% 50% / cover; padding-bottom: 200px; padding-left: 20px; padding-right: 20px;">
     <div class="container">
     {% if order_data %}
     {% for key, value in order_data.items %}
-    <div class="row" id="order">
+    <div class="row" id="order" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
         <div class="col-lg-6 col-md-6 col-12">
-            <div class="cartarea__table__content table-responsive">
+            <div class="cartarea__table__content table-responsive" style="background: rgba(255, 255, 255, 0.18);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15), inset 0 1px 1px rgba(255, 255, 255, 0.4);">
                 <p>تاریخ سفارش: {{ key.date_created }}</p>
                 <p>وضعیت سفارش: <span class="order-status">{{ key.status }}</span></p> 
                 <p>مبلغ کل: {{ key.total_price }}</p>
@@ -64,7 +71,7 @@
     {% endfor %}
     <a id="empty-cart-btn" class="default__button" href="{% url 'profile_panel' %}" style="margin-top: 35px;">بازگشت</a>
     {% else %}
-    <div class="row">
+    <div class="row" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
         <div class="col-lg-6 col-lg-6 col-md-6 col-12">
             <div class="cartarea__grand__totall cartarea__tax">
                 <div id="empty-cart-container" class="cartarea__title">

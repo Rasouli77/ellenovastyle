@@ -957,7 +957,7 @@ def add_to_wishlist(request):
     }
 
     request.session.modified = True
-    return redirect(request.META.get("HTTP_REFERER", reverse("index")))
+    return redirect(reverse("wishlist"))
 
 
 def wishlist_detail(request):
