@@ -37,6 +37,12 @@
     	justify-content: center !important;
     	align-items: center !important;
 	}
+	#base-add-to-cart {
+		color: white !important;
+	}
+	#base-add-to-cart:hover {
+		color: black !important;
+	}
 	</style>
 	<style>
 		@media (min-width: 1200px) {
@@ -446,7 +452,7 @@
 						<span class="subtotal__amount num">{{ all_total }} تومان</span>
 					</div>
 					<div class="minicart__button">
-						<a href="{% url 'cart' %}" class="default__button">مشاهده سبد خرید</a>
+						<a href="{% url 'cart' %}" class="default__button" id="base-add-to-cart">مشاهده سبد خرید</a>
 						<!--<a href="{% url 'checkout' %}" class="default__button">پرداخت</a>-->
 					</div>
 					<!-- <div class="cart__note__text">

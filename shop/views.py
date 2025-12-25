@@ -8,6 +8,9 @@ from .models import (
     AttributeValue,
     ProductImage,
     ProductSize,
+    HomeUI,
+    ClassicListing,
+    CarouselListng
 )
 from django.views.decorators.http import require_http_methods
 from django.urls import reverse
@@ -54,6 +57,9 @@ def index(request):
 
     products = products[:initial_limit]
     products_data = []
+    home_ui = HomeUI.objects.first()
+    classic_listing = ClassicListing.objects.filter(status=True)
+    carousel_listing = CarouselListng.objects.filter(status=True)
 
     for product in products:
         sizes = list(product.sizes.all())
@@ -67,7 +73,7 @@ def index(request):
             }
         )
     return render(
-        request, "index.html", {"products": products, "products_data": products_data}
+        request, "index.html", {"products": products, "products_data": products_data, "home_ui": home_ui, "classic_listing": classic_listing, "carousel_listing": carousel_listing}
     )
 
 

@@ -14,6 +14,9 @@ from .models import (
     ProductImage,
     ProductSize,
     Discount,
+    ClassicListing,
+    CarouselListng,
+    HomeUI
 )
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
@@ -162,6 +165,17 @@ class ProductOrderInline(admin.TabularInline):
         else:
             return format_html("<span>فاقد تصویر</span>")
     picture.short_description = "تصویر"
+
+
+class ClassicListingTabularInline(admin.TabularInline):
+    model = ClassicListing
+    extra = 1
+
+
+class CarouselListingTabularInline(admin.TabularInline):
+    model = CarouselListng
+    extra = 1
+
 
 class CategoryAdmin(BaseModelAdmin):
     list_display = ["id", "__str__"]
@@ -338,6 +352,23 @@ class DiscountAdmin(admin.ModelAdmin):
     search_fields = ["name", "code"]
 
 
+class HomeUIAdmin(admin.ModelAdmin):
+    list_display = ["id", "header_url_text", "image_mobile_thumbnail", "new_products_display", "modified_date"]
+    inlines = [ClassicListingTabularInline, CarouselListingTabularInline]
+
+    def header_url_text(self, obj):
+        if obj.header_url:
+            return mark_safe(f'<a href={obj.header_url}>لندینگ صفحه اصلی</a>')
+        else:
+            return "فاقد لینک"
+
+    def image_mobile_thumbnail(self, obj):
+        if obj.image_mobile:
+            return mark_safe(f'<img src={obj.image_mobile.url} width="100" height="100"/>')
+        else:
+            return "فاقد تصویر"
+
+
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(ProductImage)
 admin.site.register(Product, ProductAdmin)
@@ -349,3 +380,6 @@ admin.site.register(Attribute)
 admin.site.register(AttributeValue)
 admin.site.register(ProductSize, ProductSizeAdmin)
 admin.site.register(Discount, DiscountAdmin)
+admin.site.register(ClassicListing)
+admin.site.register(CarouselListng)
+admin.site.register(HomeUI, HomeUIAdmin)

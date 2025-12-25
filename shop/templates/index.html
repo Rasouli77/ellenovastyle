@@ -4,19 +4,19 @@
 {% load cache %}
 <style>
 	@media (min-width: 768px) {
-		#desktop-header {
+		.desktop-header {
 			display: block;
 		}
-		#mobile-header {
+		.mobile-header {
 			display: none;
 		}
 	}
 
 	@media (max-width: 768px) {
-		#desktop-header {
+		.desktop-header {
 			display: none;
 		}
-		#mobile-header {
+		.mobile-header {
 			display: block;
 		}
 	}
@@ -115,70 +115,66 @@
 	}
 
 </style>
-<div id="desktop-header">
-	<img class="header-img" src="{% static './img/banner/desk.jpg' %}" alt="">
+<div class="desktop-header">
+	{% if home_ui.image_desktop %}
+	<a href="{{ home_ui.header_url }}" style="width: 100%;">
+		<img class="header-img" src="{{ home_ui.image_desktop.url }}" alt="">
+	</a>
+	{% endif %}
+	{% if home_ui.video_desktop %}
+	<a href="{{ home_ui.header_url }}" style="width: 100%;">
+		<video class="header-img" muted autoplay>
+			<source src="{{ home_ui.video_desktop.url }}" type="video/mp4">
+		</video>
+	</a>
+	{% endif %}
 </div>
-<div id="mobile-header">
-	<img class="header-img" src="{% static './img/banner/mob.gif' %}" alt="">
+<div class="mobile-header">
+	{% if home_ui.image_mobile %}
+	<a href="{{ home_ui.header_url }}" style="width: 100%;">
+		<img class="header-img" src="{{ home_ui.image_mobile.url }}" alt="">
+	</a>
+	{% endif %}
+	{% if home_ui.video_mobile %}
+	<a href="{{ home_ui.header_url }}" style="width: 100%;">
+		<video class="header-img" muted autoplay>
+			<source src="{{ home_ui.video_mobile.url }}" type="video/mp4">
+		</video>
+	</a>
+	{% endif %}
 </div>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
-
+<!-- Classic Listing -->
 <section class="category-section container-fluid px-0 mx-0">
     <div class="row g-3">
-        <!-- Category Item -->
+		{% for item in classic_listing %}
         <div class="col-6 col-lg-3 category-col">
             <div class="category-item">
                 <div class="category-image">
-                    <img src="{% static './img/collection/ct.webp' %}" class="img-main" alt="دکوراسیون">
-                    <img src="{% static './img/collection/ct2.webp' %}" class="img-hover" alt="دکوراسیون">
+                    <a href="{{ item.item_url }}"><img src="{{ item.image.url }}" class="img-main" alt="{{ item.name }}"></a>
+                    <a href="{{ item.item_url }}"><img src="{{ item.image_two.url }}" class="img-hover" alt="{{ item.name }}"></a>
                 </div>
-                <button class="category-btn">دکوراسیون</button>
+                <a class="category-btn" href="{{ item.item_url }}">{{ item.name }}</a>
             </div>
         </div>
-
-        <div class="col-6 col-lg-3 category-col">
-            <div class="category-item">
-                <div class="category-image">
-                    <img src="{% static './img/collection/ct.webp' %}" class="img-main" alt="تابلو نقاشی">
-                    <img src="{% static './img/collection/ct2.webp' %}" class="img-hover" alt="تابلو نقاشی">
-                </div>
-                <button class="category-btn">تابلو نقاشی</button>
-            </div>
-        </div>
-
-        <div class="col-6 col-lg-3 category-col">
-            <div class="category-item">
-                <div class="category-image">
-                    <img src="{% static './img/collection/ct.webp' %}" class="img-main" alt="مجسمه">
-                    <img src="{% static './img/collection/ct2.webp' %}" class="img-hover" alt="مجسمه">
-                </div>
-                <button class="category-btn">مجسمه</button>
-            </div>
-        </div>
-
-        <div class="col-6 col-lg-3 category-col">
-            <div class="category-item">
-                <div class="category-image">
-                    <img src="{% static './img/collection/ct.webp' %}" class="img-main" alt="مینیمال">
-                    <img src="{% static './img/collection/ct2.webp' %}" class="img-hover" alt="مینیمال">
-                </div>
-                <button class="category-btn">مینیمال</button>
-            </div>
-        </div>
-
-		<div class="col-6 col-lg-3 category-col">
-            <div class="category-item">
-                <div class="category-image">
-                    <img src="{% static './img/collection/ct.webp' %}" class="img-main" alt="مینیمال">
-                    <img src="{% static './img/collection/ct2.webp' %}" class="img-hover" alt="مینیمال">
-                </div>
-                <button class="category-btn">مینیمال</button>
-            </div>
-        </div>
-
+		{% endfor %}
     </div>
 </section>
-
+<!-- Carousel Listing -->
+<div class="instagram">
+	<div class="instagram__img__wraper">
+		<div class="row row__custom__class instagram__slider__active slider__default__arrow slider__default__arrow slider__default__arrow--2">
+			{% for item in carousel_listing %}
+			<div class="col-sm-12 column__custom__class">
+				<div class="instagram__img">
+					<a href="{{ item.item_url }}" style="display: flex; justify-content: center; flex-direction: column; align-items: center;"> <img src="{{ item.image.url }}" alt="{{ item.name }}"><h5 style="padding-top: 20px;">{{ item.name }}</h5></a>
+					</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+{% if home_ui.new_products_display %}
 <div class="shop sp_top_80" style="background: #fff url(https://www.kikocosmetics.com/_next/static/media/shade-login-registration-desktop.ddfd0517.jpg)
             no-repeat 50% 50% / cover; padding-bottom: 300px;">
     <div class="container">
@@ -251,6 +247,7 @@
     	</div>
     </div>
 </div>
+{% endif %}
 <!-- Product Lazy Load -->
 <script>
 	document.addEventListener("DOMContentLoaded", () => {

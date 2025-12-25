@@ -371,3 +371,62 @@ class Discount(models.Model):
 
     def is_valid(self):
         return self.is_active
+
+
+class HomeUI(models.Model):
+    image_desktop = models.ImageField(
+        upload_to="image/home", null=True, blank=True, verbose_name="تصویر هدر دسکتاپ", help_text="طول: 1920 پیکسل | عرض: 840 پیکسل"
+    )
+    image_mobile = models.ImageField(
+        upload_to="image/home", null=True, blank=True, verbose_name="تصویر هدر موبایل", help_text="طول: 1600 پیکسل | عرض: 1080 پیکسل"
+    )
+    video_desktop = models.FileField(
+        upload_to="image/home", null=True, blank=True, verbose_name="ویدیو هدر دسکتاپ", help_text="طول: 1920 پیکسل | عرض: 840 پیکسل"
+    )
+    video_mobile = models.FileField(
+        upload_to="image/home", null=True, blank=True, verbose_name="ویدیو هدر موبایل", help_text="طول: 1600 پیکسل | عرض: 1080 پیکسل"
+    )
+    header_url = models.CharField(
+        max_length=255, verbose_name="لینک هدر", help_text="در این قسمت لینک قرار میگیرد و از قرار دادن متن غیر لینک خودداری کنید"
+    )
+    new_products_display = models.BooleanField(default=True, verbose_name="نمایش محصولات جدید")
+    modified_date = models.DateTimeField(
+        auto_now=True, verbose_name="تاریخ آخرین تغییر", null=True, blank=True
+    )
+
+    class Meta:
+        verbose_name = "المان های صفحه اصلی"
+        verbose_name_plural = "المان های صفحه اصلی"
+
+
+class ClassicListing(models.Model):
+    name = models.CharField(max_length=255, verbose_name="نام", help_text="از نوشتن اسامی طولانی خودداری کنید")
+    image = models.ImageField(
+        upload_to="image/home", null=True, blank=True, verbose_name="تصویر", help_text="تصویر 384 پیکسل در 384 پیکسل باشد"
+    )
+    image_two = models.ImageField(
+        upload_to="image/home", null=True, blank=True, verbose_name="تصویر هاور", help_text="تصویر 384 پیکسل در 384 پیکسل باشد"
+    )
+    item_url = models.CharField(
+        max_length=255, verbose_name="لینک", help_text="در این قسمت لینک قرار میگیرد و از قرار دادن متن غیر لینک خودداری کنید"
+    )
+    home_ui = models.ForeignKey(HomeUI, on_delete=models.CASCADE, null=True) # remove null in production
+    status = models.BooleanField(default=False, verbose_name="وضعیت نمایش", help_text="می توانید وضعیت نمایش را خاموش یا روشن کنید")
+    class Meta:
+        verbose_name = "لیست کلاسیک"
+        verbose_name_plural = "لیست کلاسیک"
+
+
+class CarouselListng(models.Model):
+    name = models.CharField(max_length=255, verbose_name="نام", help_text="از نوشتن اسامی طولانی خودداری کنید")
+    image = models.ImageField(
+        upload_to="image/home", null=True, blank=True, verbose_name="تصویر", help_text="تصویر 384 پیکسل در 384 پیکسل باشد"
+    )
+    item_url = models.CharField(
+        max_length=255, verbose_name="لینک", help_text="در این قسمت لینک قرار میگیرد و از قرار دادن متن غیر لینک خودداری کنید"
+    )
+    home_ui = models.ForeignKey(HomeUI, on_delete=models.CASCADE, null=True) # remove null in production
+    status = models.BooleanField(default=False, verbose_name="وضعیت نمایش", help_text="می توانید وضعیت نمایش را خاموش یا روشن کنید")
+    class Meta:
+        verbose_name = "کروسل"
+        verbose_name_plural = "کروسل"
